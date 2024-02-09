@@ -1,0 +1,16 @@
+name: SMT_env_BP
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - scipy
+  - matplotlib
+  - pandas
+  - scikit-learn
+  - ipykernel
+  - shapely
+  - scikit-image
+  - gast
+  - lmfit
+prefix: /Users/baljyot/opt/anaconda3/envs/SMT_env_BP

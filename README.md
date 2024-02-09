@@ -1,6 +1,6 @@
 
 
-# This is a short doc for the SMT project.
+# This is a short doc for the Track Simualtions along with cluster simulations.
 -----------------------------------------
 
 - Author: Baljyot Singh Parmar
