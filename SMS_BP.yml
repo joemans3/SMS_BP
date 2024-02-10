@@ -1,4 +1,4 @@
-name: SMT_env_BP
+name: SMS_BP
 channels:
   - defaults
   - conda-forge
