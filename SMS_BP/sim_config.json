@@ -49,7 +49,7 @@
         "density_dif":1000
     },
     "Output_Parameters":{
-        "output_path":"/Users/baljyot/Documents/TESTINGSTUFF",
+        "output_path":"../TESTING/Sim_Example,
         "output_name":"Cell_Movie_Test_001",
         "subsegment_type": "mean",
         "subsegment_number": 5

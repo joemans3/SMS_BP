@@ -121,12 +121,10 @@ class FBM_BP:
             self._cov[i] = self._autocovariance(i,hurst_n[i])
 
         #construct a gaussian noise vector
-        gn = np.random.normal(0, 1, self.n)*np.sqrt(self.dt*2*diff_a_n)*(self.dt**hurst_n)
-        
+        gn = np.random.normal(0, 1, self.n)*np.sqrt(self.dt*2*diff_a_n)*(self.dt**hurst_n) 
         #catch is all hurst are 0.5 then use the gaussian noise vector corresponding to the scale defined by the diffusion parameter
         if np.all(hurst_n == 0.5):
             #each gn is then pulled from a normal distribution with mean 0 and standard deviation diff_a_n
-            gn = gn * np.sqrt(2*diff_a_n*self.dt)
             #ignore the fbm calculations but keep the reflection
             for i in range(1, self.n):
                 fbm_candidate = fbm_store[i - 1] + gn[i]
