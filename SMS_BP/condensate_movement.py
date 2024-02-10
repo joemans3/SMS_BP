@@ -277,5 +277,5 @@ class Condensate:
         ax.scatter(self.condensate_positions[-1][0], self.condensate_positions[-1][1], color='b')
         if 'save_path' in kwargs:
             plt.savefig(kwargs['save_path'])
-        plt.show()
+        # plt.show()
         return ax

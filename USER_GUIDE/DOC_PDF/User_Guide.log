@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  9 FEB 2024 19:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.27)  10 FEB 2024 17:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -767,48 +767,56 @@ LaTeX Info: Redefining \textinf on input line 716.
 )
 \c@Question=\count321
 )
-LaTeX Info: Redefining \oldstylenums on input line 38.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count322
+\float@exts=\toks41
+\float@box=\box80
+\@float@everytoks=\toks42
+\@floatcapt=\box81
+)
+LaTeX Info: Redefining \oldstylenums on input line 39.
 LaTeX Font Info:    Trying to load font information for T1+XCharter-TLF on inpu
-t line 38.
+t line 39.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/xcharter/T1XCharter-TLF.fd
 File: T1XCharter-TLF.fd 2017/06/25 (autoinst) Font definitions for T1/XCharter-
 TLF.
 )
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 38.
+(Font)              scaled to size 10.0pt on input line 39.
 
 (./User_Guide.aux)
 \openout1 = `User_Guide.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count322
+\scratchcounter=\count323
 \scratchdimen=\dimen276
-\scratchbox=\box80
-\nofMPsegments=\count323
-\nofMParguments=\count324
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count325
+\scratchbox=\box82
+\nofMPsegments=\count324
+\nofMParguments=\count325
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count326
 \MPscratchDim=\dimen277
-\MPnumerator=\count326
-\makeMPintoPDFobject=\count327
-\everyMPtoPDFconversion=\toks42
+\MPnumerator=\count327
+\makeMPintoPDFobject=\count328
+\everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -818,7 +826,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count328
+\c@lstlisting=\count329
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -854,96 +862,150 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count329
-\c@mv@boldtabular=\count330
+\c@mv@tabular=\count330
+\c@mv@boldtabular=\count331
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 40.
+(Font)              scaled to size 17.28pt on input line 41.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 40.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
 
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 4
-0.
+1.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-0.
+1.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 46.
+(Font)              scaled to size 14.4pt on input line 47.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 46.
+(Font)              scaled to size 14.4pt on input line 47.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 55.
+(Font)              scaled to size 10.0pt on input line 56.
+LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
+(Font)              scaled to size 10.0pt on input line 67.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 66.
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 66.
+(Font)              scaled to size 7.0pt on input line 68.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 70.
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 7.0pt on input line 71.
-LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 83.
+(Font)              scaled to size 7.0pt on input line 68.
+<Unconfined_Single_Motion_RANDOM.pdf, id=4, 722.7pt x 361.35pt>
+File: Unconfined_Single_Motion_RANDOM.pdf Graphic file (type pdf)
+<use Unconfined_Single_Motion_RANDOM.pdf>
+Package pdftex.def Info: Unconfined_Single_Motion_RANDOM.pdf  used on input lin
+e 79.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
  [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2023/texmf-dist/fonts/enc/dvips/xcharter/xch_rydp4l.enc}{/usr/local/
-texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] [2]
-(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2023/02/27 1.9 listings language file
-)
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 150.
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 1
-65.
+texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+<Unconfined_Single_Motion_SUB.pdf, id=18, 722.7pt x 361.35pt>
+File: Unconfined_Single_Motion_SUB.pdf Graphic file (type pdf)
+<use Unconfined_Single_Motion_SUB.pdf>
+Package pdftex.def Info: Unconfined_Single_Motion_SUB.pdf  used on input line 8
+4.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+<Unconfined_Single_Motion_SUPER.pdf, id=19, 722.7pt x 361.35pt>
+File: Unconfined_Single_Motion_SUPER.pdf Graphic file (type pdf)
+<use Unconfined_Single_Motion_SUPER.pdf>
+Package pdftex.def Info: Unconfined_Single_Motion_SUPER.pdf  used on input line
+ 89.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+<Confined_Single_Motion_SUPER.pdf, id=20, 722.7pt x 361.35pt>
+File: Confined_Single_Motion_SUPER.pdf Graphic file (type pdf)
+<use Confined_Single_Motion_SUPER.pdf>
+Package pdftex.def Info: Confined_Single_Motion_SUPER.pdf  used on input line 9
+3.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+ [2 <./Unconfined_Single_Motion_RANDOM.pdf> <./Unconfined_Single_Motion_SUB.pdf
 
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmss.fd
-File: t1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-) [3] [4]
-(./User_Guide.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Unconfined_Single_Motion_S
+UB.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
- ) 
+>]
+<Confined_Single_Motion_TRANSITIONING.pdf, id=6103, 722.7pt x 361.35pt>
+File: Confined_Single_Motion_TRANSITIONING.pdf Graphic file (type pdf)
+<use Confined_Single_Motion_TRANSITIONING.pdf>
+Package pdftex.def Info: Confined_Single_Motion_TRANSITIONING.pdf  used on inpu
+t line 97.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+<state_probability.pdf, id=6104, 462.52798pt x 346.89601pt>
+File: state_probability.pdf Graphic file (type pdf)
+<use state_probability.pdf>
+Package pdftex.def Info: state_probability.pdf  used on input line 101.
+(pdftex.def)             Requested size: 227.62206pt x 170.71628pt.
+ [3 <./Unconfined_Single_Motion_SUPER.pdf> <./Confined_Single_Motion_SUPER.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Confined_Single_Motion_SUP
+ER.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+>] [4 <./Confined_Single_Motion_TRANSITIONING.pdf> <./state_probability.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./state_probability.pdf): PD
+F inclusion: multiple pdfs with page group included in a single page
+>]
+<Confined_Condensates.pdf, id=15258, 722.7pt x 361.35pt>
+File: Confined_Condensates.pdf Graphic file (type pdf)
+<use Confined_Condensates.pdf>
+Package pdftex.def Info: Confined_Condensates.pdf  used on input line 112.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+ [5 <./Confined_Condensates.pdf>]
+<Cell_Movie_Test_001_Motion_Blur_high.png, id=15299, 80.3pt x 80.3pt>
+File: Cell_Movie_Test_001_Motion_Blur_high.png Graphic file (type png)
+<use Cell_Movie_Test_001_Motion_Blur_high.png>
+Package pdftex.def Info: Cell_Movie_Test_001_Motion_Blur_high.png  used on inpu
+t line 127.
+(pdftex.def)             Requested size: 227.62961pt x 227.62961pt.
+<Cell_Movie_Test_001_noMotion_Blur_high.png, id=15300, 80.3pt x 80.3pt>
+File: Cell_Movie_Test_001_noMotion_Blur_high.png Graphic file (type png)
+<use Cell_Movie_Test_001_noMotion_Blur_high.png>
+Package pdftex.def Info: Cell_Movie_Test_001_noMotion_Blur_high.png  used on in
+put line 131.
+(pdftex.def)             Requested size: 227.62961pt x 227.62961pt.
+ [6 <./Cell_Movie_Test_001_Motion_Blur_high.png (PNG copy)>]
+Overfull \hbox (19.08325pt too wide) in paragraph at lines 145--146
+[]\T1/XCharter-TLF/m/n/10 To keep it sim-ple for now let's fo-cus on the first 
+method. Let's go to the con-fig file in SMS_BP/sim_config.json
+ []
+
+[7 <./Cell_Movie_Test_001_noMotion_Blur_high.png (PNG copy)>] [8]
+(./User_Guide.aux) ) 
 Here is how much of TeX's memory you used:
- 20109 strings out of 476025
- 384179 string characters out of 5790016
- 1872388 words of memory out of 5000000
- 40155 multiletter control sequences out of 15000+600000
- 592862 words of font info for 88 fonts, out of 8000000 for 9000
+ 19669 strings out of 476025
+ 379970 string characters out of 5790016
+ 1863388 words of memory out of 5000000
+ 39712 multiletter control sequences out of 15000+600000
+ 578835 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 127i,12n,129p,886b,1483s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/xcharter/XCharter-Bold
-.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/xcharter/XCharter-I
-talic.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/xcharter/XChar
-ter-Roman.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.p
-fb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfit1000.pfb>
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></
-usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></us
-r/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on User_Guide.pdf (4 pages, 325921 bytes).
+ 127i,10n,129p,1006b,903s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/xcha
+rter/XCharter-Bold.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/x
+charter/XCharter-Italic.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
+lic/xcharter/XCharter-Roman.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm
+-super/sftt1200.pfb>
+Output written on User_Guide.pdf (8 pages, 2751272 bytes).
 PDF statistics:
- 92 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 15352 PDF objects out of 15390 (max. 8388607)
+ 10144 compressed objects within 102 object streams
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 58 words of extra memory for PDF output out of 10000 (max. 10000000)
 

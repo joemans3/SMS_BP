@@ -10,21 +10,21 @@
         "cell_axial_radius":100
     },
     "Track_Parameters":{
-        "num_tracks":500,
+        "num_tracks":1,
         "track_type":"fbm",
-        "track_length_mean":1,
-        "track_distribution":"exponential",
-        "diffusion_coefficient":[2,2],
+        "track_length_mean":450,
+        "track_distribution":"constant",
+        "diffusion_coefficient":[0.5,4],
         "diffusion_track_amount":[
             0.5,0.5
         ],
-        "hurst_exponent":[0.9,0.9],
+        "hurst_exponent":[0.2,0.8],
         "hurst_track_amount":[
             0.5,0.5
         ],
         "allow_transition_probability":false,
-        "diffusion_transition_matrix":[[0.9,0.1],[0.1,0.9]],
-        "hurst_transition_matrix":[[0.9,0.1],[0.1,0.9]],
+        "diffusion_transition_matrix":[[0.1,0.5],[0.5,0.1]],
+        "hurst_transition_matrix":[[0.1,0.5],[0.5,0.1]],
         "state_probability_diffusion":[0.5,0.5],
         "state_probability_hurst":[0.5,0.5]
     },
@@ -33,11 +33,11 @@
         "frame_count":500,
         "exposure_time":20,
         "interval_time":0,
-        "oversample_motion_time":20,
+        "oversample_motion_time":1,
         "pixel_size":0.13,
         "axial_detection_range":0.4,
         "base_noise":140,
-        "point_intensity":100,
+        "point_intensity":200,
         "psf_sigma":0.13,
         "axial_function":"ones"
     },
