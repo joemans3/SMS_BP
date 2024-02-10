@@ -23,7 +23,9 @@
 8. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
     - Run the command: **pip install -e .**
     - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. 
-        
+
+
+Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.
 
 
 
