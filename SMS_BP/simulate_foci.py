@@ -7,9 +7,9 @@ Author: Baljyot Singh Parmar
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-import SMT_Analysis_BP.helpers.simulations.fbm_utility as fbm
-import SMT_Analysis_BP.helpers.simulations.condensate_movement as condensate_movement
-import SMT_Analysis_BP.helpers.simulations.fbm_BP as fbm_BP
+import fbm_utility as fbm
+import condensate_movement as condensate_movement
+import fbm_BP as fbm_BP
 
 def get_lengths(track_distribution:str,track_length_mean:int,total_tracks:int):
 	''' 
