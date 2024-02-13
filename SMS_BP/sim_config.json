@@ -22,7 +22,7 @@
         "hurst_track_amount":[
             0.5,0.5
         ],
-        "allow_transition_probability":false,
+        "allow_transition_probability":true,
         "diffusion_transition_matrix":[[0.1,0.5],[0.5,0.1]],
         "hurst_transition_matrix":[[0.1,0.5],[0.5,0.1]],
         "state_probability_diffusion":[0.5,0.5],
