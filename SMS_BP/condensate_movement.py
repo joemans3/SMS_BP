@@ -19,10 +19,10 @@ Usage:
 '''
 
 import numpy as np
-import SMT_Analysis_BP.helpers.simulations.fbm_utility as fbm
+import fbm_utility as fbm
 import matplotlib.pyplot as plt
-from SMT_Analysis_BP.helpers.misc.decorators import cache,deprecated
-import SMT_Analysis_BP.helpers.simulations.simulate_foci as sf
+from decorators import cache,deprecated
+import simulate_foci as sf
 class Condensate:
     ''' Condensate class for storing condensate data.
     
