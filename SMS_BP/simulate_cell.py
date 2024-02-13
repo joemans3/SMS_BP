@@ -556,7 +556,7 @@ class Simulate_cells():
 		interval_counter = 0
 		frame_counter = 0
 		for i in range(int(self.total_time)):
-			if (exposure_counter < int(self.exposure_time/self.oversample_motion_time)) or (interval_counter < int(self.interval_time/self.oversample_motion_time)):
+			if (exposure_counter < int(self.exposure_time/self.oversample_motion_time)) and (interval_counter < int(self.interval_time/self.oversample_motion_time)):
 				#append the points to the points_per_frame
 				if len(points_per_time[str(i)]) != 0:
 					points_per_frame[str(frame_counter)].append(points_per_time[str(i)][0])
@@ -689,10 +689,10 @@ class Simulate_cells():
 
 if __name__ == "__main__":
 	#use the sim_config.json file to simulate the cell
-	sim_new = Simulate_cells(init_dict_json="/Users/baljyot/Documents/CODE/GitHub_t2/Baljyot_EXP_RPOC/Scripts/src/SMT_Analysis_BP/helpers/simulations/sim_config.json")
+	sim_new = Simulate_cells(init_dict_json="/Users/baljyot/Documents/CODE/GitHub_t2/PHD/SingleMoleculeSimulations_BP/SMS_BP/sim_config_testing.json")
 	#save the simulation
 	sim_new.get_and_save_sim(
-		cd = "/Users/baljyot/Documents/CODE/testing/",
+		cd = "/Users/baljyot/Documents/CODE/GitHub_t2/PHD/SingleMoleculeSimulations_BP/SMS_BP/Pablo_stuff",
 		img_name = "test",
 		subsegment_type = "mean",
 		sub_frame_num = 5
