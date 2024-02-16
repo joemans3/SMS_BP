@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from boundary_conditions import _refecting_boundary
+BOUNDARY_CONDITIONS = {
+    'reflecting': _refecting_boundary
+}
 def MCMC_state_selection(initial_state_index:int, 
                          transition_matrix:np.ndarray,
                          possible_states:np.ndarray,
@@ -128,15 +131,8 @@ class FBM_BP:
             #ignore the fbm calculations but keep the reflection
             for i in range(1, self.n):
                 fbm_candidate = fbm_store[i - 1] + gn[i]
-                #check if this is outside the space limit in either direction of 0
-                if fbm_candidate > self.space_lim[1]:
-                    #if the candidate is greater than the space limit then reflect the difference back into the space limit
-                    fbm_store[i] = self.space_lim[1] - np.abs(fbm_candidate - self.space_lim[1])
-                elif fbm_candidate < self.space_lim[0]:
-                    #if the candidate is less than the negative space limit then reflect the difference back into the space limit
-                    fbm_store[i] = self.space_lim[0] + np.abs(fbm_candidate - self.space_lim[0])
-                else:
-                    fbm_store[i] = fbm_candidate
+                #check if this is outside the space limit by using the reflecting boundary condition
+                fbm_store[i] = _boundary_conditions(fbm_store[i - 1], fbm_candidate, self.space_lim, 'reflecting')
             return fbm_store
 
 
@@ -159,23 +155,36 @@ class FBM_BP:
             fgn[i] += np.sqrt(v) * gn[i]
             #add to the fbm
             fbm_candidate = fbm_store[i - 1] + fgn[i]
-            #check if this is outside the space limit in either direction of 0
-            #reflect the difference back into the space limit
-            if fbm_candidate > self.space_lim[1]:
-                #if the candidate is greater than the space limit then reflect the difference back into the space limit
-                fbm_store[i] = self.space_lim[1] - np.abs(fbm_candidate - self.space_lim[1])
-                #update the fgn based on the new difference
-                fgn[i] = fbm_store[i] - fbm_store[i - 1]
-            elif fbm_candidate < self.space_lim[0]:
-                #if the candidate is less than the negative space limit then reflect the difference back into the space limit
-                fbm_store[i] = self.space_lim[0] + np.abs(fbm_candidate - self.space_lim[0])
-                #update the fgn based on the new difference
-                fgn[i] = fbm_store[i] - fbm_store[i - 1]
-            else:
-                fbm_store[i] = fbm_candidate
 
+            #check if this is outside the space limit by using the reflecting boundary condition
+            fbm_store[i] = _boundary_conditions(fbm_store[i - 1], fbm_candidate, self.space_lim, 'reflecting')
+            if fbm_store[i] != fbm_candidate:
+                #update the fgn based on the new difference
+                fgn[i] = fbm_store[i] - fbm_store[i - 1]
         return fbm_store 
 
+def _boundary_conditions(fbm_store_last:float, fbm_candidate:float, space_lim:np.ndarray,condition_type:str):
+    '''Boundary conditions for the FBM
+
+    Parameters:
+    -----------
+    fbm_store_last : float
+        Last value of the FBM
+    fbm_candidate : float
+        Candidate value of the FBM
+    space_lim : np.ndarray
+        Space limit (min, max) for the FBM\
+    condition_type : str
+        Type of boundary condition takes values in REFLECTING_CONDITIONS
+    Returns:
+    --------
+    float
+        New value of the FBM
+    '''
+    #check if the condition type is valid
+    if condition_type not in BOUNDARY_CONDITIONS:
+        raise ValueError('Invalid condition type: ' + condition_type +"! Must be one of: " + str(BOUNDARY_CONDITIONS.keys()))
+    return BOUNDARY_CONDITIONS[condition_type](fbm_store_last, fbm_candidate, space_lim)
 
 #run tests if this is the main module
 

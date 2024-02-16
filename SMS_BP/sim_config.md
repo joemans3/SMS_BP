@@ -119,3 +119,4 @@
     * subsegment_number: int
         1. number of subsegments to divide the cell frames into
         2. if total movie is 500 frames and this is 5 then there will be 100 frames per subsegment and 5 subsegments in total
+        3. Make sure that the total number of frames is divisible by the number of subsegments (modulus is 0)
