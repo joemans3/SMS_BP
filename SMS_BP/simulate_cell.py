@@ -556,13 +556,13 @@ class Simulate_cells():
 		interval_counter = 0
 		frame_counter = 0
 		for i in range(int(self.total_time)):
-			if (exposure_counter < int(self.exposure_time/self.oversample_motion_time)) and (interval_counter <= int(self.interval_time/self.oversample_motion_time)):
+			if (exposure_counter < int(self.exposure_time/self.oversample_motion_time)):
 				#append the points to the points_per_frame
 				if len(points_per_time[str(i)]) != 0:
 					points_per_frame[str(frame_counter)].append(points_per_time[str(i)][0])
 				#increment the exposure_counter
 				exposure_counter += 1
-			if (exposure_counter == int(self.exposure_time/self.oversample_motion_time)) and (interval_counter <int(self.interval_time/self.oversample_motion_time)):
+			elif (exposure_counter == int(self.exposure_time/self.oversample_motion_time)) and (interval_counter <int(self.interval_time/self.oversample_motion_time)):
 				#increment the interval_counter
 				interval_counter += 1
 			if (exposure_counter == int(self.exposure_time/self.oversample_motion_time)) and (interval_counter ==int(self.interval_time/self.oversample_motion_time)):
