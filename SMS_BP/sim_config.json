@@ -7,7 +7,8 @@
     "diffusion_unit":"um^2/s",
     "Cell_Parameters":{
         "cell_space":[[30,50],[20,70]],
-        "cell_axial_radius":100
+        "cell_axial_radius":100,
+        "number_of_cells":1
     },
     "Track_Parameters":{
         "num_tracks":1,

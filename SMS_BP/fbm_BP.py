@@ -39,7 +39,7 @@ def MCMC_state_selection(initial_state_index:int,
     t = 0
     while t < n:
         #find the rate constant for transitioning from the current state
-        tot_rate_transition = total_rate_constant[current_state_index] - transition_matrix[current_state_index][current_state_index]
+        tot_rate_transition = total_rate_constant[current_state_index]
         #if tot_rate_transition is 0 then the current state is the only state viable based on the transition matrix
         if tot_rate_transition == 0:
             state_selection[int(t):n] = current_state
@@ -47,15 +47,18 @@ def MCMC_state_selection(initial_state_index:int,
         #find the time to transition
         tau = -np.log(np.random.rand())/tot_rate_transition
         #find the next state
-        next_state_index = np.random.choice(len(possible_states), p=transition_matrix[current_state_index]/total_rate_constant[current_state_index])
+        #set a new variable transition_matrix_change to the transition matrix with the current state with a rate constant of 0
+        transition_matrix_change = np.copy(transition_matrix)
+        transition_matrix_change[current_state_index][current_state_index] = 0
+        next_state_index = np.random.choice(len(possible_states), p=transition_matrix[current_state_index]/tot_rate_transition)
         next_state = possible_states[next_state_index]
         #for the duration of the transition, the state is the previous state
-        state_selection[int(t):int(t+tau)] = current_state
+        state_selection[int(np.floor(t)):int(np.ceil(t+tau))] = current_state
         #update the current state
         current_state = next_state
         current_state_index = next_state_index
         #update the time
-        t += tau
+        t += int(np.ceil(tau))
     return state_selection
 
 class FBM_BP:
@@ -120,7 +123,6 @@ class FBM_BP:
             hurst_start = np.random.choice(self.hurst_parameter, p=self.state_probability_hurst)
             hurst_n[0] = hurst_start
             hurst_n[1:] = MCMC_state_selection(np.where(self.hurst_parameter == hurst_start)[0][0], self.hurst_parameter_transition_matrix, self.hurst_parameter, self.n-1)
-        
         for i in range(self.n):
             self._cov[i] = self._autocovariance(i,hurst_n[i])
 
@@ -213,42 +215,42 @@ if __name__ == "__main__":
     # plt.title('Fractional Brownian motion')
     # plt.show()
 
-    # # test the MCMC_state_selection function
-    # # initialize the transition matrix
-    # transition_matrix = np.array([[0.9, 0.1],
-    #                             [0.1, 0.9]])
-    # # initialize the possible states
-    # possible_states = np.array([1, 2])
-    # # initialize the number of iterations
-    # n = 10000
-    # # initialize the initial state index
-    # initial_state_index = 1 
+    # test the MCMC_state_selection function
+    # initialize the transition matrix
+    transition_matrix = np.array([[500, 6.9],
+                                [6.9, 500]])
+    # initialize the possible states
+    possible_states = np.array([1, 2])
+    # initialize the number of iterations
+    n = 100
+    # initialize the initial state index
+    initial_state_index = 1 
 
-    # # test the MCMC_state_selection function
-    # state_selection = MCMC_state_selection(initial_state_index, transition_matrix, possible_states, n)
-    # # plot the state selection
-    # plt.plot(state_selection)
-    # plt.xlabel('Iteration')
-    # plt.ylabel('State')
-    # plt.title('State selection')
-    # plt.show()
+    # test the MCMC_state_selection function
+    state_selection = MCMC_state_selection(initial_state_index, transition_matrix, possible_states, n)
+    # plot the state selection
+    plt.plot(state_selection)
+    plt.xlabel('Iteration')
+    plt.ylabel('State')
+    plt.title('State selection')
+    plt.show()
 
-    # # plot the probability of each state
-    # state_probability = np.zeros(len(possible_states))
-    # for i in range(len(possible_states)):
-    #     state_probability[i] = np.sum(state_selection == possible_states[i])/n
+    # plot the probability of each state
+    state_probability = np.zeros(len(possible_states))
+    for i in range(len(possible_states)):
+        state_probability[i] = np.sum(state_selection == possible_states[i])/n
 
-    # # compare the population distribution with the state probability distribution
-    # total_rate = np.sum(transition_matrix)
-    # # add the column of the transition matrix and divide by the total rate
-    # true_state_probability = np.sum(transition_matrix, axis=0)/total_rate
-    # plt.bar(possible_states, state_probability, label='State probability distribution', alpha=0.5)
-    # plt.bar(possible_states, true_state_probability, label='Population distribution', alpha=0.5)
-    # plt.xlabel('State')
-    # plt.ylabel('Probability')
-    # plt.title('State probability distribution')
-    # plt.legend()
-    # plt.show()
+    # compare the population distribution with the state probability distribution
+    total_rate = np.sum(transition_matrix)
+    # add the column of the transition matrix and divide by the total rate
+    true_state_probability = np.sum(transition_matrix, axis=0)/total_rate
+    plt.bar(possible_states, state_probability, label='State probability distribution', alpha=0.9)
+    plt.bar(possible_states, true_state_probability, label='Population distribution', alpha=0.5)
+    plt.xlabel('State')
+    plt.ylabel('Probability')
+    plt.title('State probability distribution')
+    plt.legend()
+    plt.show()
 
     # #test for singular diffusion and hurst parameter sets
     # n = 100
@@ -270,61 +272,61 @@ if __name__ == "__main__":
     # plt.title('Fractional Brownian motion')
     # plt.show()
 
-    # #test the MSD calculation
-    import sys
-    sys.path.append('/Users/baljyot/Documents/CODE/GitHub_t2/Baljyot_EXP_RPOC/Scripts') 
-    sys.path.append('/Users/baljyot/Documents/CODE/GitHub_t2/Baljyot_EXP_RPOC/Scripts/src')
-    from SMT_Analysis_BP.helpers.analysisFunctions.MSD_Utils import MSD_Calculations_Track_Dict
-    #make a 2D FBM by making two 1D FBM and then combining them
-    n = 1000
-    dt = 1
-    #singular 
-    diffusion_parameters = np.array([2])
-    hurst_parameters = np.array([0.5])
-    diffusion_parameter_transition_matrix = np.array([[1]])
-    hurst_parameter_transition_matrix = np.array([[1]])
-    state_probability_diffusion = np.array([1])
-    state_probability_hurst = np.array([1])
-    space_lim = [-1000,1000]
-    fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
-    # test the fbm method
-    fbm_x = fbm_bp.fbm()
-    fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim) 
-    fbm_y = fbm_bp.fbm()
-    #plot the fbm
-    plt.plot(fbm_x,fbm_y,'.-')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Fractional Brownian motion')
-    plt.show()
+    # # #test the MSD calculation
+    # import sys
+    # sys.path.append('/Users/baljyot/Documents/CODE/GitHub_t2/Baljyot_EXP_RPOC/Scripts') 
+    # sys.path.append('/Users/baljyot/Documents/CODE/GitHub_t2/Baljyot_EXP_RPOC/Scripts/src')
+    # from SMT_Analysis_BP.helpers.analysisFunctions.MSD_Utils import MSD_Calculations_Track_Dict
+    # #make a 2D FBM by making two 1D FBM and then combining them
+    # n = 1000
+    # dt = 1
+    # #singular 
+    # diffusion_parameters = np.array([2])
+    # hurst_parameters = np.array([0.5])
+    # diffusion_parameter_transition_matrix = np.array([[1]])
+    # hurst_parameter_transition_matrix = np.array([[1]])
+    # state_probability_diffusion = np.array([1])
+    # state_probability_hurst = np.array([1])
+    # space_lim = [-1000,1000]
+    # fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
+    # # test the fbm method
+    # fbm_x = fbm_bp.fbm()
+    # fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim) 
+    # fbm_y = fbm_bp.fbm()
+    # #plot the fbm
+    # plt.plot(fbm_x,fbm_y,'.-')
+    # plt.xlabel('x')
+    # plt.ylabel('y')
+    # plt.title('Fractional Brownian motion')
+    # plt.show()
 
-    #combine the 1D FBM to make a 2D FBM in the form {track_ID: [[x0, y0], [x1, y1], ...]}
-    track_dict = {0: np.zeros((n,2))}
-    track_dict[0][:,0] = fbm_x
-    track_dict[0][:,1] = fbm_y
-    #calculate the MSD
-    MSD_calced = MSD_Calculations_Track_Dict(track_dict,pixel_to_um=1,frame_to_seconds=1,min_track_length=1, max_track_length=10000)
-    #plot the MSD
-    plt.plot(MSD_calced.combined_store.ensemble_MSD.keys(), MSD_calced.combined_store.ensemble_MSD.values(), linestyle='--')
-    #fit the MSD with a line to find the slope in log-log space
-    #do a linear fit
-    x = np.log(list(MSD_calced.combined_store.ensemble_MSD.keys())[:5])
-    y = np.log(list(MSD_calced.combined_store.ensemble_MSD.values())[:5])
-    A = np.vstack([x, np.ones(len(x))]).T
-    m, c = np.linalg.lstsq(A, y, rcond=None)[0]
-    plt.plot(np.exp(x), np.exp(m*x + c), 'r', label='Fitted line')
-    #annotate the slope
-    plt.text(0.1, 0.1, 'Slope: ' + str(m), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
-    #annotate the intercept
-    plt.text(0.1, 0.2, 'Intercept: ' + str(0.25*np.exp(c)), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
+    # #combine the 1D FBM to make a 2D FBM in the form {track_ID: [[x0, y0], [x1, y1], ...]}
+    # track_dict = {0: np.zeros((n,2))}
+    # track_dict[0][:,0] = fbm_x
+    # track_dict[0][:,1] = fbm_y
+    # #calculate the MSD
+    # MSD_calced = MSD_Calculations_Track_Dict(track_dict,pixel_to_um=1,frame_to_seconds=1,min_track_length=1, max_track_length=10000)
+    # #plot the MSD
+    # plt.plot(MSD_calced.combined_store.ensemble_MSD.keys(), MSD_calced.combined_store.ensemble_MSD.values(), linestyle='--')
+    # #fit the MSD with a line to find the slope in log-log space
+    # #do a linear fit
+    # x = np.log(list(MSD_calced.combined_store.ensemble_MSD.keys())[:5])
+    # y = np.log(list(MSD_calced.combined_store.ensemble_MSD.values())[:5])
+    # A = np.vstack([x, np.ones(len(x))]).T
+    # m, c = np.linalg.lstsq(A, y, rcond=None)[0]
+    # plt.plot(np.exp(x), np.exp(m*x + c), 'r', label='Fitted line')
+    # #annotate the slope
+    # plt.text(0.1, 0.1, 'Slope: ' + str(m), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
+    # #annotate the intercept
+    # plt.text(0.1, 0.2, 'Intercept: ' + str(0.25*np.exp(c)), horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
 
-    plt.xlabel('Time')
-    plt.ylabel('MSD')
-    plt.title('MSD')
-    #log axis
-    plt.xscale('log')
-    plt.yscale('log')
-    plt.show()
+    # plt.xlabel('Time')
+    # plt.ylabel('MSD')
+    # plt.title('MSD')
+    # #log axis
+    # plt.xscale('log')
+    # plt.yscale('log')
+    # plt.show()
     
 
     pass
