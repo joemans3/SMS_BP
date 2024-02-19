@@ -485,8 +485,8 @@ class Simulate_cells():
 			for i in range(self.init_dict["Track_Parameters"]["num_tracks"]):
 				#make a track with transition probability
 				tracks[i] = track_generator.track_generation_with_transition(
-					diffusion_transition_matrix=self.diffusion_transition_matrix * (1./1000.) * self.oversample_motion_time,
-					hurst_transition_matrix=self.hurst_transition_matrix * (1./1000.) * self.oversample_motion_time,
+					diffusion_transition_matrix=self.diffusion_transition_matrix,
+					hurst_transition_matrix=self.hurst_transition_matrix,
 					diffusion_parameters=self.track_diffusion_updated,
 					hurst_parameters=self.init_dict["Track_Parameters"]["hurst_exponent"],
 					diffusion_state_probability=self.init_dict["Track_Parameters"]["state_probability_diffusion"],

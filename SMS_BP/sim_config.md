@@ -22,6 +22,8 @@
         2. cell_space[1]: y coordinates of the cell space (min, max)
     * cell_axial_radius: float (units of space_unit)
         1. The distance from z=0 in either direction that the cell extends 
+    * number_of_cells: int
+        1. number of cells to simulate (if more than 1 hen all are simulated in one folder defined by the output_path)
 
 * Track_Parameters: dict  
     * num_tracks: int
