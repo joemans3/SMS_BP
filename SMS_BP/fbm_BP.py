@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from boundary_conditions import _refecting_boundary, _absorbing_boundary
+from SMS_BP.boundary_conditions import _refecting_boundary, _absorbing_boundary
 BOUNDARY_CONDITIONS = {
     'reflecting': _refecting_boundary,
     'absorbing': _absorbing_boundary

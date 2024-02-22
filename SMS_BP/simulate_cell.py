@@ -2,12 +2,12 @@ import json
 import numpy as np
 import os
 import random
-import simulate_foci as sf
+import SMS_BP.simulate_foci as sf
 import skimage as skimage
 from PIL import Image
 import pickle
-import decorators as decorators
-import probability_functions as pf
+import SMS_BP.decorators as decorators
+import SMS_BP.probability_functions as pf
 
 def save_tiff(image,path,img_name=None):
 	''' Docstring for save_tiff: save the image as a tiff file

@@ -1,7 +1,7 @@
 import sys
 import os
 import argparse
-from simulate_cell import Simulate_cells
+from SMS_BP.simulate_cell import Simulate_cells
 import json
 
 def main_CLI():
