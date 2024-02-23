@@ -21,7 +21,7 @@
     - If the above method fails, try the pip install method: **pip install tensorflow**, and **pip install tensorflow-probability**
 
 8. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
-    - Run the command: **pip install -e .**
+    - Run the command: **pip install -e . --config-settings editable_mode=compat**
     - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. 
 
 
