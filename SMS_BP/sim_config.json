@@ -15,7 +15,7 @@
         "track_type":"fbm",
         "track_length_mean":450,
         "track_distribution":"constant",
-        "diffusion_coefficient":[0.5,4],
+        "diffusion_coefficient":[0.5,1],
         "diffusion_track_amount":[
             0.5,0.5
         ],
