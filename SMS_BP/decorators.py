@@ -3,7 +3,7 @@ import time
 import functools
 import inspect
 import warnings
-
+from SMS_BP.errors import HurstValueError, SpaceLimitError, DiffusionHighError, HurstHighError
 string_types = (type(b''), type(u''))
 
 
@@ -193,3 +193,13 @@ def set_unit(unit):
         func.unit = unit
         return func
     return decorator_set_unit
+
+
+#make a decorator to catch RecursiveError exceeding the maximum recursion depth
+def _catch_recursion_error(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except RecursionError:
+            raise HurstHighError('You are probably using H > 0.5 in a small space limit. Try to increase the space limit or decrease the H value. \n Since H > 0.5, it will compound the step sizes.')
+    return wrapper

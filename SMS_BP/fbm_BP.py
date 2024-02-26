@@ -155,7 +155,7 @@ class FBM_BP:
             v *= 1 - phi[i - 1] * phi[i - 1]
             for j in range(i):
                 fgn[i] += phi[j] * fgn[i - j - 1]
-            fgn[i] += np.sqrt(v) * gn[i]
+            fgn[i] += np.sqrt(np.abs(v)) * gn[i]
             #add to the fbm
             fbm_candidate = fbm_store[i - 1] + fgn[i]
 
@@ -193,64 +193,64 @@ def _boundary_conditions(fbm_store_last:float, fbm_candidate:float, space_lim:np
 
 if __name__ == "__main__":
 
-    # # test the FBM_BP class
+    # test the FBM_BP class
+    n = 2000
+    dt = 1
+    diffusion_parameters = np.array([0.1,0.1])
+    hurst_parameters = np.array([0.8,0.2])
+    diffusion_parameter_transition_matrix = np.array([[0.01, 0.01],
+                                                    [0.01, 0.01]])
+    hurst_parameter_transition_matrix = np.array([[0.9, 0.1],
+                                                [0.1, 0.9]])
+    state_probability_diffusion = np.array([0.5,0.5])
+    state_probability_hurst = np.array([0.5,0.5])
+    space_lim = [-10,10]
+    fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
+    # test the fbm method
+    fbm = fbm_bp.fbm()
+    # plot the fbm
+    plt.plot(fbm, linestyle='--')
+    plt.xlabel('Iteration')
+    plt.ylabel('Value')
+    plt.title('Fractional Brownian motion')
+    plt.show()
+
+    # # test the MCMC_state_selection function
+    # # initialize the transition matrix
+    # transition_matrix = np.array([[500, 6.9],
+    #                             [6.9, 500]])
+    # # initialize the possible states
+    # possible_states = np.array([1, 2])
+    # # initialize the number of iterations
     # n = 100
-    # dt = 1
-    # diffusion_parameters = np.array([0.1])
-    # hurst_parameters = np.array([0.9])
-    # diffusion_parameter_transition_matrix = np.array([[0.01, 0.01],
-    #                                                 [0.01, 0.01]])
-    # hurst_parameter_transition_matrix = np.array([[0.9, 0.1],
-    #                                             [0.1, 0.9]])
-    # state_probability_diffusion = np.array([1])
-    # state_probability_hurst = np.array([0.5])
-    # space_lim = [-10,10]
-    # fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
-    # # test the fbm method
-    # fbm = fbm_bp.fbm()
-    # # plot the fbm
-    # plt.plot(fbm, linestyle='--')
+    # # initialize the initial state index
+    # initial_state_index = 1 
+
+    # # test the MCMC_state_selection function
+    # state_selection = MCMC_state_selection(initial_state_index, transition_matrix, possible_states, n)
+    # # plot the state selection
+    # plt.plot(state_selection)
     # plt.xlabel('Iteration')
-    # plt.ylabel('Value')
-    # plt.title('Fractional Brownian motion')
+    # plt.ylabel('State')
+    # plt.title('State selection')
     # plt.show()
 
-    # test the MCMC_state_selection function
-    # initialize the transition matrix
-    transition_matrix = np.array([[500, 6.9],
-                                [6.9, 500]])
-    # initialize the possible states
-    possible_states = np.array([1, 2])
-    # initialize the number of iterations
-    n = 100
-    # initialize the initial state index
-    initial_state_index = 1 
+    # # plot the probability of each state
+    # state_probability = np.zeros(len(possible_states))
+    # for i in range(len(possible_states)):
+    #     state_probability[i] = np.sum(state_selection == possible_states[i])/n
 
-    # test the MCMC_state_selection function
-    state_selection = MCMC_state_selection(initial_state_index, transition_matrix, possible_states, n)
-    # plot the state selection
-    plt.plot(state_selection)
-    plt.xlabel('Iteration')
-    plt.ylabel('State')
-    plt.title('State selection')
-    plt.show()
-
-    # plot the probability of each state
-    state_probability = np.zeros(len(possible_states))
-    for i in range(len(possible_states)):
-        state_probability[i] = np.sum(state_selection == possible_states[i])/n
-
-    # compare the population distribution with the state probability distribution
-    total_rate = np.sum(transition_matrix)
-    # add the column of the transition matrix and divide by the total rate
-    true_state_probability = np.sum(transition_matrix, axis=0)/total_rate
-    plt.bar(possible_states, state_probability, label='State probability distribution', alpha=0.9)
-    plt.bar(possible_states, true_state_probability, label='Population distribution', alpha=0.5)
-    plt.xlabel('State')
-    plt.ylabel('Probability')
-    plt.title('State probability distribution')
-    plt.legend()
-    plt.show()
+    # # compare the population distribution with the state probability distribution
+    # total_rate = np.sum(transition_matrix)
+    # # add the column of the transition matrix and divide by the total rate
+    # true_state_probability = np.sum(transition_matrix, axis=0)/total_rate
+    # plt.bar(possible_states, state_probability, label='State probability distribution', alpha=0.9)
+    # plt.bar(possible_states, true_state_probability, label='Population distribution', alpha=0.5)
+    # plt.xlabel('State')
+    # plt.ylabel('Probability')
+    # plt.title('State probability distribution')
+    # plt.legend()
+    # plt.show()
 
     # #test for singular diffusion and hurst parameter sets
     # n = 100
