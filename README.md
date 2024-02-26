@@ -1,6 +1,6 @@
 
 
-# This is a short doc for the Track Simualtions along with cluster simulations.
+# This is a short doc for the Track Simulations along with cluster simulations.
 -----------------------------------------
 
 - Author: Baljyot Singh Parmar
@@ -19,12 +19,13 @@
 7. Since tensflow and tensorflow-probability are platform dependent we need to install inidividually.
     - Try the conda install method: **conda install tensorflow**, and **conda install tensorflow-probability**
     - If the above method fails, try the pip install method: **pip install tensorflow**, and **pip install tensorflow-probability**
+    - If you are able to install but get an error named TensorflowImportError when running the code you likely installed with conda. Ideally this is the best method but for reasons unknown to me it can break. As a fix, delete your install and install using pip. Explicitly, run these commands (in order): **conda activate base**, **conda remove --name SMS_BP --all**. Once this is done, rerun **conda env create -f SMS_BP.yml**, **conda activate SMS_BP**, **pip install -r requirements.txt**, now do ** pip install tensorflow**, and **pip install tensorflow-probability**. Ideally these should all be done in the requirements.txt or pyproject, but again tensorflow has different builds for different systems and sometimes the simple install methods give weird results. I don't know enough about the details to fix it in general, but performing these steps if the issue arises will fix the problem.
 
 8. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
     - Run the command: **pip install -e . --config-settings editable_mode=compat**
     - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. 
 
-
+To start interacting with the program **cd SMS_BP** and follow the next steps.
 Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.
 
 
