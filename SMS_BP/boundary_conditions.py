@@ -1,6 +1,9 @@
 import numpy as np
 
+from decorators import _catch_recursion_error
+
 #reflecting boundary condition which is a recursive function so that even if the first candidate is out of the space limit, the function will keep calling itself until the candidate is within the space limit
+@_catch_recursion_error
 def _refecting_boundary(fbm_store_last:float, fbm_candidate:float, space_lim:np.ndarray):
     '''Reflecting boundary condition for the FBM 1D
 
@@ -28,6 +31,7 @@ def _refecting_boundary(fbm_store_last:float, fbm_candidate:float, space_lim:np.
         return fbm_candidate
 
 #Boundary condition where the step is set at the boundary limit if the candidate is out of the space limit
+@_catch_recursion_error
 def _absorbing_boundary(fbm_store_last:float, fbm_candidate:float, space_lim:np.ndarray):
     '''Absorbing boundary condition for the FBM 1D
 
@@ -51,3 +55,4 @@ def _absorbing_boundary(fbm_store_last:float, fbm_candidate:float, space_lim:np.
         return space_lim[0]
     else:
         return fbm_candidate
+
