@@ -5,8 +5,12 @@ This file contains the class for simulating foci in space.
 Author: Baljyot Singh Parmar
 '''
 import numpy as np
-import tensorflow as tf
-import tensorflow_probability as tfp
+from SMS_BP.errors import TensorflowImportError
+try:
+	import tensorflow as tf
+	import tensorflow_probability as tfp
+except ImportError:
+	raise TensorflowImportError("Tensorflow packages not properly installed. If conda is being used, try installing tensorflow and tensorflow_probability using pip (See the README.md). Make sure to uninstall the conda versions to avoid circular dependencies.")
 import SMS_BP.fbm_utility as fbm
 import SMS_BP.condensate_movement as condensate_movement
 import SMS_BP.fbm_BP as fbm_BP
