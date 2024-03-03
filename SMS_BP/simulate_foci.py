@@ -5,15 +5,9 @@ This file contains the class for simulating foci in space.
 Author: Baljyot Singh Parmar
 '''
 import numpy as np
-from SMS_BP.errors import TensorflowImportError
-try:
-	import tensorflow as tf
-	import tensorflow_probability as tfp
-except ImportError:
-	raise TensorflowImportError("Tensorflow packages not properly installed. If conda is being used, try installing tensorflow and tensorflow_probability using pip (See the README.md). Make sure to uninstall the conda versions to avoid circular dependencies.")
-import SMS_BP.fbm_utility as fbm
 import SMS_BP.condensate_movement as condensate_movement
 import SMS_BP.fbm_BP as fbm_BP
+from scipy.stats import multivariate_normal
 
 def get_lengths(track_distribution:str,track_length_mean:int,total_tracks:int):
 	''' 
@@ -251,6 +245,37 @@ def radius_spherical_cap(R,center,z_slice):
 		return R
 	#calculate the radius of the spherical cap
 	return np.sqrt(R**2 - (z_slice)**2)
+# def get_gaussian(mu, sigma,domain = [list(range(10)),list(range(10))]):
+# 	'''
+# 	Parameters
+# 	----------
+# 	mu : array-like or float of floats
+# 		center position of gaussian (x,y) or collection of (x,y)
+# 	sigma : float or array-like of floats of shape mu
+# 		sigma of the gaussian
+# 	domain : array-like, Defaults to 0->9 for x,y
+# 		x,y domain over which this gassuain is over
+
+
+# 	Returns
+# 	-------
+# 	array-like 2D 
+# 		values of the gaussian centered at mu with sigma across the (x,y) points defined in domain
+	
+# 	Notes:
+# 	------
+# 	THIS IS IMPORTANT: MAKE SURE THE TYPES IN EACH PARAMETER ARE THE SAME!!!!
+# 	'''
+
+# 	mvn = tfp.distributions.MultivariateNormalDiag(loc=mu, scale_diag=sigma)
+# 	x = domain[0] 
+# 	y = domain[1]
+# 	# meshgrid as a list of [x,y] coordinates
+# 	coords = tf.reshape(tf.stack(tf.meshgrid(x,y),axis=-1),(-1,2))
+# 	gauss = mvn.prob(coords)
+# 	return tf.reshape(gauss, (len(x),len(y)))
+
+#numpy version of get_gaussian
 def get_gaussian(mu, sigma,domain = [list(range(10)),list(range(10))]):
 	'''
 	Parameters
@@ -272,14 +297,18 @@ def get_gaussian(mu, sigma,domain = [list(range(10)),list(range(10))]):
 	------
 	THIS IS IMPORTANT: MAKE SURE THE TYPES IN EACH PARAMETER ARE THE SAME!!!!
 	'''
-
-	mvn = tfp.distributions.MultivariateNormalDiag(loc=mu, scale_diag=sigma)
-	x = domain[0] 
+	#generate a multivariate normal distribution with the given mu and sigma over the domain using scipy stats
+	#generate the grid
+	x = domain[0]
 	y = domain[1]
-	# meshgrid as a list of [x,y] coordinates
-	coords = tf.reshape(tf.stack(tf.meshgrid(x,y),axis=-1),(-1,2))
-	gauss = mvn.prob(coords)
-	return tf.reshape(gauss, (len(x),len(y)))
+	xx,yy = np.meshgrid(x,y)
+	#generate the multivariate normal distribution
+	rv = multivariate_normal(mu,sigma)
+	#generate the probability distribution
+	gauss = rv.pdf(np.dstack((xx,yy)))
+	#reshape the distribution on the grid
+	return gauss
+
 def axial_intensity_factor(abs_axial_pos: float|np.ndarray,**kwargs) -> float|np.ndarray:
 	'''Docstring
 	Calculate the factor for the axial intensity of the PSF given the absolute axial position from the 0 position of 
