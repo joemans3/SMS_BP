@@ -47,9 +47,6 @@ def MCMC_state_selection(initial_state_index:int,
         #find the time to transition
         tau = -np.log(np.random.rand())/tot_rate_transition
         #find the next state
-        #set a new variable transition_matrix_change to the transition matrix with the current state with a rate constant of 0
-        transition_matrix_change = np.copy(transition_matrix)
-        transition_matrix_change[current_state_index][current_state_index] = 0
         next_state_index = np.random.choice(len(possible_states), p=transition_matrix[current_state_index]/tot_rate_transition)
         next_state = possible_states[next_state_index]
         #for the duration of the transition, the state is the previous state
@@ -193,27 +190,75 @@ def _boundary_conditions(fbm_store_last:float, fbm_candidate:float, space_lim:np
 
 if __name__ == "__main__":
 
-    # test the FBM_BP class
-    n = 2000
-    dt = 1
-    diffusion_parameters = np.array([0.1,0.1])
-    hurst_parameters = np.array([0.8,0.2])
-    diffusion_parameter_transition_matrix = np.array([[0.01, 0.01],
-                                                    [0.01, 0.01]])
-    hurst_parameter_transition_matrix = np.array([[0.9, 0.1],
-                                                [0.1, 0.9]])
-    state_probability_diffusion = np.array([0.5,0.5])
-    state_probability_hurst = np.array([0.5,0.5])
-    space_lim = [-10,10]
-    fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
-    # test the fbm method
-    fbm = fbm_bp.fbm()
-    # plot the fbm
-    plt.plot(fbm, linestyle='--')
-    plt.xlabel('Iteration')
-    plt.ylabel('Value')
-    plt.title('Fractional Brownian motion')
-    plt.show()
+    #test the MCMC_state_selection function
+    # initialize the transition matrix
+    transition_matrix = np.array([[5.7, 0.035],
+                                [.25, 5.7]])
+    # initialize the possible states
+    possible_states = np.array([1, 2])
+    # initialize the number of iterations
+    n = 50000
+    # initialize the initial state index
+    initial_state_index = 1
+    state_select = MCMC_state_selection(initial_state_index, transition_matrix, possible_states, n)
+    #find the probability of each state
+    state_probability = np.zeros(len(possible_states))
+    for i in range(len(possible_states)):
+        state_probability[i] = np.sum(state_select == possible_states[i])/n
+    #compare the population distribution with the state probability distribution
+    total_rate = np.sum(transition_matrix)
+    #add the column of the transition matrix and divide by the total rate
+    true_state_probability = np.sum(transition_matrix, axis=0)/total_rate
+    plt.bar(possible_states, state_probability, label='State probability distribution', alpha=0.9)
+    #plt.bar(possible_states, true_state_probability, label='Population distribution', alpha=0.5)
+    plt.xlabel('State')
+    plt.ylabel('Probability')
+    plt.title('State probability distribution')
+    plt.legend()
+    plt.show()  
+
+    #find the probability of switching from state 1 to state 2 at each iteration
+    state_1_to_2 = np.zeros(n) - 1
+    for i in range(n-1):
+        if state_select[i] == 1 and state_select[i+1] == 2:
+            state_1_to_2[i] = 1
+        elif state_select[i] == 1 and state_select[i+1] == 1:
+            state_1_to_2[i] = 0
+    #find the probability of switching from state 2 to state 1 at each iteration
+    state_2_to_1 = np.zeros(n) -1
+    for i in range(n-1):
+        if state_select[i] == 2 and state_select[i+1] == 1:
+            state_2_to_1[i] = 1
+        elif state_select[i] == 2 and state_select[i+1] == 2:
+            state_2_to_1[i] = 0
+    #print the probability of switching from state 1 to state 2 ignore 0s
+    print('Probability of switching from state 1 to state 2: ' + str(np.sum(state_1_to_2[state_1_to_2 != -1])/np.sum(state_1_to_2 != -1)))
+    #print the probability of switching from state 2 to state 1 ignore 0s
+    print('Probability of switching from state 2 to state 1: ' + str(np.sum(state_2_to_1[state_2_to_1 != -1])/np.sum(state_2_to_1 != -1)))
+
+
+
+    # # test the FBM_BP class
+    # n = 2000
+    # dt = 1
+    # diffusion_parameters = np.array([0.1,0.1])
+    # hurst_parameters = np.array([0.8,0.2])
+    # diffusion_parameter_transition_matrix = np.array([[0.01, 0.01],
+    #                                                 [0.01, 0.01]])
+    # hurst_parameter_transition_matrix = np.array([[0.9, 0.1],
+    #                                             [0.1, 0.9]])
+    # state_probability_diffusion = np.array([0.5,0.5])
+    # state_probability_hurst = np.array([0.5,0.5])
+    # space_lim = [-10,10]
+    # fbm_bp = FBM_BP(n, dt, diffusion_parameters, hurst_parameters, diffusion_parameter_transition_matrix, hurst_parameter_transition_matrix, state_probability_diffusion, state_probability_hurst, space_lim)
+    # # test the fbm method
+    # fbm = fbm_bp.fbm()
+    # # plot the fbm
+    # plt.plot(fbm, linestyle='--')
+    # plt.xlabel('Iteration')
+    # plt.ylabel('Value')
+    # plt.title('Fractional Brownian motion')
+    # plt.show()
 
     # # test the MCMC_state_selection function
     # # initialize the transition matrix
