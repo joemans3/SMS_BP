@@ -1,6 +1,6 @@
 import numpy as np
 
-from decorators import _catch_recursion_error
+from SMS_BP.decorators import _catch_recursion_error
 
 #reflecting boundary condition which is a recursive function so that even if the first candidate is out of the space limit, the function will keep calling itself until the candidate is within the space limit
 @_catch_recursion_error
