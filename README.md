@@ -15,13 +15,7 @@
 3. In the conda prompt, navigate to the folder where you downloaded this repository using : **cd "path_to_folder"**
 4. Using the **SMS_BP.yml** file, create a new environment using: **conda env create -f SMS_BP.yml**
 5. Activate the environment using: **conda activate SMS_BP**
-6. Install the extra pip packages using: **pip install -r requirements.txt**
-7. Since tensflow and tensorflow-probability are platform dependent we need to install inidividually.
-    - Try the conda install method: **conda install tensorflow**, and **conda install tensorflow-probability**
-    - If the above method fails, try the pip install method: **pip install tensorflow**, and **pip install tensorflow-probability**
-    - If you are able to install but get an error named TensorflowImportError when running the code you likely installed with conda. Ideally this is the best method but for reasons unknown to me it can break. As a fix, delete your install and install using pip. Explicitly, run these commands (in order): **conda activate base**, **conda remove --name SMS_BP --all**. Once this is done, rerun **conda env create -f SMS_BP.yml**, **conda activate SMS_BP**, **pip install -r requirements.txt**, now do **pip install tensorflow**, and **pip install tensorflow-probability**. Ideally these should all be done in the requirements.txt or pyproject, but again tensorflow has different builds for different systems and sometimes the simple install methods give weird results. I don't know enough about the details to fix it in general, but performing these steps if the issue arises will fix the problem.
-
-8. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
+6. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
     - Run the command: **pip install -e . --config-settings editable_mode=compat**
     - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. 
 
