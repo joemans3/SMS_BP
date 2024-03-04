@@ -26,4 +26,4 @@ Okay now we can run the simulation with the predefined variables. For your under
     - To run the CLI tool after the install we can type **run_SMS_BP [PATH_TO_CONFIG_FILE]** from anywhere assuming the path you provide is absolute.
     - In the background all this is doing is running: **from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()**. This is the entry point.
     - Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the SMS_BP/sim_config.md for details into the config file parameters.
-8. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resourse for people encountering a solved issue.
+8. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
