@@ -4,6 +4,7 @@ import argparse
 from SMS_BP.simulate_cell import Simulate_cells
 import json
 
+
 def main_CLI():
     """
     CLI tool to run cell simulation.
@@ -18,7 +19,8 @@ def main_CLI():
         --output_path   Path to the output directory
 
     """
-    parser = argparse.ArgumentParser(description="CLI tool to run cell simulation")
+    parser = argparse.ArgumentParser(
+        description="CLI tool to run cell simulation")
     parser.add_argument("config_file", help="Path to the configuration file")
     parser.add_argument("--output_path", help="Path to the output directory")
     args = parser.parse_args()
@@ -49,8 +51,6 @@ def main_CLI():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-
-
     sim = Simulate_cells(config_file)
     sim.get_and_save_sim(
         cd=output_path,
@@ -59,7 +59,9 @@ def main_CLI():
         sub_frame_num=int(output_parameters.get("subsegment_number"))
     )
 
-#make a new function which handles running this script without CLI arguments
+# make a new function which handles running this script without CLI arguments
+
+
 def main_noCLI(file):
     """
     Run cell simulation without using CLI arguments
@@ -90,17 +92,18 @@ def main_noCLI(file):
     )
 
 
-
 if __name__ == "__main__":
-    #if the script is run from the command line
+    # if the script is run from the command line
     if len(sys.argv) > 1:
         main_CLI()
     else:
-        #if the script is run as a module use the project directory to find sim_config.json
-        #find the project directory
-        project_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        #find the config file
-        config_file = os.path.join(project_directory,"SMS_BP", "sim_config.json")
+        # if the script is run as a module use the project directory to find sim_config.json
+        # find the project directory
+        project_directory = os.path.dirname(
+            os.path.dirname(os.path.abspath(__file__)))
+        # find the config file
+        config_file = os.path.join(
+            project_directory, "SMS_BP", "sim_config.json")
         print(config_file)
-        #run the main function
+        # run the main function
         main_noCLI(config_file)
