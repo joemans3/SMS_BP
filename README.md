@@ -21,6 +21,7 @@
 
 To start interacting with the program **cd SMS_BP** and follow the next steps.
 Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.
+
 7. This is a note on using the CLI tool properly. For the previous step I have forced you to go to the file location and run the script through python. But in the install (step 6) we also installed a CLI tool to interface with the program from anywhere (regardless of where you are in your terminal). The only condition is that you are in the SMS_BP conda environment. 
     - To run the CLI tool after the install we can type **run_SMS_BP [PATH_TO_CONFIG_FILE]** from anywhere assuming the path you provide is absolute.
     - In the background all this is doing is running: **from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()**. This is the entry point.
