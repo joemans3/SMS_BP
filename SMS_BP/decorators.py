@@ -1,6 +1,5 @@
 import functools
 import time
-import functools
 import inspect
 import warnings
 from SMS_BP.errors import HurstValueError, SpaceLimitError, DiffusionHighError, HurstHighError
@@ -94,6 +93,7 @@ def timer(func):
         return value
     return wrapper_timer
 
+
 def debug(func):
     '''
     Print the function signature and return value
@@ -124,6 +124,7 @@ def slow_down(_func=None, *, rate=1):
     else:
         return decorator_slow_down(_func)
 
+
 def repeat(_func=None, *, num_times=2):
     '''
     Repeat the function a number of times
@@ -132,7 +133,7 @@ def repeat(_func=None, *, num_times=2):
     -----------
     num_times : int
         number of times to repeat the function
-    
+
     Returns:
     --------
     decorator_repeat : function
@@ -151,10 +152,12 @@ def repeat(_func=None, *, num_times=2):
     else:
         return decorator_repeat(_func)
 
+
 class CountCalls:
     '''
     Count how many times a function is called
     '''
+
     def __init__(self, func):
         functools.update_wrapper(self, func)
         self.func = func
@@ -164,6 +167,7 @@ class CountCalls:
         self.num_calls += 1
         print(f"Call {self.num_calls} of {self.func.__name__!r}")
         return self.func(*args, **kwargs)
+
 
 def singleton(cls):
     """Make a class a Singleton class (only one instance)"""
@@ -187,6 +191,7 @@ def cache(func):
     wrapper_cache.cache = dict()
     return wrapper_cache
 
+
 def set_unit(unit):
     """Register a unit on a function"""
     def decorator_set_unit(func):
@@ -195,11 +200,12 @@ def set_unit(unit):
     return decorator_set_unit
 
 
-#make a decorator to catch RecursiveError exceeding the maximum recursion depth
+# make a decorator to catch RecursiveError exceeding the maximum recursion depth
 def _catch_recursion_error(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except RecursionError:
-            raise HurstHighError('You are probably using H > 0.5 in a small space limit. Try to increase the space limit or decrease the H value. \n Since H > 0.5, it will compound the step sizes.')
+            raise HurstHighError(
+                'You are probably using H > 0.5 in a small space limit. Try to increase the space limit or decrease the H value. \n Since H > 0.5, it will compound the step sizes.')
     return wrapper
