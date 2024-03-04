@@ -1,25 +1,24 @@
 [project]
-#template from https://github.com/pypa/sampleproject/blob/main/pyproject.toml
-name = "SMS_BP"  # Required
+name = "SMS_BP"
 
-version = "0.0.1"  # Required
+version = "0.0.1"
 
-description = "Single Molecule Simulations and Microscopy Simulations developed for the Weber Lab by Baljyot Singh Parmar"  # Optional
+description = "Single Molecule Simulations and Microscopy Simulations developed for the Weber Lab by Baljyot Singh Parmar"
 
-readme = "README.md" # Optional
+readme = "README.md"
 
 requires-python = ">=3.10"
 
 license = {file = "LICENSE"}
 
-keywords = ["SMS"]  # Optional
+keywords = ["SMS"]
 
 authors = [
-  {name = "Baljyot Singh Parmar", email = "baljyotparmar@hotmail.com" } # Optional
+  {name = "Baljyot Singh Parmar", email = "baljyotparmar@hotmail.com" }
 ]
 
 maintainers = [
-  {name = "Baljyot Singh Parmar", email = "baljyotparmar@hotmail.com" } # Optional
+  {name = "Baljyot Singh Parmar", email = "baljyotparmar@hotmail.com" }
 ]
 
 dependencies = [
@@ -33,6 +32,10 @@ dependencies = [
 [tool.setuptools.packages.find]
 include = ["SMS_BP*"]
 exclude = ["docs*", "tests*"]
+
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project.scripts]
+run_SMS_BP = "SMS_BP.run_cell_simulation:main_CLI"
