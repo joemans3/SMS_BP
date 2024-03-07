@@ -206,7 +206,8 @@ class Simulate_cells():
 
         # convert the transition matrix from the time given to the oversample_motion_time
         # store the transition_matrix_time_step
-        self.transition_matrix_time_step = self.init_dict["Track_Parameters"]["transition_matrix_time_step"]
+        self.transition_matrix_time_step = self.init_dict[
+            "Track_Parameters"]["transition_matrix_time_step"]
 
         # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
         if len(self.init_dict["Track_Parameters"]["diffusion_coefficient"]) != len(self.init_dict["Track_Parameters"]["diffusion_transition_matrix"]):
@@ -220,7 +221,8 @@ class Simulate_cells():
             self.diffusion_transition_matrix = np.real(
                 fractional_matrix_power(self.init_dict["Track_Parameters"]["diffusion_transition_matrix"], self.oversample_motion_time/self.transition_matrix_time_step))
         else:
-            self.diffusion_transition_matrix = self.init_dict["Track_Parameters"]["diffusion_transition_matrix"]
+            self.diffusion_transition_matrix = self.init_dict[
+                "Track_Parameters"]["diffusion_transition_matrix"]
         if len(self.init_dict["Track_Parameters"]["hurst_exponent"]) != 1:
             self.hurst_transition_matrix = np.real(
                 fractional_matrix_power(self.init_dict["Track_Parameters"]["hurst_transition_matrix"], self.oversample_motion_time/self.transition_matrix_time_step))
@@ -564,7 +566,7 @@ class Simulate_cells():
                 points_per_frame_xyz = np.array(points_per_frame_xyz)
             else:
                 abs_axial_position = 1.0 * self.init_dict["Global_Parameters"]["point_intensity"] * sf.axial_intensity_factor(np.abs(np.array(
-                    points_per_frame[str(i)])[:, 2]), func=self.init_dict["Global_Parameters"]["axial_function"]) * self.oversample_motion_time/self.exposure_time
+                    points_per_frame[str(i)])[:, 2]), detection_range=self.axial_detection_range_pix, func=self.init_dict["Global_Parameters"]["axial_function"]) * self.oversample_motion_time/self.exposure_time
                 points_per_frame_xyz = np.array(
                     points_per_frame[str(i)])[:, :2]
             initial_map[i], _ = sf.generate_map_from_points(
