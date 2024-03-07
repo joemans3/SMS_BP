@@ -15,7 +15,7 @@
         "track_type":"fbm",
         "track_length_mean":450,
         "track_distribution":"constant",
-        "diffusion_coefficient":[0.001,4],
+        "diffusion_coefficient":[0.004,1],
         "diffusion_track_amount":[
             0.5,0.5
         ],
@@ -25,7 +25,7 @@
         ],
         "allow_transition_probability":true,
         "transition_matrix_time_step":20,
-        "diffusion_transition_matrix":[[0.1,0.9],[0.9,0.1]],
+        "diffusion_transition_matrix":[[0.992,0.008],[0.0273,0.9727]],
         "hurst_transition_matrix":[0.1],
         "state_probability_diffusion":[0.5,0.5],
         "state_probability_hurst":[1]
