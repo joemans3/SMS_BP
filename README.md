@@ -14,6 +14,7 @@
 2. Download or clone this repository.
 3. In the conda prompt, navigate to the folder where you downloaded this repository using : **cd "path_to_folder"**
 4. Using the **SMS_BP.yml** file, create a new environment using: **conda env create -f SMS_BP.yml**
+    - If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.
 5. Activate the environment using: **conda activate SMS_BP**
 6. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
     - Run the command: **pip install -e . --config-settings editable_mode=compat**
