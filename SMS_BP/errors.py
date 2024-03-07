@@ -18,10 +18,3 @@ class DiffusionHighError(Exception):
 class HurstHighError(Exception):
     '''Raised when the Hurst value is too high for the space limit'''
     pass
-
-# import errors for tensorflow
-
-
-class TensorflowImportError(Exception):
-    '''Raised when tensorflow is not installed'''
-    pass

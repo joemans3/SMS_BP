@@ -49,16 +49,19 @@
     * allow_transition_probability: bool
         1. whether to allow transition probabilities between different diffusion coefficients and hurst exponents within a track
         2. if false, the track will have a single diffusion coefficient and hurst exponent
-    * diffusion_transition_matrix: 2D array (stocastic rate constant in seconds)
+    * transition_matrix_time_step: int
+        1. time step at which the diffusion and hurst exponent transition matrices are supplied in the following parameters
+        2. the units are in time_unit (so 100 ms would be 100)
+    * diffusion_transition_matrix: 2D array (discrete state probabilitiy at the transition_matrix_time_step = dt)
         1. transition matrix between different diffusion coefficients
         2. rows are the current diffusion coefficient
         3. columns are the next diffusion coefficient
-
-    * hurst_transition_matrix: 2D array (stocastic rate constant in seconds)
+        4. rows must sum to 1.0
+    * hurst_transition_matrix: 2D array (discrete state probabilitiy at the transition_matrix_time_step = dt)
         1. transition matrix between different hurst exponents
         2. rows are the current hurst exponent
         3. columns are the next hurst exponent
-
+        4. rows must sum to 1.0
     * state_probability_diffusion: 1D array (probability)
         1. probability of a track being in a certain diffusion coefficient state
         2. length is the number of unique diffusion coefficients
@@ -111,6 +114,7 @@
         3. must be the same length as initial_centers
     * density_dif: float
         1. density difference between the condensates and the rest of the cell
+
 * Output_Parameters: dict  
     * output_path: string
         1. path to save the output, directory
