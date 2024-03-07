@@ -18,7 +18,7 @@ def MCMC_state_selection(initial_state_index: int,
     initial_state_index : int
         Initial state index, this is the index of the initial state in the possible states
     transition_matrix : np.ndarray
-        Transition matrix, this is the stocastic rate constants with units 1/dt (time step which is the iteration step)
+        Transition matrix, this is the prbability at a time step. (time step is 1) 
     possible_states : np.ndarray
         possible states
     n : int
@@ -34,31 +34,18 @@ def MCMC_state_selection(initial_state_index: int,
     # initialize the current state
     current_state = possible_states[initial_state_index]
     current_state_index = initial_state_index
-    # find the total rate constant for each state (cache the total rate constant given a state so it does not have to be recalculated)
-    total_rate_constant = np.zeros(len(possible_states))
-    for i in range(len(possible_states)):
-        total_rate_constant[i] = np.sum(transition_matrix[i])
-    t = 0
-    while t < n:
-        # find the rate constant for transitioning from the current state
-        tot_rate_transition = total_rate_constant[current_state_index]
-        # if tot_rate_transition is 0 then the current state is the only state viable based on the transition matrix
-        if tot_rate_transition == 0:
-            state_selection[int(t):n] = current_state
-            break
-        # find the time to transition
-        tau = -np.log(np.random.rand())/tot_rate_transition
+    # iterate through the number of iterations
+    for i in range(n):
+        # find the probability of switching to each state
+        state_probability = transition_matrix[current_state_index]
         # find the next state
-        next_state_index = np.random.choice(len(
-            possible_states), p=transition_matrix[current_state_index]/tot_rate_transition)
+        next_state_index = np.random.choice(
+            np.arange(len(possible_states)), p=state_probability)
         next_state = possible_states[next_state_index]
-        # for the duration of the transition, the state is the previous state
-        state_selection[int(np.floor(t)):int(np.ceil(t+tau))] = current_state
         # update the current state
         current_state = next_state
         current_state_index = next_state_index
-        # update the time
-        t += int(np.ceil(tau))
+        state_selection[i] = current_state
     return state_selection
 
 
@@ -77,9 +64,9 @@ class FBM_BP:
         self.dt = dt  # ms
         self.diffusion_parameter = diffusion_parameters
         self.hurst_parameter = hurst_parameters
-        # stocastic rate constants with units 1/dt
+        # state probability of the diffusion parameter
         self.diffusion_parameter_transition_matrix = diffusion_parameter_transition_matrix
-        # stocastic rate constants with units 1/dt
+        # state probability of the hurst parameter
         self.hurst_parameter_transition_matrix = hurst_parameter_transition_matrix
         # probability of the initial state, this approximates the population distribution
         self.state_probability_diffusion = state_probability_diffusion
@@ -87,7 +74,7 @@ class FBM_BP:
         self.state_probability_hurst = state_probability_hurst
         # space lim (min, max) for the FBM
         self.space_lim = np.array(space_lim, dtype=float)
-        #initialize the autocovariance matrix and the diffusion parameter
+        # initialize the autocovariance matrix and the diffusion parameter
         self._setup()
 
     def _autocovariance(self, k, hurst):
@@ -111,7 +98,6 @@ class FBM_BP:
         '''
         return 0.5*(abs(k - 1) ** (2 * hurst) - 2 * abs(k) ** (2 * hurst) + abs(k + 1) ** (2 * hurst))
 
-
     def _setup(self) -> None:
         "setup to avoid recomputation of the autocovariance matrix and diffusion parameter"
         self._cov = np.zeros(self.n)
@@ -125,7 +111,7 @@ class FBM_BP:
                 self.diffusion_parameter, p=self.state_probability_diffusion)
             self._diff_a_n[0] = diff_a_start
             self._diff_a_n[1:] = MCMC_state_selection(np.where(self.diffusion_parameter == diff_a_start)[
-                                                     0][0], self.diffusion_parameter_transition_matrix, self.diffusion_parameter, self.n-1)
+                0][0], self.diffusion_parameter_transition_matrix, self.diffusion_parameter, self.n-1)
         if len(self.hurst_parameter) == 1:
             self._hurst_n = np.full(self.n, self.hurst_parameter[0])
         else:
@@ -133,10 +119,9 @@ class FBM_BP:
                 self.hurst_parameter, p=self.state_probability_hurst)
             self._hurst_n[0] = hurst_start
             self._hurst_n[1:] = MCMC_state_selection(np.where(self.hurst_parameter == hurst_start)[
-                                                    0][0], self.hurst_parameter_transition_matrix, self.hurst_parameter, self.n-1)
+                0][0], self.hurst_parameter_transition_matrix, self.hurst_parameter, self.n-1)
         for i in range(self.n):
             self._cov[i] = self._autocovariance(i, self._hurst_n[i])
-
 
     def fbm(self):
         fgn = np.zeros(self.n)
@@ -217,8 +202,7 @@ if __name__ == "__main__":
 
     # test the MCMC_state_selection function
     # initialize the transition matrix
-    transition_matrix = np.array([[5.7, 0.035],
-                                  [.25, 5.7]])
+    transition_matrix = np.array([[0.4, 0.6], [0.2, 0.8]])
     # initialize the possible states
     possible_states = np.array([1, 2])
     # initialize the number of iterations
@@ -243,7 +227,8 @@ if __name__ == "__main__":
     plt.title('State probability distribution')
     plt.legend()
     plt.show()
-
+    plt.plot(state_select)
+    plt.show()
     # find the probability of switching from state 1 to state 2 at each iteration
     state_1_to_2 = np.zeros(n) - 1
     for i in range(n-1):

@@ -1,5 +1,6 @@
 import json
 import numpy as np
+from scipy.linalg import fractional_matrix_power
 import os
 import random
 import SMS_BP.simulate_foci as sf
@@ -203,11 +204,28 @@ class Simulate_cells():
         self.psf_sigma_pix = self._update_units(
             self.init_dict["Global_Parameters"]["psf_sigma"], 'um', 'pix')
 
-        # convert the transition matrix from the stocastic rate constants in 1/s to 1/oversample_motion_time which is in ms
-        self.diffusion_transition_matrix = self.init_dict["Track_Parameters"][
-            "diffusion_transition_matrix"]*self.oversample_motion_time/1000.
-        self.hurst_transition_matrix = self.init_dict["Track_Parameters"][
-            "hurst_transition_matrix"]*self.oversample_motion_time/1000.
+        # convert the transition matrix from the time given to the oversample_motion_time
+        # store the transition_matrix_time_step
+        self.transition_matrix_time_step = self.init_dict["Track_Parameters"]["transition_matrix_time_step"]
+
+        # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
+        if len(self.init_dict["Track_Parameters"]["diffusion_coefficient"]) != len(self.init_dict["Track_Parameters"]["diffusion_transition_matrix"]):
+            raise ValueError(
+                "The length of the diffusion_coefficient and the diffusion_transition_matrix are not the same")
+        if len(self.init_dict["Track_Parameters"]["hurst_exponent"]) != len(self.init_dict["Track_Parameters"]["hurst_transition_matrix"]):
+            raise ValueError(
+                "The length of the hurst_exponent and the hurst_transition_matrix are not the same")
+        # compare to the oversample_motion_time and scale to the appropriate time step
+        if len(self.init_dict["Track_Parameters"]["diffusion_coefficient"]) != 1:
+            self.diffusion_transition_matrix = np.real(
+                fractional_matrix_power(self.init_dict["Track_Parameters"]["diffusion_transition_matrix"], self.oversample_motion_time/self.transition_matrix_time_step))
+        else:
+            self.diffusion_transition_matrix = self.init_dict["Track_Parameters"]["diffusion_transition_matrix"]
+        if len(self.init_dict["Track_Parameters"]["hurst_exponent"]) != 1:
+            self.hurst_transition_matrix = np.real(
+                fractional_matrix_power(self.init_dict["Track_Parameters"]["hurst_transition_matrix"], self.oversample_motion_time/self.transition_matrix_time_step))
+        else:
+            self.hurst_transition_matrix = self.init_dict["Track_Parameters"]["hurst_transition_matrix"]
         return
 
     def _convert_frame_to_time(self, frame: int, exposure_time: int, interval_time: int, oversample_motion_time: int) -> int:
