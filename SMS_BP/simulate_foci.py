@@ -301,7 +301,7 @@ def get_gaussian(mu, sigma, domain=[list(range(10)), list(range(10))]):
     return gauss
 
 
-def axial_intensity_factor(abs_axial_pos: float | np.ndarray, **kwargs) -> float | np.ndarray:
+def axial_intensity_factor(abs_axial_pos: float | np.ndarray, detection_range: float, **kwargs) -> float | np.ndarray:
     '''Docstring
     Calculate the factor for the axial intensity of the PSF given the absolute axial position from the 0 position of
     the focal plane. This is the factor that is multiplied by the intensity of the PSF
@@ -314,6 +314,8 @@ def axial_intensity_factor(abs_axial_pos: float | np.ndarray, **kwargs) -> float
     -----------
     abs_axial_pos : float|np.ndarray
         absolute axial position from the 0 position of the focal plane
+    detection_range : float
+        detection range of the function. This is the standard deviation of the gaussian function describing the axial intensity decay assuming a gaussian function.
     kwargs : dict
 
     Returns:
@@ -329,7 +331,7 @@ def axial_intensity_factor(abs_axial_pos: float | np.ndarray, **kwargs) -> float
             return 1
     elif func_type == "exponential":
         # for now this uses a negative exponential decay
-        return np.exp(-abs_axial_pos**2 / (2*2.2**2))
+        return np.exp(-abs_axial_pos**2 / (2*detection_range**2))
 
 
 def generate_map_from_points(points: np.ndarray, point_intensity: float | np.ndarray, map: np.ndarray | None, movie: bool, base_noise: float, psf_sigma: float) -> np.ndarray:
@@ -459,14 +461,14 @@ class Track_generator:
             rel_space_lim[i] = self.space_lim[i] - initials[i]
 
         fbm = fbm_BP.FBM_BP(n=track_length,
-                              dt=1,
-                              hurst_parameters=[hurst_exponent],
-                              diffusion_parameters=[diffusion_coefficient],
-                              diffusion_parameter_transition_matrix=[1],
-                              hurst_parameter_transition_matrix=[1],
-                              state_probability_diffusion=[1],
-                              state_probability_hurst=[1],
-                              space_lim=rel_space_lim[0])
+                            dt=1,
+                            hurst_parameters=[hurst_exponent],
+                            diffusion_parameters=[diffusion_coefficient],
+                            diffusion_parameter_transition_matrix=[1],
+                            hurst_parameter_transition_matrix=[1],
+                            state_probability_diffusion=[1],
+                            state_probability_hurst=[1],
+                            space_lim=rel_space_lim[0])
         x = fbm.fbm()
         # repeat for y,z
         y = fbm.fbm()
@@ -533,14 +535,14 @@ class Track_generator:
             rel_space_lim[i] = self.space_lim[i] - initials[i]
         # initialize the fbm class
         fbm = fbm_BP.FBM_BP(n=track_length,
-                              dt=1,
-                              hurst_parameters=hurst_parameters,
-                              diffusion_parameters=diffusion_parameters,
-                              diffusion_parameter_transition_matrix=diffusion_transition_matrix,
-                              hurst_parameter_transition_matrix=hurst_transition_matrix,
-                              state_probability_diffusion=diffusion_state_probability,
-                              state_probability_hurst=hurst_state_probability,
-                              space_lim=rel_space_lim[0])
+                            dt=1,
+                            hurst_parameters=hurst_parameters,
+                            diffusion_parameters=diffusion_parameters,
+                            diffusion_parameter_transition_matrix=diffusion_transition_matrix,
+                            hurst_parameter_transition_matrix=hurst_transition_matrix,
+                            state_probability_diffusion=diffusion_state_probability,
+                            state_probability_hurst=hurst_state_probability,
+                            space_lim=rel_space_lim[0])
         x = fbm.fbm()
         # repeat for y,z
         y = fbm.fbm()
