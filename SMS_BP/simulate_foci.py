@@ -471,7 +471,9 @@ class Track_generator:
                             space_lim=rel_space_lim[0])
         x = fbm.fbm()
         # repeat for y,z
+        fbm.space_lim = rel_space_lim[1]
         y = fbm.fbm()
+        fbm.space_lim = rel_space_lim[2]
         z = fbm.fbm()
         # convert to format [[x1,y1,z1],[x2,y2,z2],...]
         xyz = np.stack((x, y, z), axis=-1)
@@ -545,7 +547,9 @@ class Track_generator:
                             space_lim=rel_space_lim[0])
         x = fbm.fbm()
         # repeat for y,z
+        fbm.space_lim = rel_space_lim[1]
         y = fbm.fbm()
+        fbm.space_lim = rel_space_lim[2]
         z = fbm.fbm()
         # convert to format [[x1,y1,z1],[x2,y2,z2],...]
         xyz = np.stack((x, y, z), axis=-1)
