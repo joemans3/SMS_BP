@@ -4,5 +4,5 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10.13
-  - setuptools=68.2.2
-  - setuptools-scm=8.0.4
+  - setuptools
+  - setuptools-scm
