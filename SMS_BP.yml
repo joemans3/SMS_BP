@@ -1,4 +1,4 @@
-name: SMS_BP_t
+name: SMS_BP
 channels:
   - defaults
   - conda-forge
