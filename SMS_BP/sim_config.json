@@ -11,9 +11,9 @@
         "number_of_cells":1
     },
     "Track_Parameters":{
-        "num_tracks":1,
+        "num_tracks":1000,
         "track_type":"fbm",
-        "track_length_mean":450,
+        "track_length_mean":2,
         "track_distribution":"constant",
         "diffusion_coefficient":[0.004,1],
         "diffusion_track_amount":[
@@ -44,7 +44,7 @@
         "axial_function":"ones"
     },
     "Condensate_Parameters":{
-        "initial_centers":[[40,30],[40,40]],
+        "initial_centers":[[40,30,0],[40,40,0]],
         "initial_scale": [2,2],
         "diffusion_coefficient": [1,1],
         "hurst_exponent": [0.2,0.2], 

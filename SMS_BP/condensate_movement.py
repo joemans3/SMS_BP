@@ -1,11 +1,13 @@
 '''
-Contains class for storing condensate data.
+Contains class for storing condensate data. Condensates are defined as spherical always; defined by a 
+center (x,y,z), radius (r), and time (t). The complete description of the condensate at any time (t) is:
+(x,y,z,r,t).
 
 Usage:
 ------
     Initialize the class as follows:
         condensate = Condensate(**{
-            "inital_position":np.array([0, 0]),
+            "inital_position":np.array([0, 0, 0]),
             "initial_time":0,
             "diffusion_coefficient":0,
             "hurst_exponent":0,
@@ -30,10 +32,10 @@ class Condensate:
 
     Parameters:
     -----------
-    inital_position: np.ndarray = np.array([0, 0])
+    inital_position: np.ndarray = np.array([0, 0, 0])
         Initial position of the condensate.
     initial_time: float = 0
-        Initial time of the condensate.
+        Initial time of the condensates.
     diffusion_coefficient: float = 0
         Diffusion coefficient of the condensate.
     hurst_exponent: float = 0
@@ -49,7 +51,7 @@ class Condensate:
         ID of the condensate.
     initial_scale: float = 0
         Initial scale of the condensate.
-    cell_space: np.ndarray = np.array([[0,0],[0,0]])
+    cell_space: np.ndarray = np.array([[0,0],[0,0],[0,0]])
         Space of the cell.
     cell_axial_range: float|int = 0
         Axial range of the cell.
@@ -58,7 +60,7 @@ class Condensate:
 
     def __init__(
             self,
-            inital_position: np.ndarray = np.array([0, 0]),
+            inital_position: np.ndarray = np.array([0, 0, 0]),
             initial_time: int = 0,
             diffusion_coefficient: float = 0,  # same units as position and time
             hurst_exponent: float = 0,  # 0<hurst_exponent<1
@@ -66,7 +68,8 @@ class Condensate:
             units_position: str = 'um',
             condensate_id: int = 0,
             initial_scale: float = 0,
-            cell_space: np.ndarray = np.array([[0, 0], [0, 0]]),
+            # min/max (eg: [[min_x, max_x], ... ]
+            cell_space: np.ndarray = np.array([[0, 0], [0, 0], [0, 0]]), # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
             cell_axial_range: float | int = 0
     ):
         self.initial_position = inital_position
@@ -230,13 +233,13 @@ class Condensate:
             initials=self.condensate_positions[-1],
             start_time=self.times[-1]
         )
-        track_xy = track["xy"][:]
-        # take only the x and y coordinates (first two columns)
-        track_xy = track_xy[:, :2]
+        track_xyz = track["xy"][:]
+        # take all the x,y,z
+        track_xyz = track_xyz[:, :]
         # get the scale for the time array and positions
-        scales = self.calculate_scale(time_array, track_xy)
+        scales = self.calculate_scale(time_array, track_xyz)
         # add the positions to the condensate_positions
-        self.add_positions(time_array, track_xy, scales)
+        self.add_positions(time_array, track_xyz, scales)
 
     def calculate_scale(self, time: np.ndarray, position: np.ndarray) -> np.ndarray:
         '''Calculates the scale of the condensate at a given time.
