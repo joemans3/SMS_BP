@@ -161,19 +161,19 @@ def generate_points(pdf, total_points, min_x, max_x, center, radius, bias_subspa
     return np.array(xy_coords)
 
 
-def generate_points_from_cls(pdf, total_points, min_x, max_x, min_y, max_y, density_dif):
-    xy_coords = []
-    area = (max_x-min_x)*(max_y-min_y)
-    while len(xy_coords) < total_points:
+def generate_points_from_cls(pdf, total_points, min_x, max_x, min_y, max_y, min_z, max_z, density_dif):
+    xyz_coords = []
+    area = (max_x-min_x)*(max_y-min_y) *(max_z - min_z)
+    while len(xyz_coords) < total_points:
         # generate candidate variable
-        var = np.random.uniform([min_x, min_y], [max_x, max_y])
+        var = np.random.uniform([min_x, min_y, min_z], [max_x, max_y, max_z])
         # generate varibale to condition var1
         var2 = np.random.uniform(0, 1)
         # apply condition
         pdf_val = pdf(var)
         if (var2 < ((1./density_dif)*area) * pdf_val):
-            xy_coords.append(var)
-    return np.array(xy_coords)
+            xyz_coords.append(var)
+    return np.array(xyz_coords)
 
 
 def generate_radial_points(total_points, center, radius):
