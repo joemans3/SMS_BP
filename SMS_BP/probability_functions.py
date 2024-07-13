@@ -75,7 +75,7 @@ class multiple_top_hat_probability:
                                             num_subspace: int,
                                             subspace_radius: np.ndarray):
         total_area = np.prod(space_size)
-        total_subspace_area = np.sum(np.pi*subspace_radius**2)
+        total_subspace_area = np.sum((4./3.)*np.pi*subspace_radius**3)
         gamma_dif = (total_area - density_dif*total_subspace_area) / \
             (total_area - total_subspace_area)
 
@@ -165,21 +165,23 @@ class multiple_top_hat_probability:
 def test_multiple_top_hat_probability():
     # Define test parameters
     num_subspace = 2
-    subspace_centers = np.array([[0, 0], [2, 2]])
+    subspace_centers = np.array([[0, 0, 0], [2, 2, 0]])
     subspace_radius = np.array([1, 1])
     density_dif = 0.1
-    space_size = np.array([5, 5])
+    space_size = np.array([6, 6, 4])
 
     # Initialize probability function object
     prob_func = multiple_top_hat_probability(
         num_subspace, subspace_centers, subspace_radius, density_dif, space_size)
 
-    # Test probability function for points inside and outside subspaces
+    # Test probability function for points inside and outside subspaces, if fail print the position and the probability
     assert np.isclose(
-        prob_func(np.array([0.5, 0.5])), density_dif / np.prod(space_size))
+        prob_func(np.array([0.5, 0.5, 0])), density_dif / np.prod(space_size))
+    print(np.array([0.5, 0.5, 2]), prob_func(np.array([0.5, 0.5, 0])))
     assert np.isclose(
-        prob_func(np.array([2.5, 2.5])), density_dif / np.prod(space_size))
+        prob_func(np.array([2.5, 2.5, 0])), density_dif / np.prod(space_size))
     assert np.isclose(
-        prob_func(np.array([1.5, 1.5])), density_dif / np.prod(space_size))
+        prob_func(np.array([1.5, 1.5, 0])), density_dif / np.prod(space_size))
     assert np.isclose(
-        prob_func(np.array([3.5, 3.5])), (prob_func.non_subspace_probability))
+        prob_func(np.array([3.5, 3.5, 0])), (prob_func.non_subspace_probability))
+    print(np.array([3.5, 3.5, 0]), prob_func(np.array([3.5, 3.5, 0])))

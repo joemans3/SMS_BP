@@ -418,10 +418,13 @@ class Simulate_cells():
         # for each track_lengths find the starting frame
         starting_frames = np.array(
             [random.randint(0, self.total_time-i) for i in track_lengths])
-        # initialize the Condensates.
+        
+
+        # initialize the Condensates. Assuming box shaped.
         # find area assuming cell_space is [[min_x,max_x],[min_y,max_y]]
-        area_cell = np.abs(np.diff(self.init_dict["Cell_Parameters"]['cell_space'][0]))*np.abs(
-            np.diff(self.init_dict["Cell_Parameters"]['cell_space'][1]))
+        vol_cell = np.abs(np.diff(self.init_dict["Cell_Parameters"]['cell_space'][0]))*np.abs(
+            np.diff(self.init_dict["Cell_Parameters"]['cell_space'][1]))*self.init_dict["Cell_Parameters"]['cell_axial_radius']
+
         self.condensates = sf.create_condensate_dict(
             initial_centers=self.init_dict["Condensate_Parameters"]["initial_centers"],
             initial_scale=self.init_dict["Condensate_Parameters"]["initial_scale"],
@@ -439,7 +442,7 @@ class Simulate_cells():
             subspace_centers=self.init_dict["Condensate_Parameters"]["initial_centers"],
             subspace_radius=self.init_dict["Condensate_Parameters"]["initial_scale"],
             density_dif=self.init_dict["Condensate_Parameters"]["density_dif"],
-            space_size=np.array(area_cell)
+            space_size=np.array(vol_cell)
         )
         # make a placeholder for the initial position array with all 0s
         initials = np.zeros(
@@ -449,7 +452,7 @@ class Simulate_cells():
             # get the starting time from the frame, oversample_motion_time, and interval_time
             starting_frame = starting_frames[i]
             # condensate positions
-            condensate_positions = np.zeros((len(self.condensates), 2))
+            condensate_positions = np.zeros((len(self.condensates), 3))
             # loop through the condensates
             for ID, cond in self.condensates.items():
                 condensate_positions[int(ID)] = cond(int(starting_frame), str(
@@ -458,13 +461,15 @@ class Simulate_cells():
             top_hat_func.update_parameters(
                 subspace_centers=condensate_positions)
             # sample the top hat to get the initial position
-            initials[i][:2] = sf.generate_points_from_cls(
+            initials[i] = sf.generate_points_from_cls(
                 top_hat_func,
                 total_points=1,
                 min_x=self.init_dict["Cell_Parameters"]['cell_space'][0][0],
                 max_x=self.init_dict["Cell_Parameters"]['cell_space'][0][1],
                 min_y=self.init_dict["Cell_Parameters"]['cell_space'][1][0],
                 max_y=self.init_dict["Cell_Parameters"]['cell_space'][1][1],
+                min_z=-self.init_dict["Cell_Parameters"]['cell_axial_radius'],
+                max_z=self.init_dict["Cell_Parameters"]['cell_axial_radius'],
                 density_dif=self.init_dict["Condensate_Parameters"]["density_dif"])[0]
         # check to see if there is 2 or 3 values in the second dimension of initials
         if initials.shape[1] == 2:
