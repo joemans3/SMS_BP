@@ -98,7 +98,7 @@
 * Condenstate_Parameters: dict  
     * initial_centers: 2D array (units of space_unit)
         1. initial centers of the condensates
-        2. [x,y] coordinates per row
+        2. [x,y,z] coordinates per row
         3. number of rows is the number of condensates
     * initial_scale: 1D (units of space_unit)
         1. initial radius of the condensates
