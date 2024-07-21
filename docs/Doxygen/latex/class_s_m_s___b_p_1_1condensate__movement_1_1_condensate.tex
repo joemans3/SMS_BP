@@ -1,0 +1,366 @@
+\doxysection{SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate Class Reference}
+\hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate}{}\label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a7eb6dd2635e9b98e5821f5c22a79de55}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, np.\+ndarray inital\+\_\+position=np.\+array(\mbox{[}0, 0, 0\mbox{]}), int \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ad1865bdd5afc47e2e0868d3f2ddabdfe}{initial\+\_\+time}}=0, float \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a0bd7d9996ff9c42dbebeb146d4f305d4}{diffusion\+\_\+coefficient}}=0, float \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a6707da38b402fa8696ada466e0d50aae}{hurst\+\_\+exponent}}=0, str \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9633a5005593c6b56761490332e2e038}{units\+\_\+time}}=\textquotesingle{}ms\textquotesingle{}, str \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a18c480fbfa1baaf1cfccd0b89dad5225}{units\+\_\+position}}=\textquotesingle{}um\textquotesingle{}, int \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a09b01b4a1ec1546ef36700476b9724f8}{condensate\+\_\+id}}=0, float \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9e786597d092344a4a08f36d2008e41f}{initial\+\_\+scale}}=0, np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab2cb76176a0f64030e666b4b5cdc1f58}{cell\+\_\+space}}=np.\+array(\mbox{[}\mbox{[}0, 0\mbox{]}, \mbox{[}0, 0\mbox{]}, \mbox{[}0, 0\mbox{]}\mbox{]}), float\texorpdfstring{$\vert$}{|}int \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3abb51693e0aaebda3267f3f007d8fb2}{cell\+\_\+axial\+\_\+range}}=0)
+\item 
+np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a8852ea9a2d84dbae526016905bff1b3b}{times}} (self)
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a98b37529535546ffb9148d87725a4d82}{times}} (self, value)
+\item 
+np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aaae9f69f98751322a250538b71df93aa}{condensate\+\_\+positions}} (self)
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_af81bfec727f6250d622d47b5d6ab951f}{condensate\+\_\+positions}} (self, value)
+\item 
+np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aee011f3e5fa5926c211835665b469fb1}{scale}} (self)
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9fb102a2036ea23c2b20ecf54929c8d1}{scale}} (self, value)
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab6eed8aafe1889a2b98af2849ca1c54c}{add\+\_\+positions}} (self, np.\+ndarray time, np.\+ndarray position, np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab00fee6a6fda15bed5d6a3264f27bb63}{scale}})
+\item 
+list \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3ec6c2f62637a11280355cdb5a7ce0fc}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, int time, str time\+\_\+unit)
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1e47eb917d68235cbe79cb7f82201e82}{generate\+\_\+condensate\+\_\+positions}} (self, int time)
+\item 
+np.\+ndarray \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abdcd5593cdfa4a430fd4b51849d4dc6f}{calculate\+\_\+scale}} (self, np.\+ndarray time, np.\+ndarray position)
+\item 
+plt.\+Axes \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a968f219813e8f2110533bf50f99c2c84}{plot\+\_\+condensate}} (self, plt.\+Axes ax, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_afd59f5638b4b57906451ab802f12eeb4}{initial\+\_\+position}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ad1865bdd5afc47e2e0868d3f2ddabdfe}{initial\+\_\+time}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a0bd7d9996ff9c42dbebeb146d4f305d4}{diffusion\+\_\+coefficient}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a6707da38b402fa8696ada466e0d50aae}{hurst\+\_\+exponent}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9633a5005593c6b56761490332e2e038}{units\+\_\+time}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a18c480fbfa1baaf1cfccd0b89dad5225}{units\+\_\+position}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a09b01b4a1ec1546ef36700476b9724f8}{condensate\+\_\+id}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9e786597d092344a4a08f36d2008e41f}{initial\+\_\+scale}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a74eb57d33c86dd9f4dc23a0b68531857}{dim}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab2cb76176a0f64030e666b4b5cdc1f58}{cell\+\_\+space}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3abb51693e0aaebda3267f3f007d8fb2}{cell\+\_\+axial\+\_\+range}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a50159e217a07b1c002c51eed80b56337}{times}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1c5176d23de597cd1a75f865b2d04916}{condensate\+\_\+positions}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab00fee6a6fda15bed5d6a3264f27bb63}{scale}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9f9914a99920685e5834cae237029e4f}{\+\_\+generate\+\_\+condensate\+\_\+positions}} (self, int time)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a967cb90f5833ab78ebc10902b75e42dc}{\+\_\+times}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aab67098f30f34330a4011c4fb9bf9f63}{\+\_\+condensate\+\_\+positions}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abb37f6dd57214b9beb601c68a7e0bf83}{\+\_\+scale}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb} Condensate class for storing condensate data.
+
+Parameters:
+-----------
+inital_position: np.ndarray = np.array([0, 0, 0])
+    Initial position of the condensate.
+initial_time: float = 0
+    Initial time of the condensates.
+diffusion_coefficient: float = 0
+    Diffusion coefficient of the condensate.
+hurst_exponent: float = 0
+    Hurst exponent of the condensate.
+units_time: str = 's'
+    Units of time. Units work as follows: in the class reference frame, start from 0 and iterate by 1 each time.
+    For a units_time of "ms", 1 represents 1ms.
+    For a units_time of "s", 1 represents 1s.
+    For a units_time of "20ms", 1 represents 20ms.
+units_position: str = 'um'
+    Units of position.
+condensate_id: int = 0
+    ID of the condensate.
+initial_scale: float = 0
+    Initial scale of the condensate.
+cell_space: np.ndarray = np.array([[0,0],[0,0],[0,0]])
+    Space of the cell.
+cell_axial_range: float|int = 0
+    Axial range of the cell.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a7eb6dd2635e9b98e5821f5c22a79de55}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a7eb6dd2635e9b98e5821f5c22a79de55} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray }]{inital\+\_\+position}{ = {\ttfamily np.array(\mbox{[}0,~0,~0\mbox{]})}, }\item[{int }]{initial\+\_\+time}{ = {\ttfamily 0}, }\item[{float }]{diffusion\+\_\+coefficient}{ = {\ttfamily 0}, }\item[{float }]{hurst\+\_\+exponent}{ = {\ttfamily 0}, }\item[{str }]{units\+\_\+time}{ = {\ttfamily \textquotesingle{}ms\textquotesingle{}}, }\item[{str }]{units\+\_\+position}{ = {\ttfamily \textquotesingle{}um\textquotesingle{}}, }\item[{int }]{condensate\+\_\+id}{ = {\ttfamily 0}, }\item[{float }]{initial\+\_\+scale}{ = {\ttfamily 0}, }\item[{np.\+ndarray }]{cell\+\_\+space}{ = {\ttfamily np.array(\mbox{[}\mbox{[}0,~0\mbox{]},~\mbox{[}0,~0\mbox{]},~\mbox{[}0,~0\mbox{]}\mbox{]})}, }\item[{float \texorpdfstring{$\vert$}{|} int }]{cell\+\_\+axial\+\_\+range}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3ec6c2f62637a11280355cdb5a7ce0fc}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3ec6c2f62637a11280355cdb5a7ce0fc} 
+ list SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{time}{, }\item[{str}]{time\+\_\+unit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Returns the position and scale of the condensate at a given time.
+
+Parameters:
+-----------
+time: float
+    Time at which to return the position of the condensate. User needs to convert to the reference frame of the condensate class.
+time_unit: str
+    Units of time.
+    Just to make sure the user is aware of the conversion they need to do to get into the reference frame of the condensate class.
+
+Returns:
+--------
+Dict of the position and scale of the condensate at the given time.
+    Keys:
+        Position: np.ndarray
+            Position of the condensate at the given time.
+        Scale: float
+            Scale of the condensate at the given time.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9f9914a99920685e5834cae237029e4f}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_generate\_condensate\_positions@{\_generate\_condensate\_positions}}
+\index{\_generate\_condensate\_positions@{\_generate\_condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_generate\_condensate\_positions()}{\_generate\_condensate\_positions()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9f9914a99920685e5834cae237029e4f} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+generate\+\_\+condensate\+\_\+positions (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb} Generates the condensate positions up to a given time.
+
+Parameters:
+-----------
+time: int
+    Time up to which to generate the condensate positions.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab6eed8aafe1889a2b98af2849ca1c54c}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!add\_positions@{add\_positions}}
+\index{add\_positions@{add\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{add\_positions()}{add\_positions()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab6eed8aafe1889a2b98af2849ca1c54c} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+add\+\_\+positions (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{time}{, }\item[{np.\+ndarray}]{position}{, }\item[{np.\+ndarray}]{scale}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Adds positions to the condensate.
+
+Parameters:
+-----------
+time: np.ndarray
+    Times at which to add positions.
+position: np.ndarray
+    Positions to add to the condensate.
+scale: np.ndarray
+    Scale to add to the condensate.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abdcd5593cdfa4a430fd4b51849d4dc6f}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!calculate\_scale@{calculate\_scale}}
+\index{calculate\_scale@{calculate\_scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{calculate\_scale()}{calculate\_scale()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abdcd5593cdfa4a430fd4b51849d4dc6f} 
+ np.\+ndarray SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+calculate\+\_\+scale (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{time}{, }\item[{np.\+ndarray}]{position}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calculates the scale of the condensate at a given time.
+
+Parameters:
+-----------
+time: np.ndarray
+    Times at which to calculate the scale.
+position: np.ndarray
+    Positions at which to calculate the scale.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aaae9f69f98751322a250538b71df93aa}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!condensate\_positions@{condensate\_positions}}
+\index{condensate\_positions@{condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{condensate\_positions()}{condensate\_positions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aaae9f69f98751322a250538b71df93aa} 
+ np.\+ndarray SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+condensate\+\_\+positions (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Returns the positions of the condensate.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_af81bfec727f6250d622d47b5d6ab951f}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!condensate\_positions@{condensate\_positions}}
+\index{condensate\_positions@{condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{condensate\_positions()}{condensate\_positions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_af81bfec727f6250d622d47b5d6ab951f} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+condensate\+\_\+positions (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1e47eb917d68235cbe79cb7f82201e82}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!generate\_condensate\_positions@{generate\_condensate\_positions}}
+\index{generate\_condensate\_positions@{generate\_condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{generate\_condensate\_positions()}{generate\_condensate\_positions()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1e47eb917d68235cbe79cb7f82201e82} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+generate\+\_\+condensate\+\_\+positions (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{time}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Generates the condensate positions up to a given time.
+
+Parameters:
+-----------
+time: int
+    Time up to which to generate the condensate positions.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a968f219813e8f2110533bf50f99c2c84}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!plot\_condensate@{plot\_condensate}}
+\index{plot\_condensate@{plot\_condensate}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{plot\_condensate()}{plot\_condensate()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a968f219813e8f2110533bf50f99c2c84} 
+ plt.\+Axes SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+plot\+\_\+condensate (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{plt.\+Axes}]{ax}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plots the condensate
+
+Parameters:
+-----------
+ax: plt.Axes
+    Axes to plot the condensate on.
+**kwargs:
+    Keyword arguments to pass to the plot function.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aee011f3e5fa5926c211835665b469fb1}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!scale@{scale}}
+\index{scale@{scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aee011f3e5fa5926c211835665b469fb1} 
+ np.\+ndarray SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+scale (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Returns the scale of the condensate.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9fb102a2036ea23c2b20ecf54929c8d1}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!scale@{scale}}
+\index{scale@{scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9fb102a2036ea23c2b20ecf54929c8d1} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+scale (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{value}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a8852ea9a2d84dbae526016905bff1b3b}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!times@{times}}
+\index{times@{times}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{times()}{times()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a8852ea9a2d84dbae526016905bff1b3b} 
+ np.\+ndarray SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+times (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Returns the times of the condensate.
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a98b37529535546ffb9148d87725a4d82}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!times@{times}}
+\index{times@{times}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{times()}{times()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a98b37529535546ffb9148d87725a4d82} 
+ None SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+times (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{value}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aab67098f30f34330a4011c4fb9bf9f63}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_condensate\_positions@{\_condensate\_positions}}
+\index{\_condensate\_positions@{\_condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_condensate\_positions}{\_condensate\_positions}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_aab67098f30f34330a4011c4fb9bf9f63} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+condensate\+\_\+positions\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abb37f6dd57214b9beb601c68a7e0bf83}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_scale@{\_scale}}
+\index{\_scale@{\_scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_scale}{\_scale}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_abb37f6dd57214b9beb601c68a7e0bf83} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+scale\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a967cb90f5833ab78ebc10902b75e42dc}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!\_times@{\_times}}
+\index{\_times@{\_times}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{\_times}{\_times}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a967cb90f5833ab78ebc10902b75e42dc} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+\_\+times\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3abb51693e0aaebda3267f3f007d8fb2}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!cell\_axial\_range@{cell\_axial\_range}}
+\index{cell\_axial\_range@{cell\_axial\_range}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{cell\_axial\_range}{cell\_axial\_range}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a3abb51693e0aaebda3267f3f007d8fb2} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+cell\+\_\+axial\+\_\+range}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab2cb76176a0f64030e666b4b5cdc1f58}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!cell\_space@{cell\_space}}
+\index{cell\_space@{cell\_space}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{cell\_space}{cell\_space}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab2cb76176a0f64030e666b4b5cdc1f58} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+cell\+\_\+space}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a09b01b4a1ec1546ef36700476b9724f8}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!condensate\_id@{condensate\_id}}
+\index{condensate\_id@{condensate\_id}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{condensate\_id}{condensate\_id}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a09b01b4a1ec1546ef36700476b9724f8} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+condensate\+\_\+id}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1c5176d23de597cd1a75f865b2d04916}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!condensate\_positions@{condensate\_positions}}
+\index{condensate\_positions@{condensate\_positions}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{condensate\_positions}{condensate\_positions}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a1c5176d23de597cd1a75f865b2d04916} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+condensate\+\_\+positions}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a0bd7d9996ff9c42dbebeb146d4f305d4}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!diffusion\_coefficient@{diffusion\_coefficient}}
+\index{diffusion\_coefficient@{diffusion\_coefficient}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{diffusion\_coefficient}{diffusion\_coefficient}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a0bd7d9996ff9c42dbebeb146d4f305d4} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+diffusion\+\_\+coefficient}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a74eb57d33c86dd9f4dc23a0b68531857}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!dim@{dim}}
+\index{dim@{dim}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{dim}{dim}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a74eb57d33c86dd9f4dc23a0b68531857} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+dim}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a6707da38b402fa8696ada466e0d50aae}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!hurst\_exponent@{hurst\_exponent}}
+\index{hurst\_exponent@{hurst\_exponent}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{hurst\_exponent}{hurst\_exponent}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a6707da38b402fa8696ada466e0d50aae} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+hurst\+\_\+exponent}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_afd59f5638b4b57906451ab802f12eeb4}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!initial\_position@{initial\_position}}
+\index{initial\_position@{initial\_position}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{initial\_position}{initial\_position}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_afd59f5638b4b57906451ab802f12eeb4} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+initial\+\_\+position}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9e786597d092344a4a08f36d2008e41f}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!initial\_scale@{initial\_scale}}
+\index{initial\_scale@{initial\_scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{initial\_scale}{initial\_scale}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9e786597d092344a4a08f36d2008e41f} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+initial\+\_\+scale}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ad1865bdd5afc47e2e0868d3f2ddabdfe}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!initial\_time@{initial\_time}}
+\index{initial\_time@{initial\_time}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{initial\_time}{initial\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ad1865bdd5afc47e2e0868d3f2ddabdfe} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+initial\+\_\+time}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab00fee6a6fda15bed5d6a3264f27bb63}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!scale@{scale}}
+\index{scale@{scale}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{scale}{scale}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_ab00fee6a6fda15bed5d6a3264f27bb63} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+scale}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a50159e217a07b1c002c51eed80b56337}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!times@{times}}
+\index{times@{times}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{times}{times}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a50159e217a07b1c002c51eed80b56337} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+times}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a18c480fbfa1baaf1cfccd0b89dad5225}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!units\_position@{units\_position}}
+\index{units\_position@{units\_position}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{units\_position}{units\_position}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a18c480fbfa1baaf1cfccd0b89dad5225} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+units\+\_\+position}
+
+\Hypertarget{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9633a5005593c6b56761490332e2e038}\index{SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}!units\_time@{units\_time}}
+\index{units\_time@{units\_time}!SMS\_BP.condensate\_movement.Condensate@{SMS\_BP.condensate\_movement.Condensate}}
+\doxysubsubsection{\texorpdfstring{units\_time}{units\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate_a9633a5005593c6b56761490332e2e038} 
+SMS\+\_\+\+BP.\+condensate\+\_\+movement.\+Condensate.\+units\+\_\+time}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{condensate__movement_8py}{condensate\+\_\+movement.\+py}}\end{DoxyCompactItemize}

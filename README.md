@@ -29,3 +29,8 @@ Okay now we can run the simulation with the predefined variables. For your under
     - In the background all this is doing is running: **from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()**. This is the entry point.
     - Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the SMS_BP/sim_config.md for details into the config file parameters.
 8. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
+
+## 2. Viewing Detailed Source Code Documentation
+------------------------------------------------
+1. Source code documentation is provided in the code. If you don't want to read over it a detailed (auto-generated) version html/latex version is provided through [Doxygen](https://www.doxygen.nl/index.html).
+2. The html version is located in **[path]/SMS_BP/docs/Doxygen/html**. To view the doc in your default browser use the (macOS) command `open docs/Doxygen/html/./include.html` assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.
