@@ -1,0 +1,61 @@
+\doxysection{SMS\+\_\+\+BP.\+fbm\+\_\+utility Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1fbm__utility}{}\label{namespace_s_m_s___b_p_1_1fbm__utility}\index{SMS\_BP.fbm\_utility@{SMS\_BP.fbm\_utility}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm__utility_a62010e8ffb836f6975d8fb1fad880f41}{get\+\_\+fbm\+\_\+sample}} (l=1, h=0.\+5, d=1, n=1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This module contains functions for generating fractional brownian motion samples and computing the mean squared displacement
+
+Functions:
+----------
+get_fbm_sample(l=1,h=0.5,d=1,n=1)
+    Generates a sample of fractional brownian motion
+compute_msd_np(xy, t, t_step)
+    Computes the mean squared displacement for a given sample
+
+Author: Baljyot Singh Parmar\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm__utility_a62010e8ffb836f6975d8fb1fad880f41}\index{SMS\_BP.fbm\_utility@{SMS\_BP.fbm\_utility}!get\_fbm\_sample@{get\_fbm\_sample}}
+\index{get\_fbm\_sample@{get\_fbm\_sample}!SMS\_BP.fbm\_utility@{SMS\_BP.fbm\_utility}}
+\doxysubsubsection{\texorpdfstring{get\_fbm\_sample()}{get\_fbm\_sample()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm__utility_a62010e8ffb836f6975d8fb1fad880f41} 
+SMS\+\_\+\+BP.\+fbm\+\_\+utility.\+get\+\_\+fbm\+\_\+sample (\begin{DoxyParamCaption}\item[{}]{l}{ = {\ttfamily 1}, }\item[{}]{h}{ = {\ttfamily 0.5}, }\item[{}]{d}{ = {\ttfamily 1}, }\item[{}]{n}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generates a sample of fractional brownian motion
+Theory: https://en.wikipedia.org/wiki/Fractional_Brownian_motion
+Implementation is using the fbm package: https://pypi.org/project/fbm/
+Default values are for testing purposes only
+
+
+Parameters:
+-----------
+l : float,int
+    end time (from 0)
+h : float,int  (0 < h < 1)
+    hurst parameter, must be between 0 and 1
+d : int 
+    dimensions (x,y,z .... ) for one realization, must be greater than 0
+n : int
+    even intervals from 0,l, must be greater than 0
+
+Returns:
+--------
+list of lists of numpy arrays, where the first list is the time values for each sample, and the second list is the samples themselves
+
+Raises:
+-------
+TypeError
+    If any of the parameters are not of the correct type
+ValueError
+    If any of the parameters are not of the correct value
+
+Notes:
+------
+1. The number of samples is equal to the number of dimensions\end{DoxyVerb}
+ 

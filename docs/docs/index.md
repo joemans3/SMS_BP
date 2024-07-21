@@ -1,10 +1,9 @@
 ---
 # Single Molecule Simulations - BP (SMS_BP)
-## Author:
-- 
+## Author and affiliation:
   Baljyot Singh Parmar
   `baljyot.parmar@mail.mcgill.ca`
-- Affiliation at the time of writing: McGill University, Canada. Weber Lab
+ Affiliation at the time of writing: McGill University, Canada. Weber Lab
 ### Date last modified: 2024-07-21
 
 
@@ -30,4 +29,9 @@ Okay now we can run the simulation with the predefined variables. For your under
     - In the background all this is doing is running: **from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()**. This is the entry point.
     - Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the SMS_BP/sim_config.md for details into the config file parameters.
 8. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
+
+
+## 2. Source Code Docs
+Find the detailed docs in [docs](./Doxygen/html/index.html)
+
 ---
