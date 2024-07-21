@@ -1,0 +1,57 @@
+\doxysection{SMS\+\_\+\+BP.\+boundary\+\_\+conditions Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1boundary__conditions}{}\label{namespace_s_m_s___b_p_1_1boundary__conditions}\index{SMS\_BP.boundary\_conditions@{SMS\_BP.boundary\_conditions}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1boundary__conditions_abab518a04dbba29ce2347f9f51b02ae2}{\+\_\+refecting\+\_\+boundary}} (float fbm\+\_\+store\+\_\+last, float fbm\+\_\+candidate, np.\+ndarray space\+\_\+lim)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1boundary__conditions_acb4ee2c405a7726985d5d89f77ba52b5}{\+\_\+absorbing\+\_\+boundary}} (float fbm\+\_\+store\+\_\+last, float fbm\+\_\+candidate, np.\+ndarray space\+\_\+lim)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1boundary__conditions_acb4ee2c405a7726985d5d89f77ba52b5}\index{SMS\_BP.boundary\_conditions@{SMS\_BP.boundary\_conditions}!\_absorbing\_boundary@{\_absorbing\_boundary}}
+\index{\_absorbing\_boundary@{\_absorbing\_boundary}!SMS\_BP.boundary\_conditions@{SMS\_BP.boundary\_conditions}}
+\doxysubsubsection{\texorpdfstring{\_absorbing\_boundary()}{\_absorbing\_boundary()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1boundary__conditions_acb4ee2c405a7726985d5d89f77ba52b5} 
+SMS\+\_\+\+BP.\+boundary\+\_\+conditions.\+\_\+absorbing\+\_\+boundary (\begin{DoxyParamCaption}\item[{float}]{fbm\+\_\+store\+\_\+last}{, }\item[{float}]{fbm\+\_\+candidate}{, }\item[{np.\+ndarray}]{space\+\_\+lim}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Absorbing boundary condition for the FBM 1D
+
+Parameters:
+-----------
+fbm_store_last : float
+    Last value of the FBM
+fbm_candidate : float
+    Candidate value of the FBM
+space_lim : np.ndarray
+    Space limit (min, max) for the FBM
+
+Returns:
+--------
+float
+    New value of the FBM
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1boundary__conditions_abab518a04dbba29ce2347f9f51b02ae2}\index{SMS\_BP.boundary\_conditions@{SMS\_BP.boundary\_conditions}!\_refecting\_boundary@{\_refecting\_boundary}}
+\index{\_refecting\_boundary@{\_refecting\_boundary}!SMS\_BP.boundary\_conditions@{SMS\_BP.boundary\_conditions}}
+\doxysubsubsection{\texorpdfstring{\_refecting\_boundary()}{\_refecting\_boundary()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1boundary__conditions_abab518a04dbba29ce2347f9f51b02ae2} 
+SMS\+\_\+\+BP.\+boundary\+\_\+conditions.\+\_\+refecting\+\_\+boundary (\begin{DoxyParamCaption}\item[{float}]{fbm\+\_\+store\+\_\+last}{, }\item[{float}]{fbm\+\_\+candidate}{, }\item[{np.\+ndarray}]{space\+\_\+lim}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Reflecting boundary condition for the FBM 1D
+
+Parameters:
+-----------
+fbm_store_last : float
+    Last value of the FBM
+fbm_candidate : float
+    Candidate value of the FBM
+space_lim : np.ndarray
+    Space limit (min, max) for the FBM
+
+Returns:
+--------
+float
+    New value of the FBM
+\end{DoxyVerb}
+ 

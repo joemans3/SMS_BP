@@ -1,0 +1,188 @@
+\doxysection{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p}{}\label{namespace_s_m_s___b_p_1_1fbm___b_p}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_m_s___b_p_1_1fbm___b_p_1_1_f_b_m___b_p}{FBM\+\_\+\+BP}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a276cc9cad0e8391c21a419f7edb2e26d}{MCMC\+\_\+state\+\_\+selection}} (int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7}{initial\+\_\+state\+\_\+index}}, np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}}, np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}}, int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aec3a67efe6353226433bc6c9c9d14f5c}{\+\_\+boundary\+\_\+conditions}} (float fbm\+\_\+store\+\_\+last, float fbm\+\_\+candidate, np.\+ndarray space\+\_\+lim, str condition\+\_\+type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a7e0ecb8f6c3b30c7645eee1139c28946}{BOUNDARY\+\_\+\+CONDITIONS}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}} = np.\+array(\mbox{[}\mbox{[}0.\+4, 0.\+6\mbox{]}, \mbox{[}0.\+2, 0.\+8\mbox{]}\mbox{]})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}} = np.\+array(\mbox{[}1, 2\mbox{]})
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}} = 50000
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7}{initial\+\_\+state\+\_\+index}} = 1
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a1a76a8031bf988bf668c4f334bf5df09}{state\+\_\+select}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a747ff8d94a1517a1d33ba5646e7245fc}{state\+\_\+probability}} = np.\+zeros(len(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}}))
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}{total\+\_\+rate}} = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aa3194fefb1c6365d22f2818381320738}{true\+\_\+state\+\_\+probability}} = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}}, axis=0)/\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}{total\+\_\+rate}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a0d7d63bffeaebe155677824f39404b63}{label}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a67ca2173a1ecc80c7006e64173a320f2}{alpha}}
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a21435816cd32473aeadb6db73f3c92cd}{state\+\_\+1\+\_\+to\+\_\+2}} = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ae3a24d946a722c12d5be7dcfce20fcd7}{state\+\_\+2\+\_\+to\+\_\+1}} = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_aec3a67efe6353226433bc6c9c9d14f5c}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!\_boundary\_conditions@{\_boundary\_conditions}}
+\index{\_boundary\_conditions@{\_boundary\_conditions}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{\_boundary\_conditions()}{\_boundary\_conditions()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_aec3a67efe6353226433bc6c9c9d14f5c} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+\_\+boundary\+\_\+conditions (\begin{DoxyParamCaption}\item[{float}]{fbm\+\_\+store\+\_\+last}{, }\item[{float}]{fbm\+\_\+candidate}{, }\item[{np.\+ndarray}]{space\+\_\+lim}{, }\item[{str}]{condition\+\_\+type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Boundary conditions for the FBM
+
+Parameters:
+-----------
+fbm_store_last : float
+    Last value of the FBM
+fbm_candidate : float
+    Candidate value of the FBM
+space_lim : np.ndarray
+    Space limit (min, max) for the FBM\
+condition_type : str
+    Type of boundary condition takes values in REFLECTING_CONDITIONS
+Returns:
+--------
+float
+    New value of the FBM
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a276cc9cad0e8391c21a419f7edb2e26d}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!MCMC\_state\_selection@{MCMC\_state\_selection}}
+\index{MCMC\_state\_selection@{MCMC\_state\_selection}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{MCMC\_state\_selection()}{MCMC\_state\_selection()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a276cc9cad0e8391c21a419f7edb2e26d} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+MCMC\+\_\+state\+\_\+selection (\begin{DoxyParamCaption}\item[{int}]{initial\+\_\+state\+\_\+index}{, }\item[{np.\+ndarray}]{transition\+\_\+matrix}{, }\item[{np.\+ndarray}]{possible\+\_\+states}{, }\item[{int}]{n}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Markov Chain Monte Carlo state selection
+
+Parameters:
+-----------
+initial_state_index : int
+    Initial state index, this is the index of the initial state in the possible states
+transition_matrix : np.ndarray
+    Transition matrix, this is the prbability at a time step. (time step is 1) 
+possible_states : np.ndarray
+    possible states
+n : int
+    Number of iterations
+
+Returns:
+--------
+np.ndarray
+    State selection at each iteration
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a67ca2173a1ecc80c7006e64173a320f2}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!alpha@{alpha}}
+\index{alpha@{alpha}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{alpha}{alpha}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a67ca2173a1ecc80c7006e64173a320f2} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+alpha}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a7e0ecb8f6c3b30c7645eee1139c28946}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!BOUNDARY\_CONDITIONS@{BOUNDARY\_CONDITIONS}}
+\index{BOUNDARY\_CONDITIONS@{BOUNDARY\_CONDITIONS}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{BOUNDARY\_CONDITIONS}{BOUNDARY\_CONDITIONS}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a7e0ecb8f6c3b30c7645eee1139c28946} 
+dict SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+BOUNDARY\+\_\+\+CONDITIONS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'reflecting'}:\ \_refecting\_boundary,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'absorbing'}:\ \_absorbing\_boundary}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!initial\_state\_index@{initial\_state\_index}}
+\index{initial\_state\_index@{initial\_state\_index}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{initial\_state\_index}{initial\_state\_index}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7} 
+int SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+initial\+\_\+state\+\_\+index = 1}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a0d7d63bffeaebe155677824f39404b63}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!label@{label}}
+\index{label@{label}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{label}{label}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a0d7d63bffeaebe155677824f39404b63} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+label}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!n@{n}}
+\index{n@{n}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478} 
+int SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+n = 50000}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!possible\_states@{possible\_states}}
+\index{possible\_states@{possible\_states}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{possible\_states}{possible\_states}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+possible\+\_\+states = np.\+array(\mbox{[}1, 2\mbox{]})}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a21435816cd32473aeadb6db73f3c92cd}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!state\_1\_to\_2@{state\_1\_to\_2}}
+\index{state\_1\_to\_2@{state\_1\_to\_2}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{state\_1\_to\_2}{state\_1\_to\_2}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a21435816cd32473aeadb6db73f3c92cd} 
+int SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+1\+\_\+to\+\_\+2 = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_ae3a24d946a722c12d5be7dcfce20fcd7}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!state\_2\_to\_1@{state\_2\_to\_1}}
+\index{state\_2\_to\_1@{state\_2\_to\_1}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{state\_2\_to\_1}{state\_2\_to\_1}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_ae3a24d946a722c12d5be7dcfce20fcd7} 
+int SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+2\+\_\+to\+\_\+1 = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a747ff8d94a1517a1d33ba5646e7245fc}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!state\_probability@{state\_probability}}
+\index{state\_probability@{state\_probability}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{state\_probability}{state\_probability}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a747ff8d94a1517a1d33ba5646e7245fc} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+probability = np.\+zeros(len(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}}))}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a1a76a8031bf988bf668c4f334bf5df09}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!state\_select@{state\_select}}
+\index{state\_select@{state\_select}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{state\_select}{state\_select}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a1a76a8031bf988bf668c4f334bf5df09} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+select}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ MCMC\_state\_selection(}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ initial\_state\_index,\ transition\_matrix,\ possible\_states,\ n)}
+
+\end{DoxyCode}
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!total\_rate@{total\_rate}}
+\index{total\_rate@{total\_rate}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{total\_rate}{total\_rate}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+total\+\_\+rate = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}})}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!transition\_matrix@{transition\_matrix}}
+\index{transition\_matrix@{transition\_matrix}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{transition\_matrix}{transition\_matrix}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+transition\+\_\+matrix = np.\+array(\mbox{[}\mbox{[}0.\+4, 0.\+6\mbox{]}, \mbox{[}0.\+2, 0.\+8\mbox{]}\mbox{]})}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1fbm___b_p_aa3194fefb1c6365d22f2818381320738}\index{SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}!true\_state\_probability@{true\_state\_probability}}
+\index{true\_state\_probability@{true\_state\_probability}!SMS\_BP.fbm\_BP@{SMS\_BP.fbm\_BP}}
+\doxysubsubsection{\texorpdfstring{true\_state\_probability}{true\_state\_probability}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1fbm___b_p_aa3194fefb1c6365d22f2818381320738} 
+SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+true\+\_\+state\+\_\+probability = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}}, axis=0)/\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}{total\+\_\+rate}}}
+
