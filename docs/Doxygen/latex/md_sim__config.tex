@@ -1,0 +1,230 @@
+\chapter{Documentation for the simulation configuration file of the same name}
+\hypertarget{md_sim__config}{}\label{md_sim__config}\index{Documentation for the simulation configuration file of the same name@{Documentation for the simulation configuration file of the same name}}
+\label{md_sim__config_autotoc_md0}%
+\Hypertarget{md_sim__config_autotoc_md0}%
+
+\begin{DoxyItemize}
+\item \href{sim_config.json}{\texttt{ Simulation Configuration File}}
+\item Latest version supported\+: v.\+0.\+1
+\end{DoxyItemize}\hypertarget{md_sim__config_autotoc_md1}{}\doxysection{\texorpdfstring{Simulation Configuration File}{Simulation Configuration File}}\label{md_sim__config_autotoc_md1}
+
+\begin{DoxyItemize}
+\item version\+: string
+\begin{DoxyItemize}
+\item version of the simulation configuration file
+\end{DoxyItemize}
+\item length\+\_\+unit\+: string
+\begin{DoxyItemize}
+\item length unit of the simulation (e.\+g. nm, um, mm)
+\end{DoxyItemize}
+\item space\+\_\+unit\+: string
+\begin{DoxyItemize}
+\item space unit of the simulation (this is just pixel, should not change)
+\end{DoxyItemize}
+\item time\+\_\+unit\+: string
+\begin{DoxyItemize}
+\item time unit of the simulation (e.\+g. s, ms, us)
+\end{DoxyItemize}
+\item intensity\+\_\+unit\+: string
+\begin{DoxyItemize}
+\item intensity unit of the simulation (AUD only supported)
+\end{DoxyItemize}
+\item diffusion\+\_\+unit\+: string
+\begin{DoxyItemize}
+\item diffusion unit of the simulation (e.\+g. um\texorpdfstring{$^\wedge$}{\string^}2/s, mm\texorpdfstring{$^\wedge$}{\string^}2/s)
+\end{DoxyItemize}
+\item Cell\+\_\+\+Parameters\+: dict ~\newline
+
+\begin{DoxyItemize}
+\item cell\+\_\+space\+: 2D array (units of space\+\_\+unit)
+\begin{DoxyEnumerate}
+\item cell\+\_\+space\mbox{[}0\mbox{]}\+: x coordinates of the cell space (min, max)
+\item cell\+\_\+space\mbox{[}1\mbox{]}\+: y coordinates of the cell space (min, max)
+\end{DoxyEnumerate}
+\item cell\+\_\+axial\+\_\+radius\+: float (units of space\+\_\+unit)
+\begin{DoxyEnumerate}
+\item The distance from z=0 in either direction that the cell extends
+\end{DoxyEnumerate}
+\item number\+\_\+of\+\_\+cells\+: int
+\begin{DoxyEnumerate}
+\item number of cells to simulate (if more than 1 hen all are simulated in one folder defined by the output\+\_\+path)
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+\item Track\+\_\+\+Parameters\+: dict ~\newline
+
+\begin{DoxyItemize}
+\item num\+\_\+tracks\+: int
+\begin{DoxyEnumerate}
+\item number of tracks to simulate
+\end{DoxyEnumerate}
+\item track\+\_\+type\+: string
+\begin{DoxyEnumerate}
+\item type of track to simulate ("{}fbm"{})
+\end{DoxyEnumerate}
+\item track\+\_\+length\+\_\+mean\+: int (frames)
+\begin{DoxyEnumerate}
+\item mean length of the track
+\end{DoxyEnumerate}
+\item track\+\_\+distribution\+: string
+\begin{DoxyEnumerate}
+\item distribution of the track lengths ("{}exponential"{},"{}constant"{})
+\end{DoxyEnumerate}
+\item diffusion\+\_\+coefficient\+: list of floats (units of diffusion\+\_\+unit)
+\begin{DoxyEnumerate}
+\item diffusion coefficient of the track, the length of the list is the unique type of diffusion coefficients
+\end{DoxyEnumerate}
+\item diffusion\+\_\+track\+\_\+amount\+: list of floats
+\begin{DoxyEnumerate}
+\item Only viable if allow\+\_\+transition\+\_\+probability is False
+\item length is the total number of diffusion coefficients
+\item each element is the probability of the track having the diffusion coefficient at the same index in the diffusion\+\_\+coefficient list (add up to 1.\+0)
+\end{DoxyEnumerate}
+\item hurst\+\_\+expontent\+: list of floats
+\begin{DoxyEnumerate}
+\item hurst exponent of the track, the length of the list is the unique type of hurst exponents
+\end{DoxyEnumerate}
+\item hurst\+\_\+track\+\_\+amount\+: list of floats
+\begin{DoxyEnumerate}
+\item Only viable if allow\+\_\+transition\+\_\+probability is False
+\item length is the total number of hurst exponents
+\item each element is the probability of the track having the hurst exponent at the same index in the hurst\+\_\+exponent list (add up to 1.\+0)
+\end{DoxyEnumerate}
+\item allow\+\_\+transition\+\_\+probability\+: bool
+\begin{DoxyEnumerate}
+\item whether to allow transition probabilities between different diffusion coefficients and hurst exponents within a track
+\item if false, the track will have a single diffusion coefficient and hurst exponent
+\end{DoxyEnumerate}
+\item transition\+\_\+matrix\+\_\+time\+\_\+step\+: int
+\begin{DoxyEnumerate}
+\item time step at which the diffusion and hurst exponent transition matrices are supplied in the following parameters
+\item the units are in time\+\_\+unit (so 100 ms would be 100)
+\end{DoxyEnumerate}
+\item diffusion\+\_\+transition\+\_\+matrix\+: 2D array (discrete state probabilitiy at the transition\+\_\+matrix\+\_\+time\+\_\+step = dt)
+\begin{DoxyEnumerate}
+\item transition matrix between different diffusion coefficients
+\item rows are the current diffusion coefficient
+\item columns are the next diffusion coefficient
+\item rows must sum to 1.\+0
+\end{DoxyEnumerate}
+\item hurst\+\_\+transition\+\_\+matrix\+: 2D array (discrete state probabilitiy at the transition\+\_\+matrix\+\_\+time\+\_\+step = dt)
+\begin{DoxyEnumerate}
+\item transition matrix between different hurst exponents
+\item rows are the current hurst exponent
+\item columns are the next hurst exponent
+\item rows must sum to 1.\+0
+\end{DoxyEnumerate}
+\item state\+\_\+probability\+\_\+diffusion\+: 1D array (probability)
+\begin{DoxyEnumerate}
+\item probability of a track being in a certain diffusion coefficient state
+\item length is the number of unique diffusion coefficients
+\end{DoxyEnumerate}
+\item state\+\_\+probability\+\_\+hurst\+: 1D array (probability)
+\begin{DoxyEnumerate}
+\item probability of a track being in a certain hurst exponent state
+\item length is the number of unique hurst exponents
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+\item Global\+\_\+\+Parameters\+: dict ~\newline
+
+\begin{DoxyItemize}
+\item field\+\_\+of\+\_\+view\+\_\+dim\+: 1D array (units of space\+\_\+unit)
+\begin{DoxyEnumerate}
+\item field of view dimensions (x,y (pixels))
+\end{DoxyEnumerate}
+\item frame\+\_\+count\+: int
+\begin{DoxyEnumerate}
+\item number of frames to simulate
+\end{DoxyEnumerate}
+\item exposure\+\_\+time\+: float or int (units of time\+\_\+unit)
+\begin{DoxyEnumerate}
+\item exposure time of the camera
+\end{DoxyEnumerate}
+\item interval\+\_\+time\+: float or int (units of time\+\_\+unit)
+\begin{DoxyEnumerate}
+\item time between frames that the camera is on
+\end{DoxyEnumerate}
+\item oversample\+\_\+motion\+\_\+time\+: float or int (units of time\+\_\+unit)
+\begin{DoxyEnumerate}
+\item oversampling the motion for motion blur
+\item if oversample\+\_\+motion\+\_\+time == frame\+\_\+time == exposure\+\_\+time, then there is no motion blur
+\item cannot be greater than frame\+\_\+time or exposure\+\_\+time
+\end{DoxyEnumerate}
+\item pixel\+\_\+size\+: float (units of length\+\_\+unit)
+\begin{DoxyEnumerate}
+\item size of the pixel
+\end{DoxyEnumerate}
+\item axial\+\_\+detection\+\_\+range\+: float (units of length\+\_\+unit)
+\begin{DoxyEnumerate}
+\item from z=0, the distance in either direction that the camera can detect a single molecule excitation
+\end{DoxyEnumerate}
+\item base\+\_\+noise\+: float (units of intensity\+\_\+unit)
+\begin{DoxyEnumerate}
+\item base noise of the camera (offset)
+\end{DoxyEnumerate}
+\item point\+\_\+intensity\+: float (units of intensity\+\_\+unit)
+\begin{DoxyEnumerate}
+\item intensity of a single molecule excitation
+\end{DoxyEnumerate}
+\item psf\+\_\+sigma\+: float (units of length\+\_\+unit)
+\begin{DoxyEnumerate}
+\item size of the psf (assumed to be gaussian)
+\end{DoxyEnumerate}
+\item axial\+\_\+function\+: string ("{}exponential"{},"{}ones"{}(no effect))
+\begin{DoxyEnumerate}
+\item function used to determine how the intensity of the single molecule changes with z
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+\item Condenstate\+\_\+\+Parameters\+: dict ~\newline
+
+\begin{DoxyItemize}
+\item initial\+\_\+centers\+: 2D array (units of space\+\_\+unit)
+\begin{DoxyEnumerate}
+\item initial centers of the condensates
+\item \mbox{[}x,y,z\mbox{]} coordinates per row
+\item number of rows is the number of condensates
+\end{DoxyEnumerate}
+\item initial\+\_\+scale\+: 1D (units of space\+\_\+unit)
+\begin{DoxyEnumerate}
+\item initial radius of the condensates
+\item number of elements is the number of condensates
+\item must be the same length as initial\+\_\+centers
+\end{DoxyEnumerate}
+\item diffusion\+\_\+coefficient\+: 1D array (units of diffusion\+\_\+unit)
+\begin{DoxyEnumerate}
+\item diffusion coefficient of the condensates
+\item number of elements is the number of condensates
+\item must be the same length as initial\+\_\+centers
+\end{DoxyEnumerate}
+\item hurst\+\_\+exponent\+: 1D array
+\begin{DoxyEnumerate}
+\item hurst exponent of the condensates
+\item number of elements is the number of condensates
+\item must be the same length as initial\+\_\+centers
+\end{DoxyEnumerate}
+\item density\+\_\+dif\+: float
+\begin{DoxyEnumerate}
+\item density difference between the condensates and the rest of the cell
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+\item Output\+\_\+\+Parameters\+: dict ~\newline
+
+\begin{DoxyItemize}
+\item output\+\_\+path\+: string
+\begin{DoxyEnumerate}
+\item path to save the output, directory
+\end{DoxyEnumerate}
+\item output\+\_\+name\+: string
+\begin{DoxyEnumerate}
+\item name of the output file \texorpdfstring{$\ast$}{*}subsegment\+\_\+type\+: string
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item function used to do projections ("{}mean"{},"{}max"{},"{}sum"{})
+\end{DoxyEnumerate}
+\item subsegment\+\_\+number\+: int
+\begin{DoxyEnumerate}
+\item number of subsegments to divide the cell frames into
+\item if total movie is 500 frames and this is 5 then there will be 100 frames per subsegment and 5 subsegments in total
+\item Make sure that the total number of frames is divisible by the number of subsegments (modulus is 0) 
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+\end{DoxyItemize}

@@ -1,0 +1,123 @@
+\doxysection{SMS\+\_\+\+BP.\+decorators Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1decorators}{}\label{namespace_s_m_s___b_p_1_1decorators}\index{SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_m_s___b_p_1_1decorators_1_1_count_calls}{Count\+Calls}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_aa78b533d935067f3a94807655713f22d}{deprecated}} (reason)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a085e79dcb7d254c86aa973bd5e873e72}{timer}} (func)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a7226e3afc0faa799defb465c3e0f33af}{debug}} (func)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_aea8de770dd29022ca5b4d9114dcc3c55}{slow\+\_\+down}} (\+\_\+func=None, \texorpdfstring{$\ast$}{*}, rate=1)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a4712e29561e00a18547a68329b6749a4}{repeat}} (\+\_\+func=None, \texorpdfstring{$\ast$}{*}, num\+\_\+times=2)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_ab7cbe25ac38a656582e35d2a8ade97bb}{singleton}} (cls)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_ab28ca0f30d94e048556b09d00fe46191}{cache}} (func)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a79e9625ba21e14b3a24206721f7ce831}{set\+\_\+unit}} (unit)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a8ca43fec058b94c6b4343857e69b0f1b}{\+\_\+catch\+\_\+recursion\+\_\+error}} (func)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{namespace_s_m_s___b_p_1_1decorators_a61cdea91714c77790b45bea955c2b703}{string\+\_\+types}} = (type(b\textquotesingle{}\textquotesingle{}), type(u\textquotesingle{}\textquotesingle{}))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1decorators_a8ca43fec058b94c6b4343857e69b0f1b}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!\_catch\_recursion\_error@{\_catch\_recursion\_error}}
+\index{\_catch\_recursion\_error@{\_catch\_recursion\_error}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{\_catch\_recursion\_error()}{\_catch\_recursion\_error()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a8ca43fec058b94c6b4343857e69b0f1b} 
+SMS\+\_\+\+BP.\+decorators.\+\_\+catch\+\_\+recursion\+\_\+error (\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1decorators_ab28ca0f30d94e048556b09d00fe46191}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!cache@{cache}}
+\index{cache@{cache}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{cache()}{cache()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_ab28ca0f30d94e048556b09d00fe46191} 
+SMS\+\_\+\+BP.\+decorators.\+cache (\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Keep a cache of previous function calls\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_a7226e3afc0faa799defb465c3e0f33af}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!debug@{debug}}
+\index{debug@{debug}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{debug()}{debug()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a7226e3afc0faa799defb465c3e0f33af} 
+SMS\+\_\+\+BP.\+decorators.\+debug (\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Print the function signature and return value
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_aa78b533d935067f3a94807655713f22d}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!deprecated@{deprecated}}
+\index{deprecated@{deprecated}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{deprecated()}{deprecated()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_aa78b533d935067f3a94807655713f22d} 
+SMS\+\_\+\+BP.\+decorators.\+deprecated (\begin{DoxyParamCaption}\item[{}]{reason}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is a decorator which can be used to mark functions
+as deprecated. It will result in a warning being emitted
+when the function is used.
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_a4712e29561e00a18547a68329b6749a4}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!repeat@{repeat}}
+\index{repeat@{repeat}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{repeat()}{repeat()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a4712e29561e00a18547a68329b6749a4} 
+SMS\+\_\+\+BP.\+decorators.\+repeat (\begin{DoxyParamCaption}\item[{}]{\+\_\+func}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{num\+\_\+times}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Repeat the function a number of times
+
+Parameters:
+-----------
+num_times : int
+    number of times to repeat the function
+
+Returns:
+--------
+decorator_repeat : function
+    decorator function
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_a79e9625ba21e14b3a24206721f7ce831}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!set\_unit@{set\_unit}}
+\index{set\_unit@{set\_unit}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{set\_unit()}{set\_unit()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a79e9625ba21e14b3a24206721f7ce831} 
+SMS\+\_\+\+BP.\+decorators.\+set\+\_\+unit (\begin{DoxyParamCaption}\item[{}]{unit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Register a unit on a function\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_ab7cbe25ac38a656582e35d2a8ade97bb}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!singleton@{singleton}}
+\index{singleton@{singleton}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{singleton()}{singleton()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_ab7cbe25ac38a656582e35d2a8ade97bb} 
+SMS\+\_\+\+BP.\+decorators.\+singleton (\begin{DoxyParamCaption}\item[{}]{cls}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Make a class a Singleton class (only one instance)\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_aea8de770dd29022ca5b4d9114dcc3c55}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!slow\_down@{slow\_down}}
+\index{slow\_down@{slow\_down}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{slow\_down()}{slow\_down()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_aea8de770dd29022ca5b4d9114dcc3c55} 
+SMS\+\_\+\+BP.\+decorators.\+slow\+\_\+down (\begin{DoxyParamCaption}\item[{}]{\+\_\+func}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{rate}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sleep given amount of seconds before calling the function\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1decorators_a085e79dcb7d254c86aa973bd5e873e72}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!timer@{timer}}
+\index{timer@{timer}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{timer()}{timer()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a085e79dcb7d254c86aa973bd5e873e72} 
+SMS\+\_\+\+BP.\+decorators.\+timer (\begin{DoxyParamCaption}\item[{}]{func}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Print the runtime of the decorated function
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1decorators_a61cdea91714c77790b45bea955c2b703}\index{SMS\_BP.decorators@{SMS\_BP.decorators}!string\_types@{string\_types}}
+\index{string\_types@{string\_types}!SMS\_BP.decorators@{SMS\_BP.decorators}}
+\doxysubsubsection{\texorpdfstring{string\_types}{string\_types}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1decorators_a61cdea91714c77790b45bea955c2b703} 
+tuple SMS\+\_\+\+BP.\+decorators.\+string\+\_\+types = (type(b\textquotesingle{}\textquotesingle{}), type(u\textquotesingle{}\textquotesingle{}))}
+
