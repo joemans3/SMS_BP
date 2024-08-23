@@ -11,9 +11,9 @@
         "number_of_cells":1
     },
     "Track_Parameters":{
-        "num_tracks":1000,
+        "num_tracks":10,
         "track_type":"fbm",
-        "track_length_mean":2,
+        "track_length_mean":1,
         "track_distribution":"constant",
         "diffusion_coefficient":[0.004,1],
         "diffusion_track_amount":[
@@ -21,7 +21,7 @@
         ],
         "hurst_exponent":[0.5],
         "hurst_track_amount":[
-            0.5
+            1.0
         ],
         "allow_transition_probability":true,
         "transition_matrix_time_step":20,
@@ -35,18 +35,18 @@
         "frame_count":500,
         "exposure_time":20,
         "interval_time":0,
-        "oversample_motion_time":10,
+        "oversample_motion_time":20,
         "pixel_size":0.13,
         "axial_detection_range":0.4,
         "base_noise":140,
         "point_intensity":200,
         "psf_sigma":0.13,
-        "axial_function":"ones"
+        "axial_function":"exponential"
     },
     "Condensate_Parameters":{
         "initial_centers":[[40,30,0],[40,40,0]],
         "initial_scale": [2,2],
-        "diffusion_coefficient": [1,1],
+        "diffusion_coefficient": [0,0],
         "hurst_exponent": [0.2,0.2], 
         "density_dif":1000
     },
