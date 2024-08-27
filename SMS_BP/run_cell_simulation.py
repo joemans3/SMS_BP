@@ -19,8 +19,7 @@ def main_CLI():
         --output_path   Path to the output directory
 
     """
-    parser = argparse.ArgumentParser(
-        description="CLI tool to run cell simulation")
+    parser = argparse.ArgumentParser(description="CLI tool to run cell simulation")
     parser.add_argument("config_file", help="Path to the configuration file")
     parser.add_argument("--output_path", help="Path to the output directory")
     args = parser.parse_args()
@@ -45,7 +44,9 @@ def main_CLI():
         output_path = output_parameters["output_path"]
 
     if not output_path:
-        print("Error: Output path not provided in the configuration file or as a command-line argument.")
+        print(
+            "Error: Output path not provided in the configuration file or as a command-line argument."
+        )
         sys.exit(1)
 
     if not os.path.exists(output_path):
@@ -56,8 +57,9 @@ def main_CLI():
         cd=output_path,
         img_name=output_parameters.get("output_name"),
         subsegment_type=output_parameters.get("subsegment_type"),
-        sub_frame_num=int(output_parameters.get("subsegment_number"))
+        sub_frame_num=int(output_parameters.get("subsegment_number")),
     )
+
 
 # make a new function which handles running this script without CLI arguments
 
@@ -79,7 +81,9 @@ def main_noCLI(file):
     if "output_path" in output_parameters:
         output_path = output_parameters["output_path"]
     if not output_path:
-        print("Error: Output path not provided in the configuration file or as a command-line argument.")
+        print(
+            "Error: Output path not provided in the configuration file or as a command-line argument."
+        )
         sys.exit(1)
     if not os.path.exists(output_path):
         os.makedirs(output_path)
@@ -88,7 +92,7 @@ def main_noCLI(file):
         cd=output_path,
         img_name=output_parameters.get("output_name"),
         subsegment_type=output_parameters.get("subsegment_type"),
-        sub_frame_num=int(output_parameters.get("subsegment_number"))
+        sub_frame_num=int(output_parameters.get("subsegment_number")),
     )
 
 
@@ -99,11 +103,9 @@ if __name__ == "__main__":
     else:
         # if the script is run as a module use the project directory to find sim_config.json
         # find the project directory
-        project_directory = os.path.dirname(
-            os.path.dirname(os.path.abspath(__file__)))
+        project_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         # find the config file
-        config_file = os.path.join(
-            project_directory, "SMS_BP", "sim_config.json")
+        config_file = os.path.join(project_directory, "SMS_BP", "sim_config.json")
         print(config_file)
         # run the main function
         main_noCLI(config_file)
