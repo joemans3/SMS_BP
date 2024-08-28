@@ -7,7 +7,7 @@ description = "Single Molecule Simulations and Microscopy Simulations developed 
 
 readme = "README.md"
 
-requires-python = ">=3.10"
+requires-python = "==3.10.13"
 
 license = {file = "LICENSE"}
 
@@ -30,6 +30,7 @@ dependencies = [
   "Pillow==9.4.0",
   "mkdocs==1.6.0"
 ]
+
 [tool.setuptools.packages.find]
 include = ["SMS_BP*"]
 exclude = ["docs*", "tests*"]

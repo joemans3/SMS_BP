@@ -11,9 +11,9 @@
         "number_of_cells":1
     },
     "Track_Parameters":{
-        "num_tracks":10,
+        "num_tracks":1000,
         "track_type":"fbm",
-        "track_length_mean":1,
+        "track_length_mean":10,
         "track_distribution":"constant",
         "diffusion_coefficient":[0.004,1],
         "diffusion_track_amount":[
