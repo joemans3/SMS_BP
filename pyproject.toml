@@ -41,3 +41,4 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 run_SMS_BP = "SMS_BP.run_cell_simulation:main_CLI"
+SMS_BP_config = "SMS_BP.run_cell_simulation:create_config"
