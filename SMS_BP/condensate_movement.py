@@ -21,7 +21,6 @@ Usage:
 """
 
 import numpy as np
-import SMS_BP.fbm_utility as fbm
 import matplotlib.pyplot as plt
 from SMS_BP.decorators import cache, deprecated
 import SMS_BP.simulate_foci as sf
@@ -69,9 +68,11 @@ class Condensate:
         condensate_id: int = 0,
         initial_scale: float = 0,
         # min/max (eg: [[min_x, max_x], ... ]
-        cell_space: np.ndarray = np.array(
-            [[0, 0], [0, 0], [0, 0]]
-        ),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
+        cell_space: np.ndarray = np.array([
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ]),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
         cell_axial_range: float | int = 0,
     ):
         self.initial_position = inital_position

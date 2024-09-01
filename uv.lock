@@ -94,19 +94,6 @@ wheels = [
 ]
 
 [[package]]
-name = "fbm"
-version = "0.3.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a9/52/a241755499462dd688858ccced125be3d338555b7a0e4d5f101236b91c71/fbm-0.3.0.tar.gz", hash = "sha256:4f1cf868a3af0bb0da88e7a87bfc8f868817af29e926b4bebcc96d4c362e72ee", size = 9472 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/16/f8/f103aa4947ae83ce8e91c448c284ac71b88e449e5418c7baff69c7c51624/fbm-0.3.0-py2.py3-none-any.whl", hash = "sha256:8e03e230021f433d631dc289eecb6905a11a60eb6a89bd5a9dc4e66adcc22945", size = 9375 },
-    { url = "https://files.pythonhosted.org/packages/33/14/69ba4b1b00790c2608a63cc695c93cef6d932ec83a7bba8cfa8245350f84/fbm-0.3.0-py3-none-any.whl", hash = "sha256:88d30a0851cbe72ba9c5cc1b668e9e1c49f460ace21cce6ebe7aa0b7f681d358", size = 9371 },
-]
-
-[[package]]
 name = "fonttools"
 version = "4.53.1"
 source = { registry = "https://pypi.org/simple" }
@@ -679,7 +666,6 @@ name = "sms-bp"
 version = "0.0.1"
 source = { editable = "." }
 dependencies = [
-    { name = "fbm" },
     { name = "matplotlib" },
     { name = "mkdocs" },
     { name = "numpy" },
@@ -690,7 +676,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "fbm", specifier = ">=0.3.0" },
     { name = "matplotlib", specifier = ">=3.6.0" },
     { name = "mkdocs", specifier = "==1.6.0" },
     { name = "numpy", specifier = ">=1.21.2" },
