@@ -22,7 +22,7 @@ Usage:
 
 import numpy as np
 import matplotlib.pyplot as plt
-from SMS_BP.decorators import cache, deprecated
+from SMS_BP.decorators import cache
 import SMS_BP.simulate_foci as sf
 
 
@@ -183,6 +183,7 @@ class Condensate:
             "Scale": self.scale[self.times == time][0],
         }
 
+    '''
     @deprecated("Use generate_condensate_positions instead.")
     def _generate_condensate_positions(self, time: int) -> None:
         """Generates the condensate positions up to a given time.
@@ -214,6 +215,7 @@ class Condensate:
         scales = self.calculate_scale(time_array, coords[1:])
         # add the positions to the condensate_positions
         self.add_positions(time_array, coords[1:], scales)
+    '''
 
     def generate_condensate_positions(self, time: int) -> None:
         """Generates the condensate positions up to a given time.
