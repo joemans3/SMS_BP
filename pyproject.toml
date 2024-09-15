@@ -1,13 +1,13 @@
 [project]
 name = "SMS_BP"
 
-version = "0.0.1"
+version = "0.1.1"
 
 description = "Single Molecule Simulations and Microscopy Simulations developed for the Weber Lab by Baljyot Singh Parmar"
 
 readme = "README.md"
 
-requires-python = "==3.10.13"
+requires-python = ">=3.10"
 
 license = {file = "LICENSE"}
 

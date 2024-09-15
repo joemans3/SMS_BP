@@ -1,5 +1,5 @@
 version = 1
-requires-python = "==3.10.13"
+requires-python = ">=3.10"
 
 [[package]]
 name = "click"
@@ -663,7 +663,7 @@ wheels = [
 
 [[package]]
 name = "sms-bp"
-version = "0.0.1"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
