@@ -512,7 +512,7 @@ class Simulate_cells:
         vol_cell = (
             np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][0]))
             * np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][1]))
-            * self.init_dict["Cell_Parameters"]["cell_axial_radius"]
+            * 2.* self.init_dict["Cell_Parameters"]["cell_axial_radius"]
         )
 
         self.condensates = sf.create_condensate_dict(
