@@ -29,7 +29,6 @@ class multiple_top_hat_probability:
         self.non_subspace_probability = self._calculate_non_subspace_probability(
             self.space_size, self.density_dif, self.num_subspace, self.subspace_radius
         )
-        print(self.subspace_probability, self.non_subspace_probability)
 
     def __call__(self, position: np.ndarray, **kwargs) -> float:
         """Returns the probability given a coordinate"""
