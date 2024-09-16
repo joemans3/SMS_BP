@@ -68,11 +68,13 @@ class Condensate:
         condensate_id: int = 0,
         initial_scale: float = 0,
         # min/max (eg: [[min_x, max_x], ... ]
-        cell_space: np.ndarray = np.array([
-            [0, 0],
-            [0, 0],
-            [0, 0],
-        ]),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
+        cell_space: np.ndarray = np.array(
+            [
+                [0, 0],
+                [0, 0],
+                [0, 0],
+            ]
+        ),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
         cell_axial_range: float | int = 0,
     ):
         self.initial_position = inital_position

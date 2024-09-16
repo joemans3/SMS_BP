@@ -86,10 +86,10 @@ class multiple_top_hat_probability:
         subspace_radius: np.ndarray,
     ):
         total_area = np.prod(space_size)
-        #total_subspace_area = np.sum((4.0 / 3.0) * np.pi * subspace_radius**3)
-        #gamma_dif = (total_area - density_dif * total_subspace_area) / (
+        # total_subspace_area = np.sum((4.0 / 3.0) * np.pi * subspace_radius**3)
+        # gamma_dif = (total_area - density_dif * total_subspace_area) / (
         #    total_area - total_subspace_area
-        #)
+        # )
 
         return 1.0 / total_area
 

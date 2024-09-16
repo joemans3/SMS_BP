@@ -499,20 +499,21 @@ class Simulate_cells:
             total_tracks=self.init_dict["Track_Parameters"]["num_tracks"],
         )
         # if track_lengths is larger than the number of frames then set that to the number of frames -1
-        track_lengths = np.array([
-            i if i < self.total_time else self.total_time - 1 for i in track_lengths
-        ])
+        track_lengths = np.array(
+            [i if i < self.total_time else self.total_time - 1 for i in track_lengths]
+        )
         # for each track_lengths find the starting frame
-        starting_frames = np.array([
-            random.randint(0, self.total_time - i) for i in track_lengths
-        ])
+        starting_frames = np.array(
+            [random.randint(0, self.total_time - i) for i in track_lengths]
+        )
 
         # initialize the Condensates. Assuming box shaped.
         # find area assuming cell_space is [[min_x,max_x],[min_y,max_y]]
         vol_cell = (
             np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][0]))
             * np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][1]))
-            * 2.* self.init_dict["Cell_Parameters"]["cell_axial_radius"]
+            * 2.0
+            * self.init_dict["Cell_Parameters"]["cell_axial_radius"]
         )
 
         self.condensates = sf.create_condensate_dict(
@@ -571,10 +572,12 @@ class Simulate_cells:
         # check to see if there is 2 or 3 values in the second dimension of initials
         if initials.shape[1] == 2:
             # add a third dimension of zeros so that the final shape is (num_tracks,3) with (:,3) being 0s
-            initials = np.hstack((
-                initials,
-                np.zeros((self.init_dict["Track_Parameters"]["num_tracks"], 1)),
-            ))
+            initials = np.hstack(
+                (
+                    initials,
+                    np.zeros((self.init_dict["Track_Parameters"]["num_tracks"], 1)),
+                )
+            )
         # create tracks
         tracks = {}
         points_per_time = dict(

@@ -442,11 +442,13 @@ class Track_generator:
         self.min_y = self.cell_space[1][0]
         self.max_y = self.cell_space[1][1]
         self.cell_axial_range = cell_axial_range
-        self.space_lim = np.array([
-            [self.min_x, self.max_x],
-            [self.min_y, self.max_y],
-            [-self.cell_axial_range, self.cell_axial_range],
-        ])
+        self.space_lim = np.array(
+            [
+                [self.min_x, self.max_x],
+                [self.min_y, self.max_y],
+                [-self.cell_axial_range, self.cell_axial_range],
+            ]
+        )
         self.frame_count = frame_count  # count of frames
         self.exposure_time = exposure_time  # in ms
         self.interval_time = interval_time  # in ms
