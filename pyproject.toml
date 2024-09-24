@@ -1,7 +1,7 @@
 [project]
 name = "SMS_BP"
 
-version = "0.1.5"
+version = "0.1.51"
 
 description = "Single Molecule Simulations and Microscopy Simulations developed for the Weber Lab by Baljyot Singh Parmar"
 
