@@ -50,8 +50,20 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#1_installation">1. Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#anaconda">Anaconda</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2_source_code_docs">2. Source Code Docs</a>
+    <li class="toctree-l3"><a class="reference internal" href="#poetry">Poetry</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pip">Pip</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2_running_the_simulation">2. Running the Simulation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3_viewing_detailed_source_code_documentation">3. Viewing Detailed Source Code Documentation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4_source_code_docs">4. Source Code Docs</a>
     </li>
     </ul>
                   </li>
@@ -98,6 +110,8 @@
  Affiliation at the time of writing: McGill University, Canada. Weber Lab</p>
 <h4 id="date_last_modified_2024-07-21">Date last modified: 2024-07-21<a class="headerlink" href="#date_last_modified_2024-07-21" title="Permanent link">#</a></h4>
 <h3 id="1_installation">1. Installation<a class="headerlink" href="#1_installation" title="Permanent link">#</a></h3>
+<hr />
+<h4 id="anaconda"><strong><em>Anaconda</em></strong><a class="headerlink" href="#anaconda" title="Permanent link">#</a></h4>
 <ol>
 <li>Make sure you have anaconda installed: <a href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></li>
 <li>Download or clone this repository.</li>
@@ -114,6 +128,23 @@
 </ul>
 </li>
 </ol>
+<h4 id="poetry"><strong><em>Poetry</em></strong><a class="headerlink" href="#poetry" title="Permanent link">#</a></h4>
+<ol>
+<li>Make sure you have poetry installed: <a href="https://python-poetry.org/docs/#installation">https://python-poetry.org/docs/#installation</a></li>
+<li>Download or clone this repository.</li>
+<li>In the terminal, navigate to the folder where you downloaded this repository using : <strong>cd "path_to_folder"</strong></li>
+<li>Activate a python enviroment or have a global interpreter. (use venv or whatever you want)</li>
+<li>Run the command: <strong>poetry install</strong><ul>
+<li>This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time.</li>
+</ul>
+</li>
+</ol>
+<h4 id="pip"><strong><em>Pip</em></strong><a class="headerlink" href="#pip" title="Permanent link">#</a></h4>
+<ol>
+<li>Make sure you have pip installed: <a href="https://pip.pypa.io/en/stable/installing/">https://pip.pypa.io/en/stable/installing/</a></li>
+<li>Install from pypi using: <strong>pip install SMS-BP</strong></li>
+</ol>
+<h3 id="2_running_the_simulation">2. Running the Simulation<a class="headerlink" href="#2_running_the_simulation" title="Permanent link">#</a></h3>
 <p>To start interacting with the program <strong>cd SMS_BP</strong> and follow the next steps.
 Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.</p>
 <ol>
@@ -125,7 +156,13 @@ Okay now we can run the simulation with the predefined variables. For your under
 </li>
 <li>If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.</li>
 </ol>
-<h3 id="2_source_code_docs">2. Source Code Docs<a class="headerlink" href="#2_source_code_docs" title="Permanent link">#</a></h3>
+<h3 id="3_viewing_detailed_source_code_documentation">3. Viewing Detailed Source Code Documentation<a class="headerlink" href="#3_viewing_detailed_source_code_documentation" title="Permanent link">#</a></h3>
+<hr />
+<ol>
+<li>Source code documentation is provided in the code. If you don't want to read over it a detailed (auto-generated) version html/latex version is provided through <a href="https://www.doxygen.nl/index.html">Doxygen</a>.</li>
+<li>The html version is located in <strong>[path]/SMS_BP/docs/Doxygen/html</strong>. To view the doc in your default browser use the (macOS) command <code>open docs/Doxygen/html/./include.html</code> assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.</li>
+</ol>
+<h3 id="4_source_code_docs">4. Source Code Docs<a class="headerlink" href="#4_source_code_docs" title="Permanent link">#</a></h3>
 <p>Find the detailed docs in <a href="Doxygen/html/">docs</a></p>
 <hr />
               
