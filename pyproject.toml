@@ -9,7 +9,7 @@ readme = "README.md"
 
 requires-python = ">=3.10"
 
-license = { file = "LICENSE.md" }
+license = { file = "license.md" }
 
 keywords = ["SMS"]
 
@@ -29,9 +29,6 @@ dependencies = [
   "Pillow==9.4.0",
   "mkdocs==1.6.0",
 ]
-
-[tool.setuptools.packages.find]
-exclude = ["docs*", "tests*"]
 
 [tool.pyright]
 venvPath = "."
