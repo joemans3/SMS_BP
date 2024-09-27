@@ -20,10 +20,11 @@ Usage:
         condensate(times, time_unit) -> dict{"Position":np.ndarray, "Scale":float}
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from SMS_BP.decorators import cache
+import numpy as np
+
 import SMS_BP.simulate_foci as sf
+from SMS_BP.decorators import cache
 
 
 class Condensate:
@@ -147,7 +148,7 @@ class Condensate:
         self.scale = np.append(self.scale, scale)
 
     @cache
-    def __call__(self, time: int, time_unit: str) -> list:
+    def __call__(self, time: int, time_unit: str) -> dict:
         """Returns the position and scale of the condensate at a given time.
 
         Parameters:
@@ -271,7 +272,7 @@ class Condensate:
         scale = np.full(time.shape, last_scale)
         return scale
 
-    def plot_condensate(self, ax: plt.Axes, **kwargs) -> plt.Axes:
+    def plot_condensate(self, ax, **kwargs):
         """
         Plots the condensate
 

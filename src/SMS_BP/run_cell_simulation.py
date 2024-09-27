@@ -1,8 +1,9 @@
-import sys
-import os
 import argparse
-from SMS_BP.simulate_cell import Simulate_cells
 import json
+import os
+import sys
+
+from SMS_BP.simulate_cell import Simulate_cells
 
 
 def main_CLI():
@@ -127,7 +128,7 @@ def main_noCLI(file):
     output_parameters = config["Output_Parameters"]
     if "output_path" in output_parameters:
         output_path = output_parameters["output_path"]
-    if not output_path:
+    else:
         print(
             "Error: Output path not provided in the configuration file or as a command-line argument."
         )

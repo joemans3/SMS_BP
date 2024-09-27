@@ -46,11 +46,11 @@ class multiple_top_hat_probability:
 
     def update_parameters(
         self,
-        num_subspace: int = None,
-        subspace_centers: np.ndarray = None,
-        subspace_radius: np.ndarray = None,
-        density_dif: float = None,
-        space_size: np.ndarray = None,
+        num_subspace: int | None = None,
+        subspace_centers: np.ndarray | None = None,
+        subspace_radius: np.ndarray | None = None,
+        density_dif: float | None = None,
+        space_size: np.ndarray | None = None,
     ) -> None:
         """Updates the parameters of the probability function."""
         # the None checks are not ideal but its a quick fix for now, should be updated to be *args and **kwargs checks
@@ -74,8 +74,8 @@ class multiple_top_hat_probability:
 
     def _calculate_subspace_probability(
         self, space_size: np.ndarray, density_dif: float
-    ):
-        total_area = np.prod(space_size)
+    ) -> float:
+        total_area = float(np.prod(space_size))
         return density_dif / total_area
 
     def _calculate_non_subspace_probability(
@@ -84,8 +84,8 @@ class multiple_top_hat_probability:
         density_dif: float,
         num_subspace: int,
         subspace_radius: np.ndarray,
-    ):
-        total_area = np.prod(space_size)
+    ) -> float:
+        total_area = float(np.prod(space_size))
         # total_subspace_area = np.sum((4.0 / 3.0) * np.pi * subspace_radius**3)
         # gamma_dif = (total_area - density_dif * total_subspace_area) / (
         #    total_area - total_subspace_area

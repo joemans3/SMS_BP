@@ -720,7 +720,7 @@ wheels = [
 
 [[package]]
 name = "sms-bp"
-version = "0.1.6"
+version = "0.1.61"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
