@@ -7,7 +7,7 @@ description = "Single Molecule Simulations and Microscopy Simulations developed 
 
 readme = "README.md"
 
-requires-python = ">=3.10"
+requires-python = "==3.10.13"
 
 license = { file = "license.md" }
 
