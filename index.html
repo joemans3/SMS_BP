@@ -45,25 +45,9 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#author_and_affiliation">Author and affiliation:</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#date_last_modified_2024-07-21">Date last modified: 2024-07-21</a>
+    <li class="toctree-l3"><a class="reference internal" href="#date_last_modified_2024-09-27">Date last modified: 2024-09-27</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#1_installation">1. Installation</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#anaconda">Anaconda</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#poetry">Poetry</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pip">Pip</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2_running_the_simulation">2. Running the Simulation</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3_viewing_detailed_source_code_documentation">3. Viewing Detailed Source Code Documentation</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4_source_code_docs">4. Source Code Docs</a>
     </li>
     </ul>
                   </li>
@@ -71,6 +55,8 @@
               <p class="caption"><span class="caption-text">User Guide</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="User_Guide_MD/">Starter Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="sim_config/">sim_config Documentation</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
@@ -108,63 +94,119 @@
 <p>Baljyot Singh Parmar
   <code>baljyot.parmar@mail.mcgill.ca</code>
  Affiliation at the time of writing: McGill University, Canada. Weber Lab</p>
-<h4 id="date_last_modified_2024-07-21">Date last modified: 2024-07-21<a class="headerlink" href="#date_last_modified_2024-07-21" title="Permanent link">#</a></h4>
+<h4 id="date_last_modified_2024-09-27">Date last modified: 2024-09-27<a class="headerlink" href="#date_last_modified_2024-09-27" title="Permanent link">#</a></h4>
+<h2 id="this_is_a_short_doc_for_the_track_simulations_along_with_cluster_simulations">This is a short doc for the Track Simulations along with cluster simulations.<a class="headerlink" href="#this_is_a_short_doc_for_the_track_simulations_along_with_cluster_simulations" title="Permanent link">#</a></h2>
+<hr />
+<ul>
+<li>Author: Baljyot Singh Parmar</li>
+<li>Affiliation at the time of writing: McGill University, Canada. Weber Lab</li>
+</ul>
 <h3 id="1_installation">1. Installation<a class="headerlink" href="#1_installation" title="Permanent link">#</a></h3>
 <hr />
+<h4 id="please_note_all_these_are_for_macoslinux_i_need_to_test_on_windows_i_dont_remember_the_commands_but_will_set_up_a_vm_to_test_this_but_these_commands_should_have_windows_equivalents_if_you_run_into_any_issues_please_create_a_github_issue_on_the_repository_as_it_will_help_me_manage_different_issues_with_different_people_and_also_create_a_resource_for_people_encountering_a_solved_issue">Please note, all these are for macOS/linux. I need to test on windows (I don't remember the commands, but will set up a VM to test this). But these commands should have windows equivalents. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.<a class="headerlink" href="#please_note_all_these_are_for_macoslinux_i_need_to_test_on_windows_i_dont_remember_the_commands_but_will_set_up_a_vm_to_test_this_but_these_commands_should_have_windows_equivalents_if_you_run_into_any_issues_please_create_a_github_issue_on_the_repository_as_it_will_help_me_manage_different_issues_with_different_people_and_also_create_a_resource_for_people_encountering_a_solved_issue" title="Permanent link">#</a></h4>
 <h4 id="anaconda"><strong><em>Anaconda</em></strong><a class="headerlink" href="#anaconda" title="Permanent link">#</a></h4>
 <ol>
 <li>Make sure you have anaconda installed: <a href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></li>
 <li>Download or clone this repository.</li>
-<li>In the conda prompt, navigate to the folder where you downloaded this repository using : <strong>cd "path_to_folder"</strong></li>
-<li>Using the <strong>SMS_BP.yml</strong> file, create a new environment using: <strong>conda env create -f SMS_BP.yml</strong><ul>
-<li>If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.</li>
-<li>You may want to still have a conda environment so just create a generic one if you want with the name SMS_BP or whatever you want with python&gt;=3.10. Explicitly, <strong>conda create -n [my_env_name] python=3.10</strong>.</li>
-</ul>
-</li>
-<li>Activate the environment using: <strong>conda activate SMS_BP</strong></li>
-<li>Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.<ul>
-<li>Run the command: <strong>pip install -e . --config-settings editable_mode=compat</strong></li>
-<li>This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. </li>
-</ul>
-</li>
+<li>In the conda prompt, navigate to the folder where you downloaded this repository using : </li>
 </ol>
-<h4 id="poetry"><strong><em>Poetry</em></strong><a class="headerlink" href="#poetry" title="Permanent link">#</a></h4>
+<pre><code class="language-bash">cd &quot;path_to_folder&quot;
+</code></pre>
 <ol>
-<li>Make sure you have poetry installed: <a href="https://python-poetry.org/docs/#installation">https://python-poetry.org/docs/#installation</a></li>
-<li>Download or clone this repository.</li>
-<li>In the terminal, navigate to the folder where you downloaded this repository using : <strong>cd "path_to_folder"</strong></li>
-<li>Activate a python enviroment or have a global interpreter. (use venv or whatever you want)</li>
-<li>Run the command: <strong>poetry install</strong><ul>
-<li>This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time.</li>
+<li>Using the <strong>SMS_BP.yml</strong> file, create a new environment using: </li>
+</ol>
+<pre><code class="language-bash">conda env create -f SMS_BP.yml
+</code></pre>
+<ul>
+<li>If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.</li>
+<li>You may want to still have a conda environment so just create a generic one if you want with the name SMS_BP or whatever you want with python&gt;=3.10. Explicitly, </li>
+</ul>
+<pre><code class="language-bash">conda create -n [my_env_name] python=3.10.13
+</code></pre>
+<ol>
+<li>Activate the environment using: </li>
+</ol>
+<pre><code class="language-bash">conda activate SMS_BP
+</code></pre>
+<ol>
+<li>Now we will install this package in edit mode.<ul>
+<li>Run the command:</li>
 </ul>
 </li>
 </ol>
+<pre><code class="language-bash">pip install -e . --config-settings editable_mode=compat
+</code></pre>
 <h4 id="pip"><strong><em>Pip</em></strong><a class="headerlink" href="#pip" title="Permanent link">#</a></h4>
 <ol>
 <li>Make sure you have pip installed: <a href="https://pip.pypa.io/en/stable/installing/">https://pip.pypa.io/en/stable/installing/</a></li>
-<li>Install from pypi using: <strong>pip install SMS-BP</strong></li>
+<li>Make sure you have python 3.10.13 as the active interpreter (through venv or conda or whatever you want).</li>
+<li>Make sure pip is also installed.</li>
+<li>Install from pypi using: </li>
 </ol>
-<h3 id="2_running_the_simulation">2. Running the Simulation<a class="headerlink" href="#2_running_the_simulation" title="Permanent link">#</a></h3>
-<p>To start interacting with the program <strong>cd SMS_BP</strong> and follow the next steps.
-Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.</p>
+<pre><code class="language-bash">pip install SMS-BP
+</code></pre>
+<h4 id="installing_the_cli_tool_using_uv"><strong><em>Installing the CLI tool using UV</em></strong><a class="headerlink" href="#installing_the_cli_tool_using_uv" title="Permanent link">#</a></h4>
 <ol>
-<li>This is a note on using the CLI tool properly. For the previous step I have forced you to go to the file location and run the script through python. But in the install (step 6) we also installed a CLI tool to interface with the program from anywhere (regardless of where you are in your terminal). The only condition is that you are in the SMS_BP conda environment. <ul>
-<li>To run the CLI tool after the install we can type <strong>run_SMS_BP [PATH_TO_CONFIG_FILE]</strong> from anywhere assuming the path you provide is absolute.</li>
-<li>In the background all this is doing is running: <strong>from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()</strong>. This is the entry point.</li>
-<li>Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the SMS_BP/sim_config.md for details into the config file parameters.</li>
+<li>Install UV (https://docs.astral.sh/uv/getting-started/installation/).</li>
+<li>Run the command:</li>
+</ol>
+<pre><code class="language-bash">uv tool install SMS_BP
+</code></pre>
+<ol>
+<li>You will have access to two CLI commands (using the uv interface):<ul>
+<li><code>run_SMS_BP</code> : This is the main entry point for the simulation. (see <code>run_SMS_BP --help</code> for more details)</li>
+<li><code>SMS_BP_config</code> : This is a helper tool to generate a template config file for the simulation. (see <code>SMS_BP_config --help</code> for more details)</li>
 </ul>
 </li>
-<li>If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.</li>
+<li>You can now use these tools (they are isolated in their own env created by uv, which is cool): </li>
 </ol>
+<pre><code class="language-bash">run_SMS_BP [PATH_TO_CONFIG_FILE]
+</code></pre>
+<pre><code class="language-bash">SMS_BP_config [PATH_TO_SAVE_CONFIG_FILE]
+</code></pre>
+<h3 id="2_running_the_simulation">2. Running the Simulation<a class="headerlink" href="#2_running_the_simulation" title="Permanent link">#</a></h3>
+<p>Having installed the package, make sure the CLI commands are working:</p>
+<pre><code class="language-bash">run_SMS_BP --help
+</code></pre>
+<p>If this does not work submit an issue on the github repository. TODO: convert this into tests.</p>
+<ol>
+<li>This is a note on using the CLI tool properly. In the install (step 6) we also installed a CLI tool to interface with the program from anywhere. The only condition is that you are in the SMS_BP conda environment or similar venv you created and installed to (unless you used uv). </li>
+</ol>
+<pre><code class="language-bash">SMS_BP_config .
+</code></pre>
+<p>This will create a <strong>sim_config.json</strong> file in the current directory. You can change the <strong>.</strong> to be a <strong>[PATH]</strong> to save the file elsewhere.</p>
+<ul>
+<li>To run the CLI tool after the install we can type </li>
+</ul>
+<pre><code class="language-bash">run_SMS_BP [PATH_TO_CONFIG_FILE]
+</code></pre>
+<ul>
+<li>If you used 1) then this is just:</li>
+</ul>
+<pre><code class="language-bash">run_SMS_BP sim_config.json
+</code></pre>
+<p>from anywhere assuming the path you provide is absolute.</p>
+<ul>
+<li>In the background all this is doing is running: </li>
+</ul>
+<pre><code class="language-python">from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()
+</code></pre>
+<p>This is the entry point.</p>
+<ul>
+<li>
+<p>Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the <strong>src/SMS_BP/sim_config.md</strong> for details into the config file parameters.
+TODO: create CI tests for this.</p>
+</li>
+<li>
+<p>If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.</p>
+</li>
+</ul>
 <h3 id="3_viewing_detailed_source_code_documentation">3. Viewing Detailed Source Code Documentation<a class="headerlink" href="#3_viewing_detailed_source_code_documentation" title="Permanent link">#</a></h3>
 <hr />
 <ol>
 <li>Source code documentation is provided in the code. If you don't want to read over it a detailed (auto-generated) version html/latex version is provided through <a href="https://www.doxygen.nl/index.html">Doxygen</a>.</li>
-<li>The html version is located in <strong>[path]/SMS_BP/docs/Doxygen/html</strong>. To view the doc in your default browser use the (macOS) command <code>open docs/Doxygen/html/./include.html</code> assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.</li>
+<li>The html version is located in <strong>[path]/docs/Doxygen/html</strong>. To view the doc in your default browser use the (macOS) command <code>open docs/Doxygen/html/./include.html</code> assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.</li>
 </ol>
-<h3 id="4_source_code_docs">4. Source Code Docs<a class="headerlink" href="#4_source_code_docs" title="Permanent link">#</a></h3>
-<p>Find the detailed docs in <a href="Doxygen/html/">docs</a></p>
-<hr />
               
             </div>
           </div><footer>
