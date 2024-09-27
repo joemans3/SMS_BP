@@ -6,9 +6,10 @@ Author: Baljyot Singh Parmar
 """
 
 import numpy as np
+from scipy.stats import multivariate_normal
+
 import SMS_BP.condensate_movement as condensate_movement
 import SMS_BP.fbm_BP as fbm_BP
-from scipy.stats import multivariate_normal
 
 
 def get_lengths(track_distribution: str, track_length_mean: int, total_tracks: int):
@@ -37,18 +38,22 @@ def get_lengths(track_distribution: str, track_length_mean: int, total_tracks: i
     """
     if track_distribution == "exponential":
         # make sure each of the lengths is an integer and is greater than or equal to 1
-        return np.ceil(
-            np.random.exponential(scale=track_length_mean, size=total_tracks)
+        return np.array(
+            np.ceil(np.random.exponential(scale=track_length_mean, size=total_tracks)),
+            dtype=int,
         )
     elif track_distribution == "uniform":
         # make sure each of the lengths is an integer
-        return np.ceil(
-            np.random.uniform(
-                low=1, high=2 * (track_length_mean) - 1, size=total_tracks
-            )
+        return np.array(
+            np.ceil(
+                np.random.uniform(
+                    low=1, high=2 * (track_length_mean) - 1, size=total_tracks
+                )
+            ),
+            dtype=int,
         )
     elif track_distribution == "constant":
-        return np.ones(total_tracks) * track_length_mean
+        return np.array(np.ones(total_tracks) * int(track_length_mean), dtype=int)
     else:
         raise ValueError("Distribution not recognized")
 
@@ -85,7 +90,7 @@ def create_condensate_dict(
             initial_scale=initial_scale[i],
             diffusion_coefficient=diffusion_coefficient[i],
             hurst_exponent=hurst_exponent[i],
-            condensate_id=str(i),
+            condensate_id=int(str(i)),
             units_time=units_time[i],
             cell_space=cell_space,
             cell_axial_range=cell_axial_range,
@@ -356,7 +361,7 @@ def axial_intensity_factor(
 def generate_map_from_points(
     points: np.ndarray,
     point_intensity: float | np.ndarray,
-    map: np.ndarray | None,
+    map: np.ndarray,
     movie: bool,
     base_noise: float,
     psf_sigma: float,

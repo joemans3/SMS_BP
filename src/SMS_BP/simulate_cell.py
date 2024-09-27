@@ -1,14 +1,16 @@
 import json
-import numpy as np
-from scipy.linalg import fractional_matrix_power
 import os
+import pickle
 import random
-import SMS_BP.simulate_foci as sf
+
+import numpy as np
 import skimage as skimage
 from PIL import Image
-import pickle
+from scipy.linalg import fractional_matrix_power
+
 import SMS_BP.decorators as decorators
 import SMS_BP.probability_functions as pf
+import SMS_BP.simulate_foci as sf
 
 
 def save_tiff(image, path, img_name=None):
@@ -209,12 +211,12 @@ class Simulate_cells:
         elif isinstance(init_dict_json, dict):
             self.init_dict = convert_lists_to_arrays(init_dict_json)
         # store the times
-        self.frame_count = self.init_dict["Global_Parameters"]["frame_count"]
-        self.interval_time = self.init_dict["Global_Parameters"]["interval_time"]
-        self.oversample_motion_time = self.init_dict["Global_Parameters"][
-            "oversample_motion_time"
-        ]
-        self.exposure_time = self.init_dict["Global_Parameters"]["exposure_time"]
+        self.frame_count = int(self.init_dict["Global_Parameters"]["frame_count"])
+        self.interval_time = int(self.init_dict["Global_Parameters"]["interval_time"])
+        self.oversample_motion_time = int(
+            self.init_dict["Global_Parameters"]["oversample_motion_time"]
+        )
+        self.exposure_time = int(self.init_dict["Global_Parameters"]["exposure_time"])
         self.total_time = self._convert_frame_to_time(
             self.frame_count,
             self.exposure_time,
@@ -223,7 +225,7 @@ class Simulate_cells:
         )
         # convert the track_length_mean from frame to time
         self.track_length_mean = self._convert_frame_to_time(
-            self.init_dict["Track_Parameters"]["track_length_mean"],
+            int(self.init_dict["Track_Parameters"]["track_length_mean"]),
             self.exposure_time,
             self.interval_time,
             self.oversample_motion_time,
@@ -318,7 +320,7 @@ class Simulate_cells:
         int
             time in the appropriate units
         """
-        return (frame * (exposure_time + interval_time)) / oversample_motion_time
+        return int((frame * (exposure_time + interval_time)) / oversample_motion_time)
 
     def _update_units(self, unit, orig_type, update_type):
         """Docstring for _update_units: update the unit from one type to another

@@ -1,7 +1,7 @@
 [project]
 name = "SMS_BP"
 
-version = "0.1.51"
+version = "0.1.52"
 
 description = "Single Molecule Simulations and Microscopy Simulations developed for the Weber Lab by Baljyot Singh Parmar"
 
@@ -26,7 +26,6 @@ dependencies = [
   "matplotlib>=3.6.0",
   "scipy>=1.7.1",
   "scikit-image>=0.18.3",
-  "Pillow==9.4.0",
   "mkdocs==1.6.0",
 ]
 
