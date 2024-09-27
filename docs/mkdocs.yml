@@ -5,6 +5,7 @@ nav:
     - 'Hello and Install': index.md
   - User Guide: 
     - 'Starter Guide': User_Guide_MD.md
+    - 'sim_config Documentation': sim_config.md
   - About:
     - 'License': license.md
 

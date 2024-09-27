@@ -4,56 +4,117 @@
   Baljyot Singh Parmar
   `baljyot.parmar@mail.mcgill.ca`
  Affiliation at the time of writing: McGill University, Canada. Weber Lab
-### Date last modified: 2024-07-21
+### Date last modified: 2024-09-27
+
+
+
+# This is a short doc for the Track Simulations along with cluster simulations.
+-----------------------------------------
+
+- Author: Baljyot Singh Parmar
+- Affiliation at the time of writing: McGill University, Canada. Weber Lab
+
 
 
 ## 1. Installation
 -------------------
+### Please note, all these are for macOS/linux. I need to test on windows (I don't remember the commands, but will set up a VM to test this). But these commands should have windows equivalents. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
 
 ### ***Anaconda*** 
 
 1. Make sure you have anaconda installed: <https://www.anaconda.com/download>
 2. Download or clone this repository.
-3. In the conda prompt, navigate to the folder where you downloaded this repository using : **cd "path_to_folder"**
-4. Using the **SMS_BP.yml** file, create a new environment using: **conda env create -f SMS_BP.yml**
-    - If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.
-    - You may want to still have a conda environment so just create a generic one if you want with the name SMS_BP or whatever you want with python>=3.10. Explicitly, **conda create -n [my_env_name] python=3.10**.
-5. Activate the environment using: **conda activate SMS_BP**
-6. Now we will install this package in edit mode so we can use its functionalities without invoking sys.path.append() every time.
-    - Run the command: **pip install -e . --config-settings editable_mode=compat**
-    - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time. 
+3. In the conda prompt, navigate to the folder where you downloaded this repository using : 
+```bash
+cd "path_to_folder"
+```
+4. Using the **SMS_BP.yml** file, create a new environment using: 
+```bash
+conda env create -f SMS_BP.yml
+```
 
-### ***Poetry***
-
-1. Make sure you have poetry installed: <https://python-poetry.org/docs/#installation>
-2. Download or clone this repository.
-3. In the terminal, navigate to the folder where you downloaded this repository using : **cd "path_to_folder"**
-4. Activate a python enviroment or have a global interpreter. (use venv or whatever you want)
-5. Run the command: **poetry install**
-    - This will install the package in editable mode and you can now use the package in any python environment without having to append the path every time.
+- If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.
+- You may want to still have a conda environment so just create a generic one if you want with the name SMS_BP or whatever you want with python>=3.10. Explicitly, 
+```bash
+conda create -n [my_env_name] python=3.10.13
+```
+5. Activate the environment using: 
+```bash
+conda activate SMS_BP
+```
+6. Now we will install this package in edit mode.
+    - Run the command:
+```bash
+pip install -e . --config-settings editable_mode=compat
+```
 
 ### ***Pip***
 
 1. Make sure you have pip installed: <https://pip.pypa.io/en/stable/installing/>
-2. Install from pypi using: **pip install SMS-BP**
+2. Make sure you have python 3.10.13 as the active interpreter (through venv or conda or whatever you want).
+3. Make sure pip is also installed.
+4. Install from pypi using: 
+```bash
+pip install SMS-BP
+```
+
+### ***Installing the CLI tool using UV***
+1. Install UV (https://docs.astral.sh/uv/getting-started/installation/).
+2. Run the command:
+```bash
+uv tool install SMS_BP
+```
+3. You will have access to two CLI commands (using the uv interface):
+    - `run_SMS_BP` : This is the main entry point for the simulation. (see `run_SMS_BP --help` for more details)
+    - `SMS_BP_config` : This is a helper tool to generate a template config file for the simulation. (see `SMS_BP_config --help` for more details)
+4. You can now use these tools (they are isolated in their own env created by uv, which is cool): 
+```bash
+run_SMS_BP [PATH_TO_CONFIG_FILE]
+```
+```bash
+SMS_BP_config [PATH_TO_SAVE_CONFIG_FILE]
+```
+
+
 
 
 ## 2. Running the Simulation
-To start interacting with the program **cd SMS_BP** and follow the next steps.
-Okay now we can run the simulation with the predefined variables. For your understanding I rather have you read a short User Guide before I tell you how to run or use this code. Namely because it will help you think of the features included and what is possible. Now I want you to go to USER_GUIDE/USER_GUIDE.pdf and read the document. If you don't care, go to section 4 of that document to get right to the running of this code.
 
-1. This is a note on using the CLI tool properly. For the previous step I have forced you to go to the file location and run the script through python. But in the install (step 6) we also installed a CLI tool to interface with the program from anywhere (regardless of where you are in your terminal). The only condition is that you are in the SMS_BP conda environment. 
-    - To run the CLI tool after the install we can type **run_SMS_BP [PATH_TO_CONFIG_FILE]** from anywhere assuming the path you provide is absolute.
-    - In the background all this is doing is running: **from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()**. This is the entry point.
-    - Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the SMS_BP/sim_config.md for details into the config file parameters.
+Having installed the package, make sure the CLI commands are working:
+```bash
+run_SMS_BP --help
+```
+If this does not work submit an issue on the github repository. TODO: convert this into tests.
+
+1. This is a note on using the CLI tool properly. In the install (step 6) we also installed a CLI tool to interface with the program from anywhere. The only condition is that you are in the SMS_BP conda environment or similar venv you created and installed to (unless you used uv). 
+```bash
+SMS_BP_config .
+```
+This will create a **sim_config.json** file in the current directory. You can change the **.** to be a **[PATH]** to save the file elsewhere.
+
+- To run the CLI tool after the install we can type 
+```bash
+run_SMS_BP [PATH_TO_CONFIG_FILE]
+```
+
+- If you used 1) then this is just:
+```bash
+run_SMS_BP sim_config.json
+```
+from anywhere assuming the path you provide is absolute.
+
+- In the background all this is doing is running: 
+```python
+from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()
+```
+This is the entry point.
+
+- Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the **src/SMS_BP/sim_config.md** for details into the config file parameters.
+TODO: create CI tests for this.
+
 2. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
 
 ## 3. Viewing Detailed Source Code Documentation
 ------------------------------------------------
 1. Source code documentation is provided in the code. If you don't want to read over it a detailed (auto-generated) version html/latex version is provided through [Doxygen](https://www.doxygen.nl/index.html).
-2. The html version is located in **[path]/SMS_BP/docs/Doxygen/html**. To view the doc in your default browser use the (macOS) command `open docs/Doxygen/html/./include.html` assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.
-
-## 4. Source Code Docs
-Find the detailed docs in [docs](./Doxygen/html/index.html)
-
----
+2. The html version is located in **[path]/docs/Doxygen/html**. To view the doc in your default browser use the (macOS) command `open docs/Doxygen/html/./include.html` assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.
