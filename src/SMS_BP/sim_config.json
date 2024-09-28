@@ -7,13 +7,13 @@
     "diffusion_unit":"um^2/s",
     "Cell_Parameters":{
         "cell_space":[[30,50],[20,70]],
-        "cell_axial_radius":10,
+        "cell_axial_radius":1,
         "number_of_cells":1
     },
     "Track_Parameters":{
-        "num_tracks":1000,
+        "num_tracks":1,
         "track_type":"fbm",
-        "track_length_mean":10,
+        "track_length_mean":200,
         "track_distribution":"constant",
         "diffusion_coefficient":[0.004,1],
         "diffusion_track_amount":[
@@ -33,7 +33,7 @@
     "Global_Parameters":{
         "field_of_view_dim":[80,80],
         "frame_count":500,
-        "exposure_time":20,
+        "exposure_time":100,
         "interval_time":0,
         "oversample_motion_time":20,
         "pixel_size":0.13,
