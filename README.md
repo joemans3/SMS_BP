@@ -88,9 +88,9 @@ If this does not work submit an issue on the github repository. TODO: convert th
 1. This is a note on using the CLI tool properly. In the install (step 6) we also installed a CLI tool to interface with the program from anywhere. The only condition is that you are in the SMS_BP conda environment or similar venv you created and installed to (unless you used uv). 
     - Create a template of the config file with default parameters using 
     ```bash
-    SMS_BP_config .
+    SMS_BP_config
     ```
-    This will create a **sim_config.json** file in the current directory. You can change the **.** to be a **[PATH]** to save the file elsewhere.
+    This will create a **sim_config.json** file in the current directory. You can add a optional argument (path) to be a **[PATH]** to save the file elsewhere.
     - To run the CLI tool after the install we can type 
     ```bash
     run_SMS_BP [PATH_TO_CONFIG_FILE]
