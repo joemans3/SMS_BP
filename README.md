@@ -40,6 +40,8 @@ conda activate SMS_BP
     pip install -e . --config-settings editable_mode=compat
     ```
 
+<video src='Conda_Installing_and_Running.mov' width=180/>
+
 ### ***Pip***
 
 1. Make sure you have pip installed: <https://pip.pypa.io/en/stable/installing/>
@@ -66,9 +68,7 @@ run_SMS_BP [PATH_TO_CONFIG_FILE]
 ```bash
 SMS_BP_config [PATH_TO_SAVE_CONFIG_FILE]
 ```
-
-
-
+<video src='UV_Tool_Install.mov' width=180/>
 
 ## 2. Running the Simulation
 
