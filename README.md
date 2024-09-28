@@ -10,6 +10,14 @@ Following is an example of a single molecule simulated with motion blur.
 
 https://github.com/user-attachments/assets/58268a2e-27d7-4486-ae29-a56f7e08ec0c
 
+The following is an example of a single molecule simulation with the movement switching between two modes.
+
+https://github.com/user-attachments/assets/f391e576-db5a-4d5d-83a9-9e36c73f8ede
+
+The following is a single molecule localization microscopy simulation (SMLM) (1 PSF per molecule here), with two dense regions in the cell.
+https://github.com/user-attachments/assets/f735e9fe-3eea-4ec1-babc-7909df3293a2
+The following is a sum-time projection of the above simulation showing the density of the molecules over the duration of the simulation (2 dense regions in a box-like cell).
+<img width="849" alt="Time_Sum_Projection_Of_Above" src="https://github.com/user-attachments/assets/0770dba7-55e8-4f4b-9a17-876fe76f2262">
 
 
 ## 1. Installation
