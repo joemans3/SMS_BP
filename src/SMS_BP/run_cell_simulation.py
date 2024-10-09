@@ -1,16 +1,17 @@
 import json
 import os
 import subprocess
+import time
 from pathlib import Path
 from typing import Optional
-import time
+
 import rich
-from rich.progress import Progress, SpinnerColumn, TextColumn
 import typer
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing_extensions import Annotated
 
-from SMS_BP.simulate_cell import Simulate_cells
 from SMS_BP import __version__
+from SMS_BP.simulate_cell import Simulate_cells
 
 # create a new CLI function
 typer_app_sms_bp = typer.Typer(
