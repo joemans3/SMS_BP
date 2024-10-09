@@ -216,25 +216,20 @@ anywhere since the path is appended to the main python search path.
 
 There are 2 different ways to interact with the code.
 
-1.  The first is to use a configuration file which stores all the
-    relevant parameters and passing it to the entry point of the module file: run_cell_simulation.py. 
-    The provided configuration file is sim_config.json. The python file which takes
-    this as an argument is called run_cell_simulation.
-
-2.  In the install we also install a CLI command *run_SMS_BP* which will
+1.  In the install we also install a CLI command *run_SMS_BP* which will
     work globally (you do not need to be in the directory of the
     project). You will need to provide a config file location to this
-    command or it will be unhappy with you. You can run *run_SMS_BP -h*
+    command or it will be unhappy with you. You can run *run_SMS_BP --help*
     to see uses.
 
-3.  The second is to use the actual code itself through import. We can
+2.  The second is to use the actual code itself through import. We can
     do this since we have installed the code as a package.
 
-To keep it simple for now let's focus on the second method. We can run the CLI command: 
+To keep it simple for now let's focus on the first method. We can run the CLI command: 
 ```bash
-SMS_BP_config .
+run_SMS_BP config [PATH_TO_CONFIG_FILE]
 ```
-This will create a template config file in the current directory. You can change the **.** to be a **[PATH]** to save the file elsewhere. You will see a nested dictionary with a bunch of
+This will create a template config file in the current directory if [PATH_TO_CONFIG_FILE] is set to ".". You can change the **.** to be a **[PATH]** to save the file elsewhere. In this newly created template file you will see a nested dictionary with a bunch of
 parameters and associated values. We will go over each of these and what
 values are allowable. The document [sim_config.md](sim_config.md) is a text file
 describing each parameter and the units of each parameter in our main
@@ -252,7 +247,7 @@ want.
 We can keep the rest of the parameters the same for now and let's just
 run the simulation. Run using 
 ```bash
-run_SMS_BP sim_config.json
+run_SMS_BP runsim sim_config.json
 ```
 Once the simulation
 finishes you will find a new folder created at the path you specified

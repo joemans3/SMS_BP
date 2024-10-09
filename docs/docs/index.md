@@ -65,19 +65,16 @@ pip install SMS-BP
 uv tool install SMS_BP
 ```
 3. You will have access to two CLI commands (using the uv interface):
-    - `run_SMS_BP` : This is the main entry point for the simulation. (see `run_SMS_BP --help` for more details)
-    - `SMS_BP_config` : This is a helper tool to generate a template config file for the simulation. (see `SMS_BP_config --help` for more details)
+    - `run_SMS_BP runsim` : This is the main entry point for the simulation. (see `run_SMS_BP runsim --help` for more details)
+    - `run_SMS_BP config` : This is a helper tool to generate a template config file for the simulation. (see `run_SMS_BP config --help` for more details)
+    - Note: using `run_SMS_BP --help` will show you all the available commands.
 4. You can now use these tools (they are isolated in their own env created by uv, which is cool): 
 ```bash
-run_SMS_BP [PATH_TO_CONFIG_FILE]
+run_SMS_BP config [PATH_TO_CONFIG_FILE]
 ```
 ```bash
-SMS_BP_config [PATH_TO_SAVE_CONFIG_FILE]
+run_SMS_BP runsim [PATH_TO_SAVED_CONFIG_FILE]
 ```
-
-
-
-
 ## 2. Running the Simulation
 
 Having installed the package, make sure the CLI commands are working:
@@ -87,34 +84,25 @@ run_SMS_BP --help
 If this does not work submit an issue on the github repository. TODO: convert this into tests.
 
 1. This is a note on using the CLI tool properly. In the install (step 6) we also installed a CLI tool to interface with the program from anywhere. The only condition is that you are in the SMS_BP conda environment or similar venv you created and installed to (unless you used uv). 
-```bash
-SMS_BP_config .
-```
-This will create a **sim_config.json** file in the current directory. You can change the **.** to be a **[PATH]** to save the file elsewhere.
-
-- To run the CLI tool after the install we can type 
-```bash
-run_SMS_BP [PATH_TO_CONFIG_FILE]
-```
-
-- If you used 1) then this is just:
-```bash
-run_SMS_BP sim_config.json
-```
-from anywhere assuming the path you provide is absolute.
-
-- In the background all this is doing is running: 
-```python
-from SMS_BP.run_cell_simulation import main_CLI(); main_CLI()
-```
-This is the entry point.
-
-- Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the **src/SMS_BP/sim_config.md** for details into the config file parameters.
+    - Create a template of the config file with default parameters using 
+    ```bash
+    run_SMS_BP config [PATH_TO_CONFIG_FILE]
+    ```
+    This will create a **sim_config.json** file in the current directory. You can add a optional argument (path) to be a **[PATH]** to save the file elsewhere.
+    - To run the CLI tool after the install we can type 
+    ```bash
+    run_SMS_BP runsim [PATH_TO_SAVED_CONFIG_FILE]
+    ```
+    - If you used 1) then this is just:
+    ```bash
+    run_SMS_BP runsim sim_config.json
+    ```
+    from anywhere assuming the path you provide is absolute.
+    - In the background all this is doing is running: 
+    ```python
+    from SMS_BP.run_cell_simulation import typer_app_sms_bp; typer_app_sms_bp()
+    ```
+    This is the entry point.
+    - Do note that the config checker is not robust so if you have prodived the wrong types or excluded some parameters which are required alongside other ones you will get an error. Read the **src/SMS_BP/sim_config.md** for details into the config file parameters.
 TODO: create CI tests for this.
-
 2. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
-
-## 3. Viewing Detailed Source Code Documentation
-------------------------------------------------
-1. Source code documentation is provided in the code. If you don't want to read over it a detailed (auto-generated) version html/latex version is provided through [Doxygen](https://www.doxygen.nl/index.html).
-2. The html version is located in **[path]/docs/Doxygen/html**. To view the doc in your default browser use the (macOS) command `open docs/Doxygen/html/./include.html` assuming you are in the base SMS_BP directory. If not, append the relative path to the above command.
