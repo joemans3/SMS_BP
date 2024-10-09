@@ -28,6 +28,7 @@ dependencies = [
   "scikit-image>=0.18.3",
   "mkdocs==1.6.0",
   "typer>=0.12.5",
+  "sms-bp",
 ]
 
 [project.urls]
@@ -41,6 +42,9 @@ venv = ".venv"
 [tool.uv]
 dev-dependencies = ["mkdocs==1.6.0", "pymdown-extensions>=10.11"]
 
+[tool.uv.sources]
+sms-bp = { workspace = true }
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -50,4 +54,3 @@ path = "src/SMS_BP/__init__.py"
 
 [project.scripts]
 run_SMS_BP = "SMS_BP.run_cell_simulation:typer_app_sms_bp"
-

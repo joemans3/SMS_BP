@@ -786,7 +786,7 @@ wheels = [
 
 [[package]]
 name = "sms-bp"
-version = "0.1.65"
+version = "0.1.67"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
@@ -810,6 +810,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=1.21.2" },
     { name = "scikit-image", specifier = ">=0.18.3" },
     { name = "scipy", specifier = ">=1.7.1" },
+    { name = "sms-bp", editable = "." },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 
