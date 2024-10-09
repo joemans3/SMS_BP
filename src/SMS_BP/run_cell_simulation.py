@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 from pathlib import Path
 from typing import Optional
 import time
@@ -80,9 +81,9 @@ def generate_config(
                 print(f"FileNotFoundError: {output_path} is not a valid directory.")
                 raise typer.Abort()
         # find the parent dir
-        project_directory = Path(__file__).parent.parent.parent
+        project_directory = Path(__file__).parent
         # find the config file
-        config_file = project_directory / "src" / "SMS_BP" / "sim_config.json"
+        config_file = project_directory / "sim_config.json"
         output_path = output_path / "sim_config.json"
         # copy the config file to the output path
 
@@ -93,17 +94,15 @@ def generate_config(
             description="Copying the config file to the output path ...", total=10
         )
         try:
-            os.system(f"cp {config_file} {output_path}")
-        except (FileNotFoundError, FileExistsError) as error:
-            if error is FileNotFoundError:
-                print("FileNotFoundError: Output path is not a valid directory.")
-                raise typer.Abort()
-            elif error is FileExistsError:
-                print(f"FileExistsError: Directory {output_path} already exists.")
-                raise typer.Abort()
-            else:
-                print("Error: Unknown error occurred.")
-                raise typer.Abort()
+            subprocess.run(
+                ["cp", config_file, output_path],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError:
+            rich.print(f"Error: No config file found in {project_directory}.")
+            raise typer.Abort()
         progress.update(task_2, completed=10)
         # complete
         rich.print(f"Config file saved to {output_path.resolve()}")
