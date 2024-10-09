@@ -41,6 +41,12 @@ The following is a sum-time projection of the above simulation showing the densi
 
 ### ***Anaconda*** 
 
+
+
+https://github.com/user-attachments/assets/6649d2ea-6ea3-4ac9-84fd-18be5b5e315d
+
+
+
 1. Make sure you have anaconda installed: <https://www.anaconda.com/download>
 2. Download or clone this repository.
 3. In the conda prompt, navigate to the folder where you downloaded this repository using : 
@@ -79,6 +85,12 @@ pip install SMS-BP
 ```
 
 ### ***Installing the CLI tool using UV***
+
+
+
+https://github.com/user-attachments/assets/fda16a3c-2a68-4132-afdb-01264aa8897b
+
+
 1. Install UV (https://docs.astral.sh/uv/getting-started/installation/).
 2. Run the command:
 ```bash
