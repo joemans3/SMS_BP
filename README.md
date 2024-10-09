@@ -10,16 +10,26 @@ Following is an example of a single molecule simulated with motion blur.
 
 https://github.com/user-attachments/assets/58268a2e-27d7-4486-ae29-a56f7e08ec0c
 
-The following is an example of a single molecule simulation with the movement switching between two modes.
+The following is an example of a single molecule simulation with the movement switching between two modes. (60 fps, 1 frame = 100 ms)
 
-https://github.com/user-attachments/assets/f391e576-db5a-4d5d-83a9-9e36c73f8ede
+
+
+https://github.com/user-attachments/assets/984d8158-968f-435e-97ae-d81205e219a2
+
+
+
 
 The following is a single molecule localization microscopy simulation (SMLM) (1 PSF per molecule here), with two dense regions in the cell.
 
-https://github.com/user-attachments/assets/f735e9fe-3eea-4ec1-babc-7909df3293a2
+
+
+https://github.com/user-attachments/assets/ef111481-692a-4738-8164-66acec81ecd7
+
+
 
 The following is a sum-time projection of the above simulation showing the density of the molecules over the duration of the simulation (2 dense regions in a box-like cell).
-<img width="849" alt="Time_Sum_Projection_Of_Above" src="https://github.com/user-attachments/assets/0770dba7-55e8-4f4b-9a17-876fe76f2262">
+
+<img width="849" alt="SMS_BP_Doc_fPALM_STP" src="https://github.com/user-attachments/assets/2a9a255e-7c92-4407-9347-5a86d2c30c7d">
 
 
 ## 1. Installation
@@ -54,8 +64,6 @@ conda activate SMS_BP
     pip install -e . --config-settings editable_mode=compat
     ```
 
-https://github.com/user-attachments/assets/c7fdc1f4-2227-43ca-a557-73bd927c33a4
-
 
 ### ***Pip***
 
@@ -84,8 +92,6 @@ run_SMS_BP config [PATH_TO_CONFIG_FILE]
 ```bash
 run_SMS_BP runsim [PATH_TO_SAVED_CONFIG_FILE]
 ```
-
-https://github.com/user-attachments/assets/fce85d23-6066-4e72-b37c-15dfc4d3e1ef
 
 
 ## 2. Running the Simulation
