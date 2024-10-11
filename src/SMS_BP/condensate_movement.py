@@ -7,7 +7,7 @@ Usage:
 ------
     Initialize the class as follows:
         condensate = Condensate(**{
-            "inital_position":np.array([0, 0, 0]),
+            "initial_position":np.array([0, 0, 0]),
             "initial_time":0,
             "diffusion_coefficient":0,
             "hurst_exponent":0,
@@ -32,7 +32,7 @@ class Condensate:
 
     Parameters:
     -----------
-    inital_position: np.ndarray = np.array([0, 0, 0])
+    initial_position: np.ndarray = np.array([0, 0, 0])
         Initial position of the condensate.
     initial_time: float = 0
         Initial time of the condensates.
@@ -114,7 +114,7 @@ class Condensate:
     @property
     def condensate_positions(self) -> np.ndarray:
         """Returns the positions of the condensate."""
-        # make sure this is a numpy array and that it is the same dimension as the inital position
+        # make sure this is a numpy array and that it is the same dimension as the initial position
         return self._condensate_positions
 
     @condensate_positions.setter
