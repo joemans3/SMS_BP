@@ -86,7 +86,7 @@ def create_condensate_dict(
     units_time = kwargs.get("units_time", ["ms"] * num_condensates)
     for i in range(num_condensates):
         condensates[str(i)] = condensate_movement.Condensate(
-            inital_position=initial_centers[i],
+            initial_position=initial_centers[i],
             initial_scale=initial_scale[i],
             diffusion_coefficient=diffusion_coefficient[i],
             hurst_exponent=hurst_exponent[i],
