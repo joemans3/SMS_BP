@@ -60,7 +60,7 @@ class Condensate:
 
     def __init__(
         self,
-        inital_position: np.ndarray = np.array([0, 0, 0]),
+        initial_position: np.ndarray = np.array([0, 0, 0]),
         initial_time: int = 0,
         diffusion_coefficient: float = 0,  # same units as position and time
         hurst_exponent: float = 0,  # 0<hurst_exponent<1
@@ -78,7 +78,7 @@ class Condensate:
         ),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
         cell_axial_range: float | int = 0,
     ):
-        self.initial_position = inital_position
+        self.initial_position = initial_position
         self.initial_time = initial_time
         self.diffusion_coefficient = diffusion_coefficient
         self.hurst_exponent = hurst_exponent
@@ -89,6 +89,15 @@ class Condensate:
         self.dim = self.initial_position.shape[0]
         self.cell_space = cell_space
         self.cell_axial_range = cell_axial_range
+
+        # initialize the properties of the condensate
+        self._initialize_properties()
+
+    def _initialize_properties(self):
+        """Initializes the properties of the condensate."""
+        self.times = np.array([self.initial_time])
+        self.condensate_positions = np.array([self.initial_position])
+        self.scale = np.array([self.initial_scale])
 
     @property
     def times(self) -> np.ndarray:
