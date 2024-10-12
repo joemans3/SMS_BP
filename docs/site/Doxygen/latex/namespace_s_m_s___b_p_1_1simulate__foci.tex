@@ -1,0 +1,316 @@
+\doxysection{SMS\+\_\+\+BP.\+simulate\+\_\+foci Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1simulate__foci}{}\label{namespace_s_m_s___b_p_1_1simulate__foci}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator}{Track\+\_\+generator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_acd2c903191e8bd87e9cda47d536e552e}{get\+\_\+lengths}} (str track\+\_\+distribution, int track\+\_\+length\+\_\+mean, int total\+\_\+tracks)
+\item 
+dict \mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_aa5c4551eb4cfe1e194121b300f23f8af}{create\+\_\+condensate\+\_\+dict}} (np.\+ndarray initial\+\_\+centers, np.\+ndarray initial\+\_\+scale, np.\+ndarray diffusion\+\_\+coefficient, np.\+ndarray hurst\+\_\+exponent, np.\+ndarray cell\+\_\+space, float cell\+\_\+axial\+\_\+range, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a9637ad4226306c0f7103fa6c9fea2b3e}{tophat\+\_\+function\+\_\+2d}} (var, center, radius, bias\+\_\+subspace, space\+\_\+prob, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a562dcc96cc05ee1e01570cd53a2888cc}{generate\+\_\+points}} (pdf, total\+\_\+points, min\+\_\+x, max\+\_\+x, center, radius, bias\+\_\+subspace\+\_\+x, space\+\_\+prob, density\+\_\+dif)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_aa1a7df07dba781069cb509d63d7836c9}{generate\+\_\+points\+\_\+from\+\_\+cls}} (pdf, total\+\_\+points, min\+\_\+x, max\+\_\+x, min\+\_\+y, max\+\_\+y, min\+\_\+z, max\+\_\+z, density\+\_\+dif)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a23a240dcc8a70740b8248d7f07252f5f}{generate\+\_\+radial\+\_\+points}} (total\+\_\+points, center, radius)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a4de3a232c0ffd81cd4c6bed629c85f5d}{generate\+\_\+sphere\+\_\+points}} (total\+\_\+points, center, radius)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_aa2d8749cc330bb52bba086854ac8ed29}{radius\+\_\+spherical\+\_\+cap}} (R, center, z\+\_\+slice)
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a683fe781fc2335d257afcd0d163ff789}{get\+\_\+gaussian}} (mu, sigma, domain=\mbox{[}list(range(10)), list(range(10))\mbox{]})
+\item 
+float\texorpdfstring{$\vert$}{|}np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a7e7ee98492c8246fce677650369fa58b}{axial\+\_\+intensity\+\_\+factor}} (float\texorpdfstring{$\vert$}{|}np.\+ndarray abs\+\_\+axial\+\_\+pos, float detection\+\_\+range, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1simulate__foci_a3a1fcfa9a208a4b4fbe035768c159b37}{generate\+\_\+map\+\_\+from\+\_\+points}} (np.\+ndarray points, float\texorpdfstring{$\vert$}{|}np.\+ndarray point\+\_\+intensity, np.\+ndarray\texorpdfstring{$\vert$}{|}None map, bool movie, float base\+\_\+noise, float psf\+\_\+sigma)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Documentation for the simulate_foci.py file.
+This file contains the class for simulating foci in space.
+
+Author: Baljyot Singh Parmar
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a7e7ee98492c8246fce677650369fa58b}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!axial\_intensity\_factor@{axial\_intensity\_factor}}
+\index{axial\_intensity\_factor@{axial\_intensity\_factor}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{axial\_intensity\_factor()}{axial\_intensity\_factor()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a7e7ee98492c8246fce677650369fa58b} 
+ float \texorpdfstring{$\vert$}{|} np.\+ndarray SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+axial\+\_\+intensity\+\_\+factor (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\vert$}{|} np.\+ndarray}]{abs\+\_\+axial\+\_\+pos}{, }\item[{float}]{detection\+\_\+range}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Docstring
+Calculate the factor for the axial intensity of the PSF given the absolute axial position from the 0 position of
+the focal plane. This is the factor that is multiplied by the intensity of the PSF
+
+For now this is a negative exponential decay i.e:
+    I = I_0*e^(-|z-z_0|)
+This function returns the factor e^(-|z-z_0|**2 / (2*2.2**2)) only.
+
+Parameters:
+-----------
+abs_axial_pos : float|np.ndarray
+    absolute axial position from the 0 position of the focal plane
+detection_range : float
+    detection range of the function. This is the standard deviation of the gaussian function describing the axial intensity decay assuming a gaussian function.
+kwargs : dict
+
+Returns:
+--------
+float|np.ndarray
+    factor for the axial intensity of the PSF
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_aa5c4551eb4cfe1e194121b300f23f8af}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!create\_condensate\_dict@{create\_condensate\_dict}}
+\index{create\_condensate\_dict@{create\_condensate\_dict}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{create\_condensate\_dict()}{create\_condensate\_dict()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_aa5c4551eb4cfe1e194121b300f23f8af} 
+ dict SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+create\+\_\+condensate\+\_\+dict (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{initial\+\_\+centers}{, }\item[{np.\+ndarray}]{initial\+\_\+scale}{, }\item[{np.\+ndarray}]{diffusion\+\_\+coefficient}{, }\item[{np.\+ndarray}]{hurst\+\_\+exponent}{, }\item[{np.\+ndarray}]{cell\+\_\+space}{, }\item[{float}]{cell\+\_\+axial\+\_\+range}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Docstring for create_condensate_dict:
+
+Parameters:
+-----------
+inital_centers: numpy array of shape (num_condensates,2) with the initial centers of the condensates
+initial_scale: numpy array of shape (num_condensates,2) with the initial scales of the condensates
+diffusion_coefficient: numpy array of shape (num_condensates,2) with the diffusion coefficients of the condensates
+hurst_exponent: numpy array of shape (num_condensates,2) with the hurst exponents of the condensates
+cell_space: numpy array of shape (2,2) with the cell space
+cell_axial_range: float
+**kwargs: additional arguments to be passed to the condensate_movement.Condensate class
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a3a1fcfa9a208a4b4fbe035768c159b37}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!generate\_map\_from\_points@{generate\_map\_from\_points}}
+\index{generate\_map\_from\_points@{generate\_map\_from\_points}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{generate\_map\_from\_points()}{generate\_map\_from\_points()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a3a1fcfa9a208a4b4fbe035768c159b37} 
+ np.\+ndarray SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+generate\+\_\+map\+\_\+from\+\_\+points (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{points}{, }\item[{float \texorpdfstring{$\vert$}{|} np.\+ndarray}]{point\+\_\+intensity}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} None}]{map}{, }\item[{bool}]{movie}{, }\item[{float}]{base\+\_\+noise}{, }\item[{float}]{psf\+\_\+sigma}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Docstring for generate_map_from_points:
+---------------------------
+Generates the space map from the points. 2D
+
+Parameters:
+-----------
+points: array-like
+    points numpy array of shape (total_points,2)
+point_intensity: array-like
+    intensity of the points, if None, then self.point_intensity is used.
+map: array-like
+    space map, if None, then a new space map is generated.
+movie: bool
+    if True, then don't add the gaussian+noise for each point. Rather add the gaussians and then to the whole add the noise.
+base_noise: float
+    base noise to add to the space map
+psf_sigma: float
+    sigma of the psf (pix units)
+
+
+Returns:
+--------
+1. space map as a numpy array of shape (max_x,max_x)
+2. points as a numpy array of shape (total_points,2)
+
+
+Notes:
+------
+1. The space map is generated using get_gaussian function.
+2. For movie: In the segmented experimental images you are adding the noise of each frame to the whole subframe,
+    so for this (movie=False) add each gaussian point to the image with the noise per point.
+    (movie=True) add the gaussians together and then add the noise to the final image.
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a562dcc96cc05ee1e01570cd53a2888cc}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!generate\_points@{generate\_points}}
+\index{generate\_points@{generate\_points}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{generate\_points()}{generate\_points()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a562dcc96cc05ee1e01570cd53a2888cc} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+generate\+\_\+points (\begin{DoxyParamCaption}\item[{}]{pdf}{, }\item[{}]{total\+\_\+points}{, }\item[{}]{min\+\_\+x}{, }\item[{}]{max\+\_\+x}{, }\item[{}]{center}{, }\item[{}]{radius}{, }\item[{}]{bias\+\_\+subspace\+\_\+x}{, }\item[{}]{space\+\_\+prob}{, }\item[{}]{density\+\_\+dif}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}genereates random array of (x,y) points given a distribution using accept/reject method
+
+Parameters
+----------
+pdf : function
+    function which defines the distribution to sample from
+total_points : int
+    total points to sample
+min_x : float
+    lower bound to the support of the distribution
+max_x : float
+    upper bound to the support of the distribution
+center : array-like of float
+    coordinates of the center of the top hat
+redius : float
+    raidus of the top hat
+bias_subspace : float
+    probability at the top hat
+space_prob : float
+    probaility everywhere not at the top hat
+
+Returns
+-------
+array-like
+    [x,y] coordinates of the points sampled from the distribution defined in pdf
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_aa1a7df07dba781069cb509d63d7836c9}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!generate\_points\_from\_cls@{generate\_points\_from\_cls}}
+\index{generate\_points\_from\_cls@{generate\_points\_from\_cls}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{generate\_points\_from\_cls()}{generate\_points\_from\_cls()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_aa1a7df07dba781069cb509d63d7836c9} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+generate\+\_\+points\+\_\+from\+\_\+cls (\begin{DoxyParamCaption}\item[{}]{pdf}{, }\item[{}]{total\+\_\+points}{, }\item[{}]{min\+\_\+x}{, }\item[{}]{max\+\_\+x}{, }\item[{}]{min\+\_\+y}{, }\item[{}]{max\+\_\+y}{, }\item[{}]{min\+\_\+z}{, }\item[{}]{max\+\_\+z}{, }\item[{}]{density\+\_\+dif}{}\end{DoxyParamCaption})}
+
+\Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a23a240dcc8a70740b8248d7f07252f5f}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!generate\_radial\_points@{generate\_radial\_points}}
+\index{generate\_radial\_points@{generate\_radial\_points}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{generate\_radial\_points()}{generate\_radial\_points()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a23a240dcc8a70740b8248d7f07252f5f} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+generate\+\_\+radial\+\_\+points (\begin{DoxyParamCaption}\item[{}]{total\+\_\+points}{, }\item[{}]{center}{, }\item[{}]{radius}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Genereate uniformly distributed points in a circle of radius.
+
+Parameters
+----------
+total_points : int
+    total points from this distribution
+center : array-like or tuple
+    coordinate of the center of the radius. [x,y,...]
+radius : float-like
+    radius of the region on which to
+
+Returns
+-------
+(n,2) size array
+    array of coordinates of points genereated (N,3) N = # of points, 2 = dimentions
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a4de3a232c0ffd81cd4c6bed629c85f5d}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!generate\_sphere\_points@{generate\_sphere\_points}}
+\index{generate\_sphere\_points@{generate\_sphere\_points}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{generate\_sphere\_points()}{generate\_sphere\_points()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a4de3a232c0ffd81cd4c6bed629c85f5d} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+generate\+\_\+sphere\+\_\+points (\begin{DoxyParamCaption}\item[{}]{total\+\_\+points}{, }\item[{}]{center}{, }\item[{}]{radius}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Genereate uniformly distributed points in a sphere of radius.
+
+Parameters
+----------
+total_points : int
+    total points from this distribution
+center : array-like or tuple
+    coordinate of the center of the radius. [x,y,...]
+radius : float-like
+    radius of the region on which to
+
+Returns
+-------
+(n,2) size array
+    array of coordinates of points genereated (N,3) N = # of points, 2 = dimentions
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a683fe781fc2335d257afcd0d163ff789}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!get\_gaussian@{get\_gaussian}}
+\index{get\_gaussian@{get\_gaussian}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{get\_gaussian()}{get\_gaussian()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a683fe781fc2335d257afcd0d163ff789} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+get\+\_\+gaussian (\begin{DoxyParamCaption}\item[{}]{mu}{, }\item[{}]{sigma}{, }\item[{}]{domain}{ = {\ttfamily \mbox{[}list(range(10)),~list(range(10))\mbox{]}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parameters
+----------
+mu : array-like or float of floats
+    center position of gaussian (x,y) or collection of (x,y)
+sigma : float or array-like of floats of shape mu
+    sigma of the gaussian
+domain : array-like, Defaults to 0->9 for x,y
+    x,y domain over which this gassuain is over
+
+
+Returns
+-------
+array-like 2D
+    values of the gaussian centered at mu with sigma across the (x,y) points defined in domain
+
+Notes:
+------
+THIS IS IMPORTANT: MAKE SURE THE TYPES IN EACH PARAMETER ARE THE SAME!!!!
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_acd2c903191e8bd87e9cda47d536e552e}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!get\_lengths@{get\_lengths}}
+\index{get\_lengths@{get\_lengths}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{get\_lengths()}{get\_lengths()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_acd2c903191e8bd87e9cda47d536e552e} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+get\+\_\+lengths (\begin{DoxyParamCaption}\item[{str}]{track\+\_\+distribution}{, }\item[{int}]{track\+\_\+length\+\_\+mean}{, }\item[{int}]{total\+\_\+tracks}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the track lengths from the distribution track_distribution. The lengths are returned as the closest integer
+
+Parameters:
+-----------
+track_distribution: distribution of track lengths. Options are "exponential" and "uniform"
+track_length_mean: mean track length
+total_tracks: total number of tracks to be generated
+
+Returns:
+--------
+track lengths as a numpy array of shape (total_tracks,1)
+
+Notes:
+------
+1. If the distribution is exponential, then the track lengths are generated using exponential distribution.
+2. If the distribution is uniform, then the track lengths are generated using uniform distribution between 0 and 2*track_length_mean.
+3. If the distribution is constant, then all the track lengths are set to the mean track length. (track_length_mean)
+
+Exceptions:
+-----------
+ValueError: if the distribution is not recognized.
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_aa2d8749cc330bb52bba086854ac8ed29}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!radius\_spherical\_cap@{radius\_spherical\_cap}}
+\index{radius\_spherical\_cap@{radius\_spherical\_cap}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{radius\_spherical\_cap()}{radius\_spherical\_cap()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_aa2d8749cc330bb52bba086854ac8ed29} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+radius\+\_\+spherical\+\_\+cap (\begin{DoxyParamCaption}\item[{}]{R}{, }\item[{}]{center}{, }\item[{}]{z\+\_\+slice}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Find the radius of a spherical cap given the radius of the sphere and the z coordinate of the slice
+Theory: https://en.wikipedia.org/wiki/Spherical_cap, https://mathworld.wolfram.com/SphericalCap.html
+
+Parameters:
+-----------
+R : float,int
+    radius of the sphere
+center : array-like
+    [x,y,z] coordinates of the center of the sphere
+z_slice : float,int
+    z coordinate of the slice relative to the center of the sphere, z_slice = 0 is the center of the sphere
+
+Returns:
+--------
+float
+    radius of the spherical cap at the z_slice
+
+Notes:
+------
+1. This is a special case of the spherical cap equation where the center of the sphere is at the origin
+\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1simulate__foci_a9637ad4226306c0f7103fa6c9fea2b3e}\index{SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}!tophat\_function\_2d@{tophat\_function\_2d}}
+\index{tophat\_function\_2d@{tophat\_function\_2d}!SMS\_BP.simulate\_foci@{SMS\_BP.simulate\_foci}}
+\doxysubsubsection{\texorpdfstring{tophat\_function\_2d()}{tophat\_function\_2d()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1simulate__foci_a9637ad4226306c0f7103fa6c9fea2b3e} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+tophat\+\_\+function\+\_\+2d (\begin{DoxyParamCaption}\item[{}]{var}{, }\item[{}]{center}{, }\item[{}]{radius}{, }\item[{}]{bias\+\_\+subspace}{, }\item[{}]{space\+\_\+prob}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Defines a circular top hat probability distribution with a single biased region defining the hat.
+The rest of the space is uniformly distrubuted in 2D
+
+Parameters
+----------
+var : array-like, float
+    [x,y] defining sampling on the x,y span of this distribution
+center : array-like, float
+    [c1,c2] defining the center coordinates of the top hat region
+radius : float
+    defines the radius of the circular tophat from the center
+bias_subspace : float
+    probability at the top position of the top hat
+space_prob : float 
+    probability everywhere not in the bias_subspace
+
+Returns
+-------
+float, can be array-like if var[0],var[1] is array-like
+    returns the value of bias_subspace or space_prob depending on where the [x,y] data lies\end{DoxyVerb}
+ 

@@ -1,0 +1,70 @@
+\doxysection{SMS\+\_\+\+BP.\+run\+\_\+cell\+\_\+simulation Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1run__cell__simulation}{}\label{namespace_s_m_s___b_p_1_1run__cell__simulation}\index{SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1run__cell__simulation_a1e2cdb4fea19cd5cb348fd41c9227936}{main\+\_\+\+CLI}} ()
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1run__cell__simulation_afbe2eb4fdbf81d0163b2543ad8e2c5e3}{main\+\_\+no\+CLI}} (file)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1run__cell__simulation_a55edba3a4a2e383d6b0485c1930e859c}{project\+\_\+directory}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1run__cell__simulation_a0537acabc36b435c7c2f3061d548cd3f}{config\+\_\+file}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1run__cell__simulation_a1e2cdb4fea19cd5cb348fd41c9227936}\index{SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}!main\_CLI@{main\_CLI}}
+\index{main\_CLI@{main\_CLI}!SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}}
+\doxysubsubsection{\texorpdfstring{main\_CLI()}{main\_CLI()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1run__cell__simulation_a1e2cdb4fea19cd5cb348fd41c9227936} 
+SMS\+\_\+\+BP.\+run\+\_\+cell\+\_\+simulation.\+main\+\_\+\+CLI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}CLI tool to run cell simulation.
+
+Usage:
+    python run_cell_simulation.py <config_file> [--output_path <output_path>]
+
+Arguments:
+    config_file     Path to the configuration file
+
+Options:
+    --output_path   Path to the output directory\end{DoxyVerb}
+ \Hypertarget{namespace_s_m_s___b_p_1_1run__cell__simulation_afbe2eb4fdbf81d0163b2543ad8e2c5e3}\index{SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}!main\_noCLI@{main\_noCLI}}
+\index{main\_noCLI@{main\_noCLI}!SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}}
+\doxysubsubsection{\texorpdfstring{main\_noCLI()}{main\_noCLI()}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1run__cell__simulation_afbe2eb4fdbf81d0163b2543ad8e2c5e3} 
+SMS\+\_\+\+BP.\+run\+\_\+cell\+\_\+simulation.\+main\+\_\+no\+CLI (\begin{DoxyParamCaption}\item[{}]{file}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run cell simulation without using CLI arguments
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_s_m_s___b_p_1_1run__cell__simulation_a0537acabc36b435c7c2f3061d548cd3f}\index{SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}!config\_file@{config\_file}}
+\index{config\_file@{config\_file}!SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}}
+\doxysubsubsection{\texorpdfstring{config\_file}{config\_file}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1run__cell__simulation_a0537acabc36b435c7c2f3061d548cd3f} 
+SMS\+\_\+\+BP.\+run\+\_\+cell\+\_\+simulation.\+config\+\_\+file}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ os.path.join(}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ project\_directory,\ \textcolor{stringliteral}{"{}SMS\_BP"{}},\ \textcolor{stringliteral}{"{}sim\_config.json"{}})}
+
+\end{DoxyCode}
+\Hypertarget{namespace_s_m_s___b_p_1_1run__cell__simulation_a55edba3a4a2e383d6b0485c1930e859c}\index{SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}!project\_directory@{project\_directory}}
+\index{project\_directory@{project\_directory}!SMS\_BP.run\_cell\_simulation@{SMS\_BP.run\_cell\_simulation}}
+\doxysubsubsection{\texorpdfstring{project\_directory}{project\_directory}}
+{\footnotesize\ttfamily \label{namespace_s_m_s___b_p_1_1run__cell__simulation_a55edba3a4a2e383d6b0485c1930e859c} 
+SMS\+\_\+\+BP.\+run\+\_\+cell\+\_\+simulation.\+project\+\_\+directory}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ os.path.dirname(}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ os.path.dirname(os.path.abspath(\_\_file\_\_)))}
+
+\end{DoxyCode}

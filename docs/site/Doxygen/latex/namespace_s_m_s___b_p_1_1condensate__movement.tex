@@ -1,0 +1,31 @@
+\doxysection{SMS\+\_\+\+BP.\+condensate\+\_\+movement Namespace Reference}
+\hypertarget{namespace_s_m_s___b_p_1_1condensate__movement}{}\label{namespace_s_m_s___b_p_1_1condensate__movement}\index{SMS\_BP.condensate\_movement@{SMS\_BP.condensate\_movement}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_m_s___b_p_1_1condensate__movement_1_1_condensate}{Condensate}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Contains class for storing condensate data. Condensates are defined as spherical always; defined by a 
+center (x,y,z), radius (r), and time (t). The complete description of the condensate at any time (t) is:
+(x,y,z,r,t).
+
+Usage:
+------
+    Initialize the class as follows:
+        condensate = Condensate(**{
+            "inital_position":np.array([0, 0, 0]),
+            "initial_time":0,
+            "diffusion_coefficient":0,
+            "hurst_exponent":0,
+            "units_time":'ms',
+            "units_position":'um',
+            "condensate_id":0,
+            "initial_scale":0,
+        })
+    Call the class object as follows to get the position and scale of the condensate at a given time:
+        condensate(times, time_unit) -> dict{"Position":np.ndarray, "Scale":float}
+\end{DoxyVerb}
+ 

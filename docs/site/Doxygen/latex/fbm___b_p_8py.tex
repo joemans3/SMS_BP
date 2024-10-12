@@ -1,0 +1,50 @@
+\doxysection{fbm\+\_\+\+BP.\+py File Reference}
+\hypertarget{fbm___b_p_8py}{}\label{fbm___b_p_8py}\index{fbm\_BP.py@{fbm\_BP.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_s_m_s___b_p_1_1fbm___b_p_1_1_f_b_m___b_p}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+FBM\+\_\+\+BP}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_s_m_s___b_p}{SMS\+\_\+\+BP}}
+\item 
+namespace \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a276cc9cad0e8391c21a419f7edb2e26d}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+MCMC\+\_\+state\+\_\+selection}} (int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7}{initial\+\_\+state\+\_\+index}}, np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}}, np.\+ndarray \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}}, int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aec3a67efe6353226433bc6c9c9d14f5c}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+\_\+boundary\+\_\+conditions}} (float fbm\+\_\+store\+\_\+last, float fbm\+\_\+candidate, np.\+ndarray space\+\_\+lim, str condition\+\_\+type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a7e0ecb8f6c3b30c7645eee1139c28946}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+BOUNDARY\+\_\+\+CONDITIONS}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+transition\+\_\+matrix}} = np.\+array(\mbox{[}\mbox{[}0.\+4, 0.\+6\mbox{]}, \mbox{[}0.\+2, 0.\+8\mbox{]}\mbox{]})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+possible\+\_\+states}} = np.\+array(\mbox{[}1, 2\mbox{]})
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+n}} = 50000
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ab830a5164d53c390784e9cce5d9f0ba7}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+initial\+\_\+state\+\_\+index}} = 1
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a1a76a8031bf988bf668c4f334bf5df09}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+select}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a747ff8d94a1517a1d33ba5646e7245fc}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+probability}} = np.\+zeros(len(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a9ab6b338045abb1b43aa0c40e08a51ba}{possible\+\_\+states}}))
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+total\+\_\+rate}} = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}})
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aa3194fefb1c6365d22f2818381320738}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+true\+\_\+state\+\_\+probability}} = np.\+sum(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_aca876a2c6b3eea79cdbf9a72bec6adec}{transition\+\_\+matrix}}, axis=0)/\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a900fabad3cbba5de25418d56d3f36269}{total\+\_\+rate}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a0d7d63bffeaebe155677824f39404b63}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+label}}
+\item 
+\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a67ca2173a1ecc80c7006e64173a320f2}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+alpha}}
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a21435816cd32473aeadb6db73f3c92cd}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+1\+\_\+to\+\_\+2}} = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1
+\item 
+int \mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_ae3a24d946a722c12d5be7dcfce20fcd7}{SMS\+\_\+\+BP.\+fbm\+\_\+\+BP.\+state\+\_\+2\+\_\+to\+\_\+1}} = np.\+zeros(\mbox{\hyperlink{namespace_s_m_s___b_p_1_1fbm___b_p_a6706979d80d154fb9b2a0b854b62e478}{n}}) -\/ 1
+\end{DoxyCompactItemize}

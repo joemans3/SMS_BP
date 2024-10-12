@@ -1,0 +1,248 @@
+\doxysection{SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator Class Reference}
+\hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator}{}\label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a02b5b2855a3d7c375ae424244f7527f7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, np.\+ndarray\texorpdfstring{$\vert$}{|}list \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_abb245d3ab7b7b17b513a29bfd72aa368}{cell\+\_\+space}}, int\texorpdfstring{$\vert$}{|}float \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a03943cb367a62fe9fb2f05b0a5121c50}{cell\+\_\+axial\+\_\+range}}, int \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_af41914baeedc0261e3cd6057bce1e9de}{frame\+\_\+count}}, int\texorpdfstring{$\vert$}{|}float \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a093ef6cd1d5d6bea4d7e4b45aa20db96}{exposure\+\_\+time}}, int\texorpdfstring{$\vert$}{|}float \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a885b5e92d1f7b1455e6cf2d45a5acead}{interval\+\_\+time}}, int\texorpdfstring{$\vert$}{|}float \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a045834a6a304cb2ffa3ea8c45ac744a4}{oversample\+\_\+motion\+\_\+time}})
+\item 
+dict \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_ae03f2877d110f02ccae534c48419a556}{track\+\_\+generation\+\_\+no\+\_\+transition}} (self, float diffusion\+\_\+coefficient, float hurst\+\_\+exponent, int track\+\_\+length, np.\+ndarray initials, int\texorpdfstring{$\vert$}{|}float start\+\_\+time)
+\item 
+dict \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a73fd0987877ca288e91036e668da4323}{track\+\_\+generation\+\_\+with\+\_\+transition}} (self, np.\+ndarray\texorpdfstring{$\vert$}{|}list diffusion\+\_\+transition\+\_\+matrix, np.\+ndarray\texorpdfstring{$\vert$}{|}list hurst\+\_\+transition\+\_\+matrix, np.\+ndarray\texorpdfstring{$\vert$}{|}list diffusion\+\_\+parameters, np.\+ndarray\texorpdfstring{$\vert$}{|}list hurst\+\_\+parameters, np.\+ndarray\texorpdfstring{$\vert$}{|}list diffusion\+\_\+state\+\_\+probability, np.\+ndarray\texorpdfstring{$\vert$}{|}list hurst\+\_\+state\+\_\+probability, int track\+\_\+length, np.\+ndarray initials, int\texorpdfstring{$\vert$}{|}float start\+\_\+time)
+\item 
+dict \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a89df2bf6e2ae23338f0afd61171611cc}{track\+\_\+generation\+\_\+constant}} (self, int track\+\_\+length, np.\+ndarray initials, int starting\+\_\+time)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_abb245d3ab7b7b17b513a29bfd72aa368}{cell\+\_\+space}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aee756dd70de9c5ffbc56ed2be9fe24ec}{min\+\_\+x}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aa953455e4c815a35dd783f7d2eee9b39}{max\+\_\+x}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7305b834efaac95a79cfdb2863afa64a}{min\+\_\+y}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7b6b774ad34ad2ca47f18abd9d6cf018}{max\+\_\+y}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a03943cb367a62fe9fb2f05b0a5121c50}{cell\+\_\+axial\+\_\+range}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a6f0c1ff482c926cb0bc5873151f771f2}{space\+\_\+lim}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_af41914baeedc0261e3cd6057bce1e9de}{frame\+\_\+count}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a093ef6cd1d5d6bea4d7e4b45aa20db96}{exposure\+\_\+time}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a885b5e92d1f7b1455e6cf2d45a5acead}{interval\+\_\+time}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a045834a6a304cb2ffa3ea8c45ac744a4}{oversample\+\_\+motion\+\_\+time}}
+\item 
+\mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a9a038dfd5576c982d35135ccacd0beee}{total\+\_\+time}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a790eab885039627f186ffff102dcf824}{\+\_\+convert\+\_\+time\+\_\+to\+\_\+frame}} (self, int time)
+\item 
+int \mbox{\hyperlink{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a40c7c5aa9c837d5d60bdb06ef2b6f0a7}{\+\_\+convert\+\_\+frame\+\_\+to\+\_\+time}} (self, int frame)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a02b5b2855a3d7c375ae424244f7527f7}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a02b5b2855a3d7c375ae424244f7527f7} 
+ None SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{cell\+\_\+space}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{cell\+\_\+axial\+\_\+range}{, }\item[{int}]{frame\+\_\+count}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{exposure\+\_\+time}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{interval\+\_\+time}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{oversample\+\_\+motion\+\_\+time}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a40c7c5aa9c837d5d60bdb06ef2b6f0a7}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!\_convert\_frame\_to\_time@{\_convert\_frame\_to\_time}}
+\index{\_convert\_frame\_to\_time@{\_convert\_frame\_to\_time}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{\_convert\_frame\_to\_time()}{\_convert\_frame\_to\_time()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a40c7c5aa9c837d5d60bdb06ef2b6f0a7} 
+ int SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+\_\+convert\+\_\+frame\+\_\+to\+\_\+time (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{frame}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Parameters:
+-----------
+frame : int
+    frame number
+
+Returns:
+--------
+int: time in ms
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a790eab885039627f186ffff102dcf824}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!\_convert\_time\_to\_frame@{\_convert\_time\_to\_frame}}
+\index{\_convert\_time\_to\_frame@{\_convert\_time\_to\_frame}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{\_convert\_time\_to\_frame()}{\_convert\_time\_to\_frame()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a790eab885039627f186ffff102dcf824} 
+ int SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+\_\+convert\+\_\+time\+\_\+to\+\_\+frame (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Parameters:
+-----------
+time : int
+    time in ms
+
+Returns:
+--------
+int: frame number
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a89df2bf6e2ae23338f0afd61171611cc}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!track\_generation\_constant@{track\_generation\_constant}}
+\index{track\_generation\_constant@{track\_generation\_constant}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{track\_generation\_constant()}{track\_generation\_constant()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a89df2bf6e2ae23338f0afd61171611cc} 
+ dict SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+track\+\_\+generation\+\_\+constant (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{track\+\_\+length}{, }\item[{np.\+ndarray}]{initials}{, }\item[{int}]{starting\+\_\+time}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parameters:
+-----------
+track_length : int
+    mean track length, in this case the track length is constant with this mean
+initials : array-like
+    [[x,y,z]] coordinates of the initial positions of the track
+starting_time : int
+    time at which the track start (this is not the frame, and needs to be converted to the frame using the exposure time and interval time and the oversample motion time)
+
+Returns:
+--------
+np.ndarray
+    track data for the constant track, {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_ae03f2877d110f02ccae534c48419a556}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!track\_generation\_no\_transition@{track\_generation\_no\_transition}}
+\index{track\_generation\_no\_transition@{track\_generation\_no\_transition}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{track\_generation\_no\_transition()}{track\_generation\_no\_transition()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_ae03f2877d110f02ccae534c48419a556} 
+ dict SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+track\+\_\+generation\+\_\+no\+\_\+transition (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{diffusion\+\_\+coefficient}{, }\item[{float}]{hurst\+\_\+exponent}{, }\item[{int}]{track\+\_\+length}{, }\item[{np.\+ndarray}]{initials}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{start\+\_\+time}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Simulates the track generation with no transition between the diffusion coefficients and the hurst exponents
+namely, this means each track has a unique diffusion coefficient and hurst exponent
+This simulation is confined to the cell space and the axial range of the cell
+
+Parameters:
+-----------
+diffusion_coefficient : float
+    diffusion coefficient for the track
+hurst_exponent : float
+    hurst exponent for the track
+track_length : int
+    track_length for the track
+initials : array-like
+    [[x,y,z]] coordinates of the initial positions of the track
+start_time : int
+    time at which the track start (this is not the frame, and needs to be converted to the frame using the exposure time and interval time and the oversample motion time)
+Returns:
+--------
+dict-like with format: {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+\end{DoxyVerb}
+ \Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a73fd0987877ca288e91036e668da4323}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!track\_generation\_with\_transition@{track\_generation\_with\_transition}}
+\index{track\_generation\_with\_transition@{track\_generation\_with\_transition}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{track\_generation\_with\_transition()}{track\_generation\_with\_transition()}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a73fd0987877ca288e91036e668da4323} 
+ dict SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+track\+\_\+generation\+\_\+with\+\_\+transition (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{diffusion\+\_\+transition\+\_\+matrix}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{hurst\+\_\+transition\+\_\+matrix}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{diffusion\+\_\+parameters}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{hurst\+\_\+parameters}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{diffusion\+\_\+state\+\_\+probability}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{hurst\+\_\+state\+\_\+probability}{, }\item[{int}]{track\+\_\+length}{, }\item[{np.\+ndarray}]{initials}{, }\item[{int \texorpdfstring{$\vert$}{|} float}]{start\+\_\+time}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Genereates the track data with transition between the diffusion coefficients and the hurst exponents
+
+Parameters:
+-----------
+diffusion_transition_matrix : array-like
+    transition matrix for the diffusion coefficients
+hurst_transition_matrix : array-like
+    transition matrix for the hurst exponents
+diffusion_parameters : array-like
+    diffusion coefficients for the tracks
+hurst_parameters : array-like
+    hurst exponents for the tracks
+diffusion_state_probability : array-like
+    probabilities for the diffusion coefficients
+hurst_state_probability : array-like
+    probabilities for the hurst exponents
+track_length : int
+    track_length for the track
+initials : array-like
+    [[x,y,z]] coordinates of the initial positions of the track
+start_time : int
+    time at which the track start (this is not the frame, and needs to be converted to the frame using the exposure time and interval time and the oversample motion time)
+
+Returns:
+--------
+dict-like with format: {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a03943cb367a62fe9fb2f05b0a5121c50}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!cell\_axial\_range@{cell\_axial\_range}}
+\index{cell\_axial\_range@{cell\_axial\_range}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{cell\_axial\_range}{cell\_axial\_range}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a03943cb367a62fe9fb2f05b0a5121c50} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+cell\+\_\+axial\+\_\+range}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_abb245d3ab7b7b17b513a29bfd72aa368}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!cell\_space@{cell\_space}}
+\index{cell\_space@{cell\_space}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{cell\_space}{cell\_space}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_abb245d3ab7b7b17b513a29bfd72aa368} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+cell\+\_\+space}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a093ef6cd1d5d6bea4d7e4b45aa20db96}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!exposure\_time@{exposure\_time}}
+\index{exposure\_time@{exposure\_time}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{exposure\_time}{exposure\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a093ef6cd1d5d6bea4d7e4b45aa20db96} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+exposure\+\_\+time}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_af41914baeedc0261e3cd6057bce1e9de}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!frame\_count@{frame\_count}}
+\index{frame\_count@{frame\_count}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{frame\_count}{frame\_count}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_af41914baeedc0261e3cd6057bce1e9de} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+frame\+\_\+count}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a885b5e92d1f7b1455e6cf2d45a5acead}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!interval\_time@{interval\_time}}
+\index{interval\_time@{interval\_time}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{interval\_time}{interval\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a885b5e92d1f7b1455e6cf2d45a5acead} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+interval\+\_\+time}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aa953455e4c815a35dd783f7d2eee9b39}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!max\_x@{max\_x}}
+\index{max\_x@{max\_x}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{max\_x}{max\_x}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aa953455e4c815a35dd783f7d2eee9b39} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+max\+\_\+x}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7b6b774ad34ad2ca47f18abd9d6cf018}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!max\_y@{max\_y}}
+\index{max\_y@{max\_y}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{max\_y}{max\_y}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7b6b774ad34ad2ca47f18abd9d6cf018} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+max\+\_\+y}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aee756dd70de9c5ffbc56ed2be9fe24ec}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!min\_x@{min\_x}}
+\index{min\_x@{min\_x}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{min\_x}{min\_x}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_aee756dd70de9c5ffbc56ed2be9fe24ec} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+min\+\_\+x}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7305b834efaac95a79cfdb2863afa64a}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!min\_y@{min\_y}}
+\index{min\_y@{min\_y}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{min\_y}{min\_y}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a7305b834efaac95a79cfdb2863afa64a} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+min\+\_\+y}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a045834a6a304cb2ffa3ea8c45ac744a4}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!oversample\_motion\_time@{oversample\_motion\_time}}
+\index{oversample\_motion\_time@{oversample\_motion\_time}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{oversample\_motion\_time}{oversample\_motion\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a045834a6a304cb2ffa3ea8c45ac744a4} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+oversample\+\_\+motion\+\_\+time}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a6f0c1ff482c926cb0bc5873151f771f2}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!space\_lim@{space\_lim}}
+\index{space\_lim@{space\_lim}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{space\_lim}{space\_lim}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a6f0c1ff482c926cb0bc5873151f771f2} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+space\+\_\+lim}
+
+\Hypertarget{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a9a038dfd5576c982d35135ccacd0beee}\index{SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}!total\_time@{total\_time}}
+\index{total\_time@{total\_time}!SMS\_BP.simulate\_foci.Track\_generator@{SMS\_BP.simulate\_foci.Track\_generator}}
+\doxysubsubsection{\texorpdfstring{total\_time}{total\_time}}
+{\footnotesize\ttfamily \label{class_s_m_s___b_p_1_1simulate__foci_1_1_track__generator_a9a038dfd5576c982d35135ccacd0beee} 
+SMS\+\_\+\+BP.\+simulate\+\_\+foci.\+Track\+\_\+generator.\+total\+\_\+time}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{simulate__foci_8py}{simulate\+\_\+foci.\+py}}\end{DoxyCompactItemize}
