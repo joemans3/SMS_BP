@@ -112,7 +112,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a20d7a9d616a3b333ac63173775c88865"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fce4e39402d34ef0c547d6ec82b4bef" id="r_a0fce4e39402d34ef0c547d6ec82b4bef"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fce4e39402d34ef0c547d6ec82b4bef">get_cell</a> (self)</td></tr>
 <tr class="separator:a0fce4e39402d34ef0c547d6ec82b4bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bb211f252672a7a0304d50c4f5ea0f4" id="r_a1bb211f252672a7a0304d50c4f5ea0f4"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bb211f252672a7a0304d50c4f5ea0f4">get_and_save_sim</a> (self, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#ab5262002f3749243f73fa9b7764b5e8a">cd</a>, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#adaf614aaa1a88f450514dacce891b28e">img_name</a>, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#a695dcac5a99c28976a2a44d4785fe045">subsegment_type</a>, int <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#a4730b967ceca0d3a96d55729b2b16111">sub_frame_num</a>, **kwargs)</td></tr>
+<tr class="memitem:a1bb211f252672a7a0304d50c4f5ea0f4" id="r_a1bb211f252672a7a0304d50c4f5ea0f4"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bb211f252672a7a0304d50c4f5ea0f4">get_and_save_sim</a> (self, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#ab5262002f3749243f73fa9b7764b5e8a">cd</a>, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#adaf614aaa1a88f450514dacce891b28e">img_name</a>, str <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#a695dcac5a99c28976a2a44d4785fe045">subsegment_type</a>, int <a class="el" href="namespace_s_m_s___b_p_1_1simulate__cell.html#a4730b967ceca0d3a96d55729b2b16111">subsegment_num</a>, **kwargs)</td></tr>
 <tr class="separator:a1bb211f252672a7a0304d50c4f5ea0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a832604b40cbd842b268b058437520b1a" id="r_a832604b40cbd842b268b058437520b1a"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a832604b40cbd842b268b058437520b1a">condensates</a> (self)</td></tr>
 <tr class="separator:a832604b40cbd842b268b058437520b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -771,7 +771,7 @@ update_type : str
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sub_frame_num</em></span>, </td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>subsegment_num</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -792,7 +792,7 @@ img : array-like
     image to be subsegmented
 subsegment_type : str
     type of subsegmentation to be performed, currently only "mean" is supported
-sub_frame_num : int
+subsegment_num : int
     number of subsegments to be created
 **kwargs : dict
     dictionary of keyword arguments

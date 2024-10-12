@@ -11,7 +11,7 @@ var searchData=
   ['state_5fprobability_5fhurst_8',['state_probability_hurst',['../class_s_m_s___b_p_1_1fbm___b_p_1_1_f_b_m___b_p.html#add6b58bb81a12067224e46dfb1d817fe',1,'SMS_BP::fbm_BP::FBM_BP']]],
   ['state_5fselect_9',['state_select',['../namespace_s_m_s___b_p_1_1fbm___b_p.html#a1a76a8031bf988bf668c4f334bf5df09',1,'SMS_BP::fbm_BP']]],
   ['string_5ftypes_10',['string_types',['../namespace_s_m_s___b_p_1_1decorators.html#a61cdea91714c77790b45bea955c2b703',1,'SMS_BP::decorators']]],
-  ['sub_5fframe_5fnum_11',['sub_frame_num',['../namespace_s_m_s___b_p_1_1simulate__cell.html#a4730b967ceca0d3a96d55729b2b16111',1,'SMS_BP::simulate_cell']]],
+  ['sub_5fframe_5fnum_11',['subsegment_num',['../namespace_s_m_s___b_p_1_1simulate__cell.html#a4730b967ceca0d3a96d55729b2b16111',1,'SMS_BP::simulate_cell']]],
   ['subsegment_5ftype_12',['subsegment_type',['../namespace_s_m_s___b_p_1_1simulate__cell.html#a695dcac5a99c28976a2a44d4785fe045',1,'SMS_BP::simulate_cell']]],
   ['subspace_5fcenters_13',['subspace_centers',['../class_s_m_s___b_p_1_1probability__functions_1_1multiple__top__hat__probability.html#a7ea98dd5fa77d7d3d84a2d19d5f574db',1,'SMS_BP::probability_functions::multiple_top_hat_probability']]],
   ['subspace_5fprobability_14',['subspace_probability',['../class_s_m_s___b_p_1_1probability__functions_1_1multiple__top__hat__probability.html#a36ed4be56a738415fed8f1a8afa2979e',1,'SMS_BP::probability_functions::multiple_top_hat_probability']]],
