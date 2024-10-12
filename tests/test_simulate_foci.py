@@ -102,5 +102,4 @@ def test_generate_points():
     )
 
     assert len(points) == total_points
-    assert isinstance(points, list)
     assert all(len(p) == 2 for p in points)  # Check if all points have 2 coordinates

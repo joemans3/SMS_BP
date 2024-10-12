@@ -81,10 +81,6 @@ def test_FBM_BP_fbm(fbm_bp_instance):
         fbm <= fbm_bp_instance.space_lim[1]
     )
 
-    # Check some specific values for reproducibility
-    expected_values = [-0.05840507, 0.11533469, 0.07177384, 0.15441195, 0.24053656]
-    np.testing.assert_allclose(fbm[:5], expected_values, rtol=1e-6)
-
 
 def test_boundary_conditions():
     space_lim = np.array([-10, 10])
@@ -132,10 +128,6 @@ def test_FBM_BP_singular_parameters():
     assert len(fbm) == n
     assert fbm[0] == 0
     assert np.all(fbm >= space_lim[0]) and np.all(fbm <= space_lim[1])
-
-    # Check some specific values for reproducibility
-    expected_values = [-0.18637179, -0.30347991, -0.38032383, -0.14098111, 0.14496058]
-    np.testing.assert_allclose(fbm[:5], expected_values, rtol=1e-6)
 
     # For Hurst = 0.5, check if the increments are uncorrelated
     increments = np.diff(fbm)

@@ -10,9 +10,8 @@ runner = CliRunner()
 
 # Test the CLI command for version output
 def test_version_output():
-    result = runner.invoke(typer_app_sms_bp, [])
+    result = runner.invoke(typer_app_sms_bp, ["--help"])
     assert result.exit_code == 0
-    assert "Using SMS_BP version" in result.output
 
 
 # Test the config generation command
@@ -21,11 +20,14 @@ def test_generate_config(tmpdir):
     output_path = tmpdir.mkdir("test_output")
     result = runner.invoke(
         typer_app_sms_bp,
-        ["config", "--output_path", str(output_path), "--recursive_o", "True"],
+        ["config", "-o", str(output_path)],
     )
 
     # Check that the command executed successfully
     assert result.exit_code == 0
-    assert "Processing request to create a default config file" in result.output
+    assert "SMS_BP version" in result.output
+    assert "Config file saved to" in result.output
     assert os.path.exists(os.path.join(output_path, "sim_config.json"))
 
+
+# Testing the typer_app_sms_bp.
