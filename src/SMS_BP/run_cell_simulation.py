@@ -20,18 +20,21 @@ typer_app_sms_bp = typer.Typer(
     rich_markup_mode="rich",
     pretty_exceptions_show_locals=False,
     add_completion=False,
+    no_args_is_help=True,
+    context_settings={"help_option_names": ["-h", "--help"]},
 )
 
 
 # make a callback function to run the simulation
-@typer_app_sms_bp.callback()
+@typer_app_sms_bp.callback(name="sms_bp", invoke_without_command=True)
 def cell_simulation():
     """
     CLI tool to run [underline]S[/underline]ingle [underline]M[/underline]olecule [underline]S[/underline]imulation: [underline]SMS[/underline]-BP. GitHub: [green]https://github.com/joemans3/SMS_BP[/green]
     """
     # print version
     # find version using the __version__ variable in the __init__.py file
-    rich.print(f"Using SMS_BP version: [bold]{__version__}[/bold]")
+    out_string = f"SMS_BP version: [bold]{__version__}[/bold]"
+    rich.print(out_string)
 
 
 @typer_app_sms_bp.command(name="config")
@@ -171,7 +174,7 @@ def run_cell_simulation(
             cd=output_path,
             img_name=output_parameters.get("output_name"),
             subsegment_type=output_parameters.get("subsegment_type"),
-            sub_frame_num=int(output_parameters.get("subsegment_number")),
+            subsegment_num=int(output_parameters.get("subsegment_number")),
         )
 
         progress.update(task_2, completed=None)

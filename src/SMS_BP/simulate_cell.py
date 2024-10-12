@@ -35,13 +35,13 @@ def save_tiff(image, path, img_name=None):
 
 
 # function to perform the subsegmentation
-def sub_segment(img, sub_frame_num, img_name=None, subsegment_type="mean"):
+def sub_segment(img, subsegment_num, img_name=None, subsegment_type="mean"):
     """Docstring for sub_segment: perform subsegmentation on the image
     Parameters:
     -----------
     img : array-like
         image to be subsegmented
-    sub_frame_num : int
+    subsegment_num : int
         number of subsegments to be created
     img_name : str, Default = None
         name of the image
@@ -54,14 +54,19 @@ def sub_segment(img, sub_frame_num, img_name=None, subsegment_type="mean"):
     hold_name : list
         list of names of the subsegments
     """
+    supported_subsegment_types = ["mean", "max", "std"]
+    if subsegment_type not in supported_subsegment_types:
+        raise ValueError(
+            f"Subsegment type {subsegment_type} is not supported. Supported types are {supported_subsegment_types}"
+        )
     # get the dimensions of the image
     dims = img.shape
     # get the number of frames
     num_frames = dims[0]
     # find the number of frames per subsegment
-    frames_per_subsegment = int(num_frames / sub_frame_num)
+    frames_per_subsegment = int(num_frames / subsegment_num)
     hold_img = []
-    for j in np.arange(sub_frame_num):
+    for j in np.arange(subsegment_num):
         if subsegment_type == "mean":
             hold_img.append(
                 np.mean(
@@ -99,7 +104,7 @@ def sub_segment(img, sub_frame_num, img_name=None, subsegment_type="mean"):
 
 
 def make_directory_structure(
-    cd, img_name, img, subsegment_type, sub_frame_num, **kwargs
+    cd, img_name, img, subsegment_type, subsegment_num, **kwargs
 ):
     """Docstring for make_directory_structure: make the directory structure for the simulation and save the image + the data and parameters
     Also perform the subsegmentation and save the subsegments in the appropriate directory
@@ -113,7 +118,7 @@ def make_directory_structure(
         image to be subsegmented
     subsegment_type : str
         type of subsegmentation to be performed, currently only "mean" is supported
-    sub_frame_num : int
+    subsegment_num : int
         number of subsegments to be created
     **kwargs : dict
         dictionary of keyword arguments
@@ -160,16 +165,16 @@ def make_directory_structure(
         os.makedirs(os.path.join(cd, "segmented"))
     # perform subsegmentation on the image
     hold_img = sub_segment(
-        img, sub_frame_num, img_name=img_name, subsegment_type=subsegment_type
+        img, subsegment_num, img_name=img_name, subsegment_type=subsegment_type
     )
     # create the names for the subsegmented images
     hold_name = []
-    for i in np.arange(sub_frame_num):
+    for i in np.arange(subsegment_num):
         hold_name.append(
             os.path.join(cd, "segmented", str(int(i) + 1) + "_" + img_name + ".tif")
         )
     # save the subsegmented images
-    for i in np.arange(sub_frame_num):
+    for i in np.arange(subsegment_num):
         img = Image.fromarray(hold_img[i])
         img.save(hold_name[i])
     return hold_img
@@ -817,7 +822,12 @@ class Simulate_cells:
         }
 
     def get_and_save_sim(
-        self, cd: str, img_name: str, subsegment_type: str, sub_frame_num: int, **kwargs
+        self,
+        cd: str,
+        img_name: str,
+        subsegment_type: str,
+        subsegment_num: int,
+        **kwargs,
     ) -> None:
         """Docstring for make_directory_structure: make the directory structure for the simulation and save the image + the data and parameters
         Also perform the subsegmentation and save the subsegments in the appropriate directory
@@ -831,7 +841,7 @@ class Simulate_cells:
             image to be subsegmented
         subsegment_type : str
             type of subsegmentation to be performed, currently only "mean" is supported
-        sub_frame_num : int
+        subsegment_num : int
             number of subsegments to be created
         **kwargs : dict
             dictionary of keyword arguments
@@ -852,7 +862,7 @@ class Simulate_cells:
         kwargs["parameters"] = self.init_dict
         # make the directory structure
         _ = make_directory_structure(
-            cd, img_name, sim["map"], subsegment_type, sub_frame_num, **kwargs
+            cd, img_name, sim["map"], subsegment_type, subsegment_num, **kwargs
         )
         return None
 
@@ -905,5 +915,5 @@ if __name__ == "__main__":
         cd="/Users/baljyot/Documents/CODE/GitHub_t2/PHD/SingleMoleculeSimulations_BP/SMS_BP/Pablo_stuff",
         img_name="test",
         subsegment_type="mean",
-        sub_frame_num=5,
+        subsegment_num=5,
     )
