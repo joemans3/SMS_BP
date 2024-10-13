@@ -327,7 +327,7 @@ class Simulate_cells:
         """
         return int((frame * (exposure_time + interval_time)) / oversample_motion_time)
 
-    def _update_units(self, unit, orig_type, update_type):
+    def _update_units(self, unit: int, orig_type: str, update_type: str) -> float:
         """Docstring for _update_units: update the unit from one type to another
         Parameters:
         -----------
