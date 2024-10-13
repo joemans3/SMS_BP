@@ -18,7 +18,7 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
 
-    steps:     
+    steps:
       - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v3
@@ -33,3 +33,9 @@ jobs:
           uv run ruff format
       - name: Test with pytest
         run: uv run pytest
+      - name: Build mkdocs
+        run: |
+          cd docs && uv run mkdocs build
+          uv run mkdocs deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
