@@ -327,7 +327,9 @@ class Simulate_cells:
         """
         return int((frame * (exposure_time + interval_time)) / oversample_motion_time)
 
-    def _update_units(self, unit: int, orig_type: str, update_type: str) -> float:
+    def _update_units(
+        self, unit: np.ndarray, orig_type: str, update_type: str
+    ) -> float | np.ndarray:
         """Docstring for _update_units: update the unit from one type to another
         Parameters:
         -----------
@@ -369,7 +371,6 @@ class Simulate_cells:
         if orig_type == "um":
             if update_type == "pix":
                 return unit / self.init_dict["Global_Parameters"]["pixel_size"]
-        return
 
     def _check_init_dict(self) -> bool:
         """Docstring for _check_init_dict: check the init_dict for the required keys, and if they are consistent with other keys
