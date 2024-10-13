@@ -329,11 +329,11 @@ class Simulate_cells:
 
     def _update_units(
         self, unit: np.ndarray, orig_type: str, update_type: str
-    ) -> float | np.ndarray:
+    ) -> float | np.ndarray | None:
         """Docstring for _update_units: update the unit from one type to another
         Parameters:
         -----------
-        unit : int
+        unit : float|np.ndarray
             unit to be updated
         orig_type : str
             original type of unit
