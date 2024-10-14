@@ -21,7 +21,6 @@ nav:
   - About:
     - 'License': license.md
 
-
 theme: 
   name: material
   palette:
