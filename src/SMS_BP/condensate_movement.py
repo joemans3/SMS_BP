@@ -93,7 +93,7 @@ class Condensate:
         # initialize the properties of the condensate
         self._initialize_properties()
 
-    def _initialize_properties(self):
+    def _initialize_properties(self) -> None:
         """Initializes the properties of the condensate."""
         self.times = np.array([self.initial_time])
         self.condensate_positions = np.array([self.initial_position])

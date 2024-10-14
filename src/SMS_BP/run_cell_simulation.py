@@ -1,18 +1,3 @@
-import json
-import os
-import shutil
-import time
-from pathlib import Path
-from typing import Optional
-
-import rich
-import typer
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from typing_extensions import Annotated
-
-from SMS_BP import __version__
-from SMS_BP.simulate_cell import Simulate_cells
-
 """
 run_cell_simulation.py
 
@@ -34,6 +19,22 @@ Usage:
 
 The file uses Rich for enhanced console output and progress tracking.
 """
+
+import json
+import os
+import shutil
+import time
+from pathlib import Path
+from typing import Optional
+
+import rich
+import typer
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from typing_extensions import Annotated
+
+from SMS_BP import __version__
+from SMS_BP.simulate_cell import Simulate_cells
+
 
 # create a new CLI function
 typer_app_sms_bp = typer.Typer(

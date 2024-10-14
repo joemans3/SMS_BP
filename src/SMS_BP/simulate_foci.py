@@ -1,8 +1,27 @@
 """
-Documentation for the simulate_foci.py file.
-This file contains the class for simulating foci in space.
+simulate_foci.py
+================
+This file contains the necessary classes and functions to simulate foci dynamics in space, particularly within cell simulations.
 
 Author: Baljyot Singh Parmar
+
+Classes:
+--------
+- Track_generator: A class to generate tracks of foci movements in a cell space with or without transitions.
+
+Functions:
+----------
+- get_lengths: Generates an array of track lengths based on a chosen distribution.
+- create_condensate_dict: Creates a dictionary of condensates for simulation.
+- tophat_function_2d: Defines a circular top-hat probability distribution in 2D.
+- generate_points: Generates random points following a given probability distribution.
+- generate_points_from_cls: Generates 3D points using the accept/reject method based on a given distribution.
+- generate_radial_points: Generates uniformly distributed points in a circle.
+- generate_sphere_points: Generates uniformly distributed points in a sphere.
+- radius_spherical_cap: Computes the radius of a spherical cap given the sphere's radius and a z-slice.
+- get_gaussian: Returns a 2D Gaussian distribution over a given domain.
+- axial_intensity_factor: Computes the axial intensity factor based on axial position.
+- generate_map_from_points: Generates a spatial map from given points and intensities.
 """
 
 import numpy as np
@@ -12,29 +31,30 @@ import SMS_BP.condensate_movement as condensate_movement
 import SMS_BP.fbm_BP as fbm_BP
 
 
-def get_lengths(track_distribution: str, track_length_mean: int, total_tracks: int):
+def get_lengths(
+    track_distribution: str, track_length_mean: int, total_tracks: int
+) -> np.ndarray:
     """
-    Returns the track lengths from the distribution track_distribution. The lengths are returned as the closest integer
+    Returns track lengths based on the specified distribution.
 
     Parameters:
     -----------
-    track_distribution: distribution of track lengths. Options are "exponential" and "uniform"
-    track_length_mean: mean track length
-    total_tracks: total number of tracks to be generated
+    track_distribution : str
+        The distribution of track lengths. Options are "exponential", "uniform", and "constant".
+    track_length_mean : int
+        The mean length of the tracks.
+    total_tracks : int
+        The total number of tracks to generate.
 
     Returns:
     --------
-    track lengths as a numpy array of shape (total_tracks,1)
+    np.ndarray
+        An array of track lengths (shape: (total_tracks,)).
 
-    Notes:
-    ------
-    1. If the distribution is exponential, then the track lengths are generated using exponential distribution.
-    2. If the distribution is uniform, then the track lengths are generated using uniform distribution between 0 and 2*track_length_mean.
-    3. If the distribution is constant, then all the track lengths are set to the mean track length. (track_length_mean)
-
-    Exceptions:
-    -----------
-    ValueError: if the distribution is not recognized.
+    Raises:
+    -------
+    ValueError
+        If the distribution type is not recognized.
     """
     if track_distribution == "exponential":
         # make sure each of the lengths is an integer and is greater than or equal to 1
@@ -68,17 +88,29 @@ def create_condensate_dict(
     **kwargs,
 ) -> dict:
     """
-    Docstring for create_condensate_dict:
+    Creates a dictionary of condensates for simulation.
 
     Parameters:
     -----------
-    inital_centers: numpy array of shape (num_condensates,2) with the initial centers of the condensates
-    initial_scale: numpy array of shape (num_condensates,2) with the initial scales of the condensates
-    diffusion_coefficient: numpy array of shape (num_condensates,2) with the diffusion coefficients of the condensates
-    hurst_exponent: numpy array of shape (num_condensates,2) with the hurst exponents of the condensates
-    cell_space: numpy array of shape (2,2) with the cell space
-    cell_axial_range: float
-    **kwargs: additional arguments to be passed to the condensate_movement.Condensate class
+    initial_centers : np.ndarray
+        Array of shape (num_condensates, 2) representing the initial centers of the condensates.
+    initial_scale : np.ndarray
+        Array of shape (num_condensates, 2) representing the initial scales of the condensates.
+    diffusion_coefficient : np.ndarray
+        Array of shape (num_condensates, 2) representing the diffusion coefficients of the condensates.
+    hurst_exponent : np.ndarray
+        Array of shape (num_condensates, 2) representing the Hurst exponents of the condensates.
+    cell_space : np.ndarray
+        Array of shape (2, 2) representing the cell space boundaries.
+    cell_axial_range : float
+        Axial range of the cell.
+    **kwargs : dict
+        Additional arguments passed to `Condensate` class.
+
+    Returns:
+    --------
+    dict
+        A dictionary of `Condensate` objects with keys as condensate IDs.
     """
     # check the length of diffusion_coefficient to find the number of condensates
     num_condensates = len(diffusion_coefficient)
@@ -98,29 +130,34 @@ def create_condensate_dict(
     return condensates
 
 
-def tophat_function_2d(var, center, radius, bias_subspace, space_prob, **kwargs):
+def tophat_function_2d(
+    var: np.ndarray,
+    center: np.ndarray,
+    radius: float,
+    bias_subspace: float,
+    space_prob: float,
+    **kwargs,
+) -> float:
     """
-    Defines a circular top hat probability distribution with a single biased region defining the hat.
-    The rest of the space is uniformly distrubuted in 2D
+    Defines a circular top-hat probability distribution in 2D.
 
-    Parameters
-    ----------
-    var : array-like, float
-        [x,y] defining sampling on the x,y span of this distribution
-    center : array-like, float
-        [c1,c2] defining the center coordinates of the top hat region
+    Parameters:
+    -----------
+    var : np.ndarray
+        [x, y] coordinates for sampling the distribution.
+    center : np.ndarray
+        [c1, c2] coordinates representing the center of the top-hat region.
     radius : float
-        defines the radius of the circular tophat from the center
+        Radius of the circular top-hat.
     bias_subspace : float
-        probability at the top position of the top hat
+        Probability at the center of the top-hat.
     space_prob : float
-        probability everywhere not in the bias_subspace
+        Probability outside the top-hat region.
 
-    Returns
-    -------
-    float, can be array-like if var[0],var[1] is array-like
-        returns the value of bias_subspace or space_prob depending on where the [x,y] data lies
-
+    Returns:
+    --------
+    float
+        The probability value at the given coordinates.
     """
     x = var[0]
     y = var[1]
@@ -131,42 +168,44 @@ def tophat_function_2d(var, center, radius, bias_subspace, space_prob, **kwargs)
 
 
 def generate_points(
-    pdf,
-    total_points,
-    min_x,
-    max_x,
-    center,
-    radius,
-    bias_subspace_x,
-    space_prob,
-    density_dif,
-):
+    pdf: callable,
+    total_points: int,
+    min_x: float,
+    max_x: float,
+    center: np.ndarray,
+    radius: float,
+    bias_subspace_x: float,
+    space_prob: float,
+    density_dif: float,
+) -> np.ndarray:
     """
-    genereates random array of (x,y) points given a distribution using accept/reject method
+    Generates random (x, y) points using the accept/reject method based on a given distribution.
 
-    Parameters
-    ----------
-    pdf : function
-        function which defines the distribution to sample from
+    Parameters:
+    -----------
+    pdf : callable
+        Probability density function to sample from.
     total_points : int
-        total points to sample
+        Number of points to generate.
     min_x : float
-        lower bound to the support of the distribution
+        Minimum x value for sampling.
     max_x : float
-        upper bound to the support of the distribution
-    center : array-like of float
-        coordinates of the center of the top hat
-    redius : float
-        raidus of the top hat
-    bias_subspace : float
-        probability at the top hat
+        Maximum x value for sampling.
+    center : np.ndarray
+        Coordinates of the center of the top-hat distribution.
+    radius : float
+        Radius of the top-hat region.
+    bias_subspace_x : float
+        Probability at the top of the top-hat.
     space_prob : float
-        probaility everywhere not at the top hat
+        Probability outside the top-hat region.
+    density_dif : float
+        Scaling factor for density differences.
 
-    Returns
-    -------
-    array-like
-        [x,y] coordinates of the points sampled from the distribution defined in pdf
+    Returns:
+    --------
+    np.ndarray
+        Array of generated points.
     """
     xy_coords = []
     while len(xy_coords) < total_points:
@@ -182,8 +221,45 @@ def generate_points(
 
 
 def generate_points_from_cls(
-    pdf, total_points, min_x, max_x, min_y, max_y, min_z, max_z, density_dif
-):
+    pdf: callable,
+    total_points: int,
+    min_x: float,
+    max_x: float,
+    min_y: float,
+    max_y: float,
+    min_z: float,
+    max_z: float,
+    density_dif: float,
+) -> np.ndarray:
+    """
+    Generates random (x, y, z) points using the accept/reject method based on a given distribution.
+
+    Parameters:
+    -----------
+    pdf : callable
+        Probability density function to sample from.
+    total_points : int
+        Number of points to generate.
+    min_x : float
+        Minimum x value for sampling.
+    max_x : float
+        Maximum x value for sampling.
+    min_y : float
+        Minimum y value for sampling.
+    max_y : float
+        Maximum y value for sampling.
+    min_z : float
+        Minimum z value for sampling.
+    max_z : float
+        Maximum z value for sampling.
+    density_dif : float
+        Scaling factor for density differences.
+
+    Returns:
+    --------
+    np.ndarray
+        Array of generated (x, y, z) points.
+    """
     xyz_coords = []
     area = (max_x - min_x) * (max_y - min_y) * (max_z - min_z)
     while len(xyz_coords) < total_points:
@@ -198,22 +274,25 @@ def generate_points_from_cls(
     return np.array(xyz_coords)
 
 
-def generate_radial_points(total_points, center, radius):
-    """Genereate uniformly distributed points in a circle of radius.
+def generate_radial_points(
+    total_points: int, center: np.ndarray, radius: float
+) -> np.ndarray:
+    """
+    Generates uniformly distributed points in a circle of a given radius.
 
-    Parameters
-    ----------
+    Parameters:
+    -----------
     total_points : int
-        total points from this distribution
-    center : array-like or tuple
-        coordinate of the center of the radius. [x,y,...]
-    radius : float-like
-        radius of the region on which to
+        Number of points to generate.
+    center : np.ndarray
+        Coordinates of the center of the circle.
+    radius : float
+        Radius of the circle.
 
-    Returns
-    -------
-    (n,2) size array
-        array of coordinates of points genereated (N,3) N = # of points, 2 = dimentions
+    Returns:
+    --------
+    np.ndarray
+        Array of generated (x, y) coordinates.
     """
     theta = 2.0 * np.pi * np.random.random(size=total_points)
     rad = radius * np.sqrt(np.random.random(size=total_points))
@@ -222,22 +301,25 @@ def generate_radial_points(total_points, center, radius):
     return np.stack((x, y), axis=-1)
 
 
-def generate_sphere_points(total_points, center, radius):
-    """Genereate uniformly distributed points in a sphere of radius.
+def generate_sphere_points(
+    total_points: int, center: np.ndarray, radius: float
+) -> np.ndarray:
+    """
+    Generates uniformly distributed points in a sphere of a given radius.
 
-    Parameters
-    ----------
+    Parameters:
+    -----------
     total_points : int
-        total points from this distribution
-    center : array-like or tuple
-        coordinate of the center of the radius. [x,y,...]
-    radius : float-like
-        radius of the region on which to
+        Number of points to generate.
+    center : np.ndarray
+        Coordinates of the center of the sphere.
+    radius : float
+        Radius of the sphere.
 
-    Returns
-    -------
-    (n,2) size array
-        array of coordinates of points genereated (N,3) N = # of points, 2 = dimentions
+    Returns:
+    --------
+    np.ndarray
+        Array of generated (x, y, z) coordinates.
     """
     # check to see if the center is an array of size 3
     if len(center) != 3:
@@ -253,27 +335,28 @@ def generate_sphere_points(total_points, center, radius):
     return np.stack((x, y, z), axis=-1)
 
 
-def radius_spherical_cap(R, center, z_slice):
-    """Find the radius of a spherical cap given the radius of the sphere and the z coordinate of the slice
-    Theory: https://en.wikipedia.org/wiki/Spherical_cap, https://mathworld.wolfram.com/SphericalCap.html
+def radius_spherical_cap(R: float, center: np.ndarray, z_slice: float) -> float:
+    """
+    Calculates the radius of a spherical cap at a given z-slice.
 
     Parameters:
     -----------
-    R : float,int
-        radius of the sphere
-    center : array-like
-        [x,y,z] coordinates of the center of the sphere
-    z_slice : float,int
-        z coordinate of the slice relative to the center of the sphere, z_slice = 0 is the center of the sphere
+    R : float
+        Radius of the sphere.
+    center : np.ndarray
+        [x, y, z] coordinates of the center of the sphere.
+    z_slice : float
+        Z-coordinate of the slice relative to the sphere's center.
 
     Returns:
     --------
     float
-        radius of the spherical cap at the z_slice
+        Radius of the spherical cap at the given z-slice.
 
-    Notes:
-    ------
-    1. This is a special case of the spherical cap equation where the center of the sphere is at the origin
+    Raises:
+    -------
+    ValueError
+        If the z-slice is outside the sphere.
     """
     # check if z_slice is within the sphere
     if z_slice > R:
@@ -289,26 +372,27 @@ def radius_spherical_cap(R, center, z_slice):
 
 
 # numpy version of get_gaussian
-def get_gaussian(mu, sigma, domain=[list(range(10)), list(range(10))]):
+def get_gaussian(
+    mu: np.ndarray,
+    sigma: float | np.ndarray,
+    domain: list[list[int]] = [list(range(10)), list(range(10))],
+) -> np.ndarray:
     """
-    Parameters
-    ----------
-    mu : array-like or float of floats
-        center position of gaussian (x,y) or collection of (x,y)
-    sigma : float or array-like of floats of shape mu
-        sigma of the gaussian
-    domain : array-like, Defaults to 0->9 for x,y
-        x,y domain over which this gassuain is over
+    Generates a 2D Gaussian distribution over a given domain.
 
+    Parameters:
+    -----------
+    mu : np.ndarray
+        Center position of the Gaussian (x, y).
+    sigma : float | np.ndarray
+        Standard deviation(s) of the Gaussian.
+    domain : list[list[int]], optional
+        Domain over which to compute the Gaussian (default is 0-9 for x and y).
 
-    Returns
-    -------
-    array-like 2D
-        values of the gaussian centered at mu with sigma across the (x,y) points defined in domain
-
-    Notes:
-    ------
-    THIS IS IMPORTANT: MAKE SURE THE TYPES IN EACH PARAMETER ARE THE SAME!!!!
+    Returns:
+    --------
+    np.ndarray
+        2D array representing the Gaussian distribution over the domain.
     """
     # generate a multivariate normal distribution with the given mu and sigma over the domain using scipy stats
     # generate the grid
@@ -365,40 +449,29 @@ def generate_map_from_points(
     movie: bool,
     base_noise: float,
     psf_sigma: float,
-) -> np.ndarray:
+) -> tuple[np.ndarray, np.ndarray]:
     """
-    Docstring for generate_map_from_points:
-    ---------------------------
-    Generates the space map from the points. 2D
+    Generates a 2D spatial map from a set of points and their intensities.
 
     Parameters:
     -----------
-    points: array-like
-        points numpy array of shape (total_points,2)
-    point_intensity: array-like
-        intensity of the points, if None, then self.point_intensity is used.
-    map: array-like
-        space map, if None, then a new space map is generated.
-    movie: bool
-        if True, then don't add the gaussian+noise for each point. Rather add the gaussians and then to the whole add the noise.
-    base_noise: float
-        base noise to add to the space map
-    psf_sigma: float
-        sigma of the psf (pix units)
-
+    points : np.ndarray
+        Array of points of shape (total_points, 2).
+    point_intensity : float | np.ndarray
+        Intensity of the points.
+    map : np.ndarray
+        Pre-defined space map to update. If None, a new map is generated.
+    movie : bool
+        If True, noise is added to the whole image at once; otherwise, noise is added per point.
+    base_noise : float
+        Base noise level to add to the spatial map.
+    psf_sigma : float
+        Sigma of the PSF (in pixel units).
 
     Returns:
     --------
-    1. space map as a numpy array of shape (max_x,max_x)
-    2. points as a numpy array of shape (total_points,2)
-
-
-    Notes:
-    ------
-    1. The space map is generated using get_gaussian function.
-    2. For movie: In the segmented experimental images you are adding the noise of each frame to the whole subframe,
-        so for this (movie=False) add each gaussian point to the image with the noise per point.
-        (movie=True) add the gaussians together and then add the noise to the final image.
+    tuple[np.ndarray, np.ndarray]
+        The updated spatial map and the points.
     """
 
     space_map = map
@@ -432,6 +505,25 @@ def generate_map_from_points(
 
 
 class Track_generator:
+    """
+    A class to generate tracks of foci movements in a simulated cell space.
+
+    Parameters:
+    -----------
+    cell_space : np.ndarray | list
+        The boundaries of the cell space in 2D.
+    cell_axial_range : int | float
+        The axial range of the cell.
+    frame_count : int
+        The number of frames for the simulation.
+    exposure_time : int | float
+        Exposure time in milliseconds.
+    interval_time : int | float
+        Interval time between frames in milliseconds.
+    oversample_motion_time : int | float
+        Time for oversampling motion in milliseconds.
+    """
+
     def __init__(
         self,
         cell_space: np.ndarray | list,

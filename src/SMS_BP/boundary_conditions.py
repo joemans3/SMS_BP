@@ -1,14 +1,14 @@
 import numpy as np
-
 from SMS_BP.decorators import _catch_recursion_error
 
-# reflecting boundary condition which is a recursive function so that even if the first candidate is out of the space limit, the function will keep calling itself until the candidate is within the space limit
+# Reflecting boundary condition which is a recursive function so that even if the first candidate
+# is out of the space limit, the function will keep calling itself until the candidate is within the space limit
 
 
 @_catch_recursion_error
 def _refecting_boundary(
     fbm_store_last: float, fbm_candidate: float, space_lim: np.ndarray
-):
+) -> float:
     """Reflecting boundary condition for the FBM 1D
 
     Parameters:
@@ -49,7 +49,7 @@ def _refecting_boundary(
 @_catch_recursion_error
 def _absorbing_boundary(
     fbm_store_last: float, fbm_candidate: float, space_lim: np.ndarray
-):
+) -> float:
     """Absorbing boundary condition for the FBM 1D
 
     Parameters:

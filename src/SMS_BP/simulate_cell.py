@@ -18,16 +18,19 @@ from SMS_BP.json_validator_converter import (
 )
 
 
-def save_tiff(image, path, img_name=None):
-    """Docstring for save_tiff: save the image as a tiff file
+def save_tiff(image: np.ndarray, path: str, img_name: str = None) -> None:
+    """
+    Save the image as a TIFF file.
+
     Parameters:
     -----------
-    image : array-like
-        image to be saved
+    image : np.ndarray
+        Image to be saved.
     path : str
-        path to save the image
-    img_name : str, Default = None
-        name of the image
+        Path where the image will be saved.
+    img_name : str, optional
+        Name of the image file (without extension), by default None.
+
     Returns:
     --------
     None
@@ -40,24 +43,35 @@ def save_tiff(image, path, img_name=None):
 
 
 # function to perform the subsegmentation
-def sub_segment(img, subsegment_num, img_name=None, subsegment_type="mean"):
-    """Docstring for sub_segment: perform subsegmentation on the image
+def sub_segment(
+    img: np.ndarray,
+    subsegment_num: int,
+    img_name: str = None,
+    subsegment_type: str = "mean",
+) -> list[np.ndarray]:
+    """
+    Perform subsegmentation on the image.
+
     Parameters:
     -----------
-    img : array-like
-        image to be subsegmented
+    img : np.ndarray
+        Image to be subsegmented.
     subsegment_num : int
-        number of subsegments to be created
-    img_name : str, Default = None
-        name of the image
-    subsegment_type : str, Default = "mean"
-        type of subsegmentation to be performed, currently only "mean" is supported
+        Number of subsegments to be created.
+    img_name : str, optional
+        Name of the image, by default None.
+    subsegment_type : str, optional
+        Type of subsegmentation to be performed. Options are "mean", "max", "std". Default is "mean".
+
     Returns:
     --------
-    hold_img : list
-        list of subsegments
-    hold_name : list
-        list of names of the subsegments
+    list[np.ndarray]
+        List of subsegmented images.
+
+    Raises:
+    -------
+    ValueError
+        If the subsegment type is not supported.
     """
     supported_subsegment_types = ["mean", "max", "std"]
     if subsegment_type not in supported_subsegment_types:
@@ -109,34 +123,43 @@ def sub_segment(img, subsegment_num, img_name=None, subsegment_type="mean"):
 
 
 def make_directory_structure(
-    cd, img_name, img, subsegment_type, subsegment_num, **kwargs
-):
-    """Docstring for make_directory_structure: make the directory structure for the simulation and save the image + the data and parameters
-    Also perform the subsegmentation and save the subsegments in the appropriate directory
+    cd: str,
+    img_name: str,
+    img: np.ndarray,
+    subsegment_type: str,
+    subsegment_num: int,
+    **kwargs,
+) -> list[np.ndarray]:
+    """
+    Create the directory structure for the simulation, save the image, and perform subsegmentation.
+
     Parameters:
     -----------
     cd : str
-        directory to save the simulation
+        Directory where the simulation will be saved.
     img_name : str
-        name of the image
-    img : array-like
-        image to be subsegmented
+        Name of the image.
+    img : np.ndarray
+        Image to be subsegmented.
     subsegment_type : str
-        type of subsegmentation to be performed, currently only "mean" is supported
+        Type of subsegmentation to be performed.
     subsegment_num : int
-        number of subsegments to be created
+        Number of subsegments to be created.
     **kwargs : dict
-        dictionary of keyword arguments
-    KWARGS:
-    -------
-    data : dict, Default = None
-        dictionary of data to be saved, Keys = "map","tracks","points_per_frame" Values = array-like.
-        See the return of the function simulate_cell_tracks for more details
-    parameters : dict, Default = self.simulation_config
+        Additional keyword arguments, including:
+        - data : dict (optional)
+            Dictionary of data to be saved, keys are "map", "tracks", "points_per_frame".
+        - parameters : dict (optional)
+            Parameters of the simulation to be saved.
+
     Returns:
     --------
-    array-like
-        list of subsegment images
+    list[np.ndarray]
+        List of subsegmented images.
+
+    Raises:
+    -------
+    None
     """
     # make the directory if it does not exist
     if not os.path.exists(cd):
@@ -186,7 +209,20 @@ def make_directory_structure(
 
 
 # Function to recursively convert lists to NumPy arrays
-def convert_lists_to_arrays(obj):
+def convert_lists_to_arrays(obj: list | dict) -> np.ndarray | dict:
+    """
+    Recursively convert lists to NumPy arrays.
+
+    Parameters:
+    -----------
+    obj : list | dict
+        Object to be converted.
+
+    Returns:
+    --------
+    np.ndarray | dict
+        Converted object with lists replaced by NumPy arrays.
+    """
     if isinstance(obj, list):
         return np.array(obj)
     elif isinstance(obj, dict):
@@ -195,7 +231,20 @@ def convert_lists_to_arrays(obj):
         return obj
 
 
-def convert_arrays_to_lists(obj):
+def convert_arrays_to_lists(obj: np.ndarray | dict) -> list | dict:
+    """
+    Recursively convert NumPy arrays to lists.
+
+    Parameters:
+    -----------
+    obj : np.ndarray | dict
+        Object to be converted.
+
+    Returns:
+    --------
+    list | dict
+        Converted object with NumPy arrays replaced by lists.
+    """
     if isinstance(obj, np.ndarray):
         return obj.tolist()
     elif isinstance(obj, dict):
@@ -423,7 +472,9 @@ class Simulate_cells:
         data = convert_lists_to_arrays(data)
         return data
 
-    def _define_space(self, dims=(100, 100), movie_frames=500):
+    def _define_space(
+        self, dims: tuple[int, int] = (100, 100), movie_frames: int = 500
+    ) -> np.ndarray:
         """Docstring for _define_space: make the empty space for simulation
         Parameters:
         -----------
@@ -439,19 +490,23 @@ class Simulate_cells:
         space = np.zeros((movie_frames, dims[0], dims[1]))
         return space
 
-    def _convert_track_dict_points_per_frame(self, tracks, movie_frames):
-        """Docstring for _convert_track_dict_points_per_frame: convert the track dictionary to a dictionary of points per frame
+    def _convert_track_dict_points_per_frame(
+        self, tracks: dict, movie_frames: int
+    ) -> dict:
+        """
+        Convert the track dictionary into a dictionary of points per frame.
 
         Parameters:
         -----------
         tracks : dict
-            dictionary of tracks, keys = track number, values = dictionary with keys = 'xy','frames','diffusion_coefficient','initial','hurst'
+            Dictionary of tracks where keys are track numbers and values are track data.
         movie_frames : int
-            number of frames in the movie
+            Number of frames in the movie.
+
         Returns:
         --------
-        points_per_frame : dict
-            dictionary of points per frame, keys = frame number, values = list of (x,y,z) tuples
+        dict
+            Dictionary where keys are frame numbers and values are lists of (x, y, z) tuples representing points.
         """
         points_per_frame = dict(
             zip(
@@ -464,18 +519,19 @@ class Simulate_cells:
 
         return points_per_frame
 
-    def _convert_track_dict_msd(self, tracks):
-        """Docstring for _convert_track_dict_msd: convert the track dictionary to a dictionary of tracks with the format
-        required for the msd function
+    def _convert_track_dict_msd(self, tracks: dict) -> dict:
+        """
+        Convert the track dictionary to a format required for the MSD (mean square displacement) function.
 
         Parameters:
         -----------
         tracks : dict
-            dictionary of tracks, keys = track number, values = dictionary with keys = 'xy','frames','diffusion_coefficient','initial','hurst'
+            Dictionary of tracks where keys are track numbers and values are track data.
+
         Returns:
         --------
-        track_msd : dict
-            dictionary of tracks with the format required for the msd function, keys = track number, values = list of (x,y,T) tuples
+        dict
+            Dictionary where keys are track numbers and values are lists of (x, y, T) tuples representing track points.
         """
         track_msd = {}
         for i, j in tracks.items():
@@ -487,19 +543,19 @@ class Simulate_cells:
             track_msd[i] = np.array(track_msd[i])
         return track_msd
 
-    def _create_track_pop_dict(self, simulation_cube: np.ndarray):
-        """Docstring for _create_cell_tracks: create the tracks for the cell
+    def _create_track_pop_dict(self, simulation_cube: np.ndarray) -> tuple[dict, dict]:
+        """
+        Create the tracks for the cell simulation and return tracks and points per time.
 
         Parameters:
         -----------
-        simulation_cube : array-like
-            empty space for simulation
+        simulation_cube : np.ndarray
+            Empty space for the simulation.
+
         Returns:
         --------
-        tracks : list
-            list of tracks for each cell
-        points_per_time : list
-            list of number of points in each time
+        tuple[dict, dict]
+            A tuple where the first element is a dictionary of tracks, and the second element is a dictionary of points per time.
         """
         # get the lengths of the tracks given a distribution
         track_lengths = sf.get_lengths(
@@ -682,21 +738,23 @@ class Simulate_cells:
 
     def _create_map(
         self, initial_map: np.ndarray, points_per_frame: dict, axial_function: str
-    ):
-        """Docstring for __create_map: create the map for the simulation using the points_per_frame dictionary
+    ) -> np.ndarray:
+        """
+        Create the simulation map from points per frame.
 
         Parameters:
         -----------
-        initial_map : array-like
-            empty space for simulation
+        initial_map : np.ndarray
+            Empty space for the simulation.
         points_per_frame : dict
-            dictionary of points per frame (this is different from the points_per_time dictionary, and is sampled at the exposure time)
+            Dictionary of points per frame, where keys are frame numbers and values are point coordinates.
         axial_function : str
-            function to be used to create the axial map
+            The function used to generate axial intensity.
+
         Returns:
         --------
-        map : array-like
-            map for the simulation
+        np.ndarray
+            Updated simulation map.
         """
         for i in range(initial_map.shape[0]):
             # if empty points_per_frame for frame i then do some house keeping
@@ -735,15 +793,18 @@ class Simulate_cells:
         pass
 
     def _point_per_time_selection(self, points_per_time: dict) -> dict:
-        """Docstring for _track_and_point_per_time_selection: select the tracks and points per time for the simulation
+        """
+        Select points per frame for the simulation, considering only points during the exposure time.
+
         Parameters:
         -----------
         points_per_time : dict
-            dictionary of points per time
+            Dictionary of points per time, where keys are frame numbers and values are lists of points.
+
         Returns:
         --------
-        points_per_frame: dict
-            dictionary of points per frame
+        dict
+            Dictionary of points per frame, filtered by exposure time.
         """
         # The tracks and points_per_time are already created, so we just need to convert the points_per_time to points_per_frame
         # we only select the points which are in every exposure time ignoring the interval time inbetween the exposure time
@@ -903,19 +964,3 @@ class Simulate_cells:
                 point_holder.append(j)
             points_per_frame[i] = np.array(point_holder)
         return points_per_frame
-
-
-# test the simulation
-
-if __name__ == "__main__":
-    # use the sim_config.json file to simulate the cell
-    sim_new = Simulate_cells(
-        init_dict_json="/Users/baljyot/Documents/CODE/GitHub_t2/PHD/SingleMoleculeSimulations_BP/SMS_BP/sim_config_testing.json"
-    )
-    # save the simulation
-    sim_new.get_and_save_sim(
-        cd="/Users/baljyot/Documents/CODE/GitHub_t2/PHD/SingleMoleculeSimulations_BP/SMS_BP/Pablo_stuff",
-        img_name="test",
-        subsegment_type="mean",
-        subsegment_num=5,
-    )

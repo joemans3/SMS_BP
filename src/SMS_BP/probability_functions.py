@@ -1,6 +1,47 @@
-import numpy as np
+"""
+Top Hat Probability Function Module
+===================================
 
-# since the tophat is not a continuous probability distribution and hence non-analytic we need to define its probability function as a class
+This module defines a class for handling the probability function of multiple top-hat-shaped subspaces
+within a larger spatial environment. A "top-hat" distribution is a flat or constant distribution within a
+defined subspace and zero outside of it, commonly used to model regions with a uniform density surrounded
+by an area with a different (typically lower) density.
+
+Since top-hat distributions are not continuous or analytical probability distributions, their probability
+must be computed manually. This module provides a class, `multiple_top_hat_probability`, to handle the
+calculation and retrieval of the probability values based on input positions. The probability is computed
+as a constant value inside the top-hat subspaces and a different constant value outside them.
+
+Key Features:
+-------------
+- Probability calculation within and outside defined subspaces.
+- Support for multiple top-hat subspaces, each defined by its center and radius.
+- Ability to update parameters and recalculate probabilities as needed.
+
+Usage:
+------
+An instance of the `multiple_top_hat_probability` class is initialized with the number of subspaces,
+their centers, radii, density difference, and overall space size. Once initialized, the object can be
+called with a position to return the probability at that location.
+
+Example:
+```python
+prob_func = multiple_top_hat_probability(
+    num_subspace=3,
+    subspace_centers=np.array([[1, 1], [2, 2], [3, 3]]),
+    subspace_radius=np.array([1.0, 0.5, 0.75]),
+    density_dif=0.2,
+    space_size=np.array([10, 10])
+)
+
+prob = prob_func(np.array([1.5, 1.5]))
+
+Note:
+-----
+After initialization, do not change the parameters directly. Use the update_parameters method to modify any values.
+"""
+
+import numpy as np
 
 
 class multiple_top_hat_probability:
