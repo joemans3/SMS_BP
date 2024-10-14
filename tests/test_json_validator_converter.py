@@ -1,9 +1,8 @@
 import pytest
 from SMS_BP.json_validator_converter import (
-    validate_and_convert,
     load_validate_and_convert,
 )
-from SMS_BP.errors import ConfigValidationError, ConfigConversionError
+from SMS_BP.errors import ConfigValidationError
 
 
 @pytest.fixture

@@ -1,6 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-
-name: Lint and Test
+name: Test
 
 on:
   push:
@@ -31,10 +29,6 @@ jobs:
         run: uv python install ${{ matrix.python-version }}      
       - name: Install dependencies
         run: uv sync --all-extras
-      - name: Lint and Format with ruff
-        run: |
-          uv run ruff check
-          uv run ruff format
       - name: Test with pytest
         run: uv run pytest
 

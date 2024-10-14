@@ -1,6 +1,5 @@
-import json
 from dataclasses import dataclass
-from typing import List, Tuple, Union
+from typing import List
 import numpy as np
 
 # JSON Schema definition
