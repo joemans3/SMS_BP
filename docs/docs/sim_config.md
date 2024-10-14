@@ -40,7 +40,7 @@
         1. Only viable if allow_transition_probability is False
         2. length is the total number of diffusion coefficients
         3. each element is the probability of the track having the diffusion coefficient at the same index in the diffusion_coefficient list (add up to 1.0)
-    * hurst_expontent: list of floats
+    * hurst_exponent: list of floats
         1. hurst exponent of the track, the length of the list is the unique type of hurst exponents
     * hurst_track_amount: list of floats
         1. Only viable if allow_transition_probability is False
@@ -95,7 +95,7 @@
     * axial_function: string ("exponential","ones"(no effect))
         1. function used to determine how the intensity of the single molecule changes with z
 
-* Condenstate_Parameters: dict  
+* Condensate_Parameters: dict  
     * initial_centers: 2D array (units of space_unit)
         1. initial centers of the condensates
         2. [x,y,z] coordinates per row

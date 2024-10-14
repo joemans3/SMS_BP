@@ -1,6 +1,6 @@
 import json
 import os
-import subprocess
+import shutil
 import time
 from pathlib import Path
 from typing import Optional
@@ -12,6 +12,28 @@ from typing_extensions import Annotated
 
 from SMS_BP import __version__
 from SMS_BP.simulate_cell import Simulate_cells
+
+"""
+run_cell_simulation.py
+
+This file contains the command-line interface (CLI) for the SMS_BP package, which is used for simulating single molecule localization microscopy experiments.
+
+The CLI is built using Typer and provides two main commands:
+1. 'config': Generates a sample configuration file.
+2. 'runsim': Runs the cell simulation using a provided configuration file.
+
+Main Components:
+- typer_app_sms_bp: The main Typer application object.
+- cell_simulation(): Callback function that displays the version information.
+- generate_config(): Command to generate a sample configuration file.
+- run_cell_simulation(): Command to run the cell simulation using a configuration file.
+
+Usage:
+- To generate a config file: python run_cell_simulation.py config [OPTIONS]
+- To run a simulation: python run_cell_simulation.py runsim [CONFIG_FILE]
+
+The file uses Rich for enhanced console output and progress tracking.
+"""
 
 # create a new CLI function
 typer_app_sms_bp = typer.Typer(
@@ -98,13 +120,8 @@ def generate_config(
             description="Copying the config file to the output path ...", total=10
         )
         try:
-            subprocess.run(
-                ["cp", config_file, output_path],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-        except subprocess.CalledProcessError:
+            shutil.copy(config_file, output_path)
+        except FileNotFoundError:
             rich.print(f"Error: No config file found in {project_directory}.")
             raise typer.Abort()
         progress.update(task_2, completed=10)
@@ -116,15 +133,27 @@ def generate_config(
 @typer_app_sms_bp.command(name="runsim")
 def run_cell_simulation(
     config_file: Annotated[Path, typer.Argument(help="Path to the configuration file")],
-):
+) -> None:
     """
     Run the cell simulation using the configuration file provided.
     """
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        transient=True,
-    ) as progress:
+    from contextlib import contextmanager
+
+    @contextmanager
+    def progress_context():
+        progress = Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        )
+        try:
+            with progress:
+                yield progress
+        finally:
+            progress.stop()
+
+    # Use in functions
+    with progress_context() as progress:
         start_task_1 = time.time()
         task_1 = progress.add_task(
             description="Processing request to run the simulation ...", total=10
@@ -141,21 +170,12 @@ def run_cell_simulation(
         except json.JSONDecodeError:
             rich.print("JSONDecodeError: Configuration file is not a valid JSON file.")
             raise typer.Abort()
-        # check if the config file is a valid config file
-        if "Output_Parameters" not in config:
-            rich.print(
-                "ConfigError: 'Output_Parameters' section not found in the configuration file."
-            )
-            raise typer.Abort()
-        else:
-            output_parameters = config["Output_Parameters"]
-            if "output_path" in output_parameters:
-                output_path = output_parameters["output_path"]
-            else:
-                rich.print(
-                    "ConfigError: 'output_path' not found in the configuration file."
-                )
-                raise typer.Abort()
+
+        validate_config(config)
+
+        output_parameters = config["Output_Parameters"]
+        output_path = output_parameters["output_path"]
+
         # find the version flag in the config file
         if "version" in config:
             version = config["version"]
@@ -181,3 +201,15 @@ def run_cell_simulation(
         rich.print(
             "Simulation completed in {:.2f} seconds.".format(time.time() - time_task_2)
         )
+
+
+def validate_config(config: dict) -> None:
+    if "Output_Parameters" not in config:
+        rich.print(
+            "ConfigError: 'Output_Parameters' section not found in the configuration file."
+        )
+        raise typer.Abort()
+    output_parameters = config["Output_Parameters"]
+    if "output_path" not in output_parameters:
+        rich.print("ConfigError: 'output_path' not found in the configuration file.")
+        raise typer.Abort()

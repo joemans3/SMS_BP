@@ -12,6 +12,11 @@ import SMS_BP.decorators as decorators
 import SMS_BP.probability_functions as pf
 import SMS_BP.simulate_foci as sf
 
+from SMS_BP.json_validator_converter import (
+    validate_and_convert,
+    load_validate_and_convert,
+)
+
 
 def save_tiff(image, path, img_name=None):
     """Docstring for save_tiff: save the image as a tiff file
@@ -127,7 +132,7 @@ def make_directory_structure(
     data : dict, Default = None
         dictionary of data to be saved, Keys = "map","tracks","points_per_frame" Values = array-like.
         See the return of the function simulate_cell_tracks for more details
-    parameters : dict, Default = self.init_dict
+    parameters : dict, Default = self.simulation_config
     Returns:
     --------
     array-like
@@ -212,16 +217,18 @@ class Simulate_cells:
         None
         """
         if isinstance(init_dict_json, str):
-            self.init_dict = self._read_json(init_dict_json)
+            self.simulation_config = load_validate_and_convert(init_dict_json)
         elif isinstance(init_dict_json, dict):
-            self.init_dict = convert_lists_to_arrays(init_dict_json)
+            self.simulation_config = validate_and_convert(init_dict_json)
+
+        self.simulation_config.make_array()
         # store the times
-        self.frame_count = int(self.init_dict["Global_Parameters"]["frame_count"])
-        self.interval_time = int(self.init_dict["Global_Parameters"]["interval_time"])
-        self.oversample_motion_time = int(
-            self.init_dict["Global_Parameters"]["oversample_motion_time"]
+        self.frame_count = self.simulation_config.Global_Parameters.frame_count
+        self.interval_time = self.simulation_config.Global_Parameters.interval_time
+        self.oversample_motion_time = (
+            self.simulation_config.Global_Parameters.oversample_motion_time
         )
-        self.exposure_time = int(self.init_dict["Global_Parameters"]["exposure_time"])
+        self.exposure_time = self.simulation_config.Global_Parameters.exposure_time
         self.total_time = self._convert_frame_to_time(
             self.frame_count,
             self.exposure_time,
@@ -230,7 +237,7 @@ class Simulate_cells:
         )
         # convert the track_length_mean from frame to time
         self.track_length_mean = self._convert_frame_to_time(
-            int(self.init_dict["Track_Parameters"]["track_length_mean"]),
+            self.simulation_config.Track_Parameters.track_length_mean,
             self.exposure_time,
             self.interval_time,
             self.oversample_motion_time,
@@ -238,68 +245,68 @@ class Simulate_cells:
 
         # update the diffusion coefficients from um^2/s to pix^2/ms
         self.track_diffusion_updated = self._update_units(
-            self.init_dict["Track_Parameters"]["diffusion_coefficient"],
+            self.simulation_config.Track_Parameters.diffusion_coefficient,
             "um^2/s",
             "pix^2/(oversample_motion_time)ms)",
         )
         self.condensate_diffusion_updated = self._update_units(
-            self.init_dict["Condensate_Parameters"]["diffusion_coefficient"],
+            self.simulation_config.Condensate_Parameters.diffusion_coefficient,
             "um^2/s",
             "pix^2/(oversample_motion_time)ms)",
         )
         # update the pixel_size,axial_detection_range,psf_sigma from um to pix
         self.pixel_size_pix = self._update_units(
-            self.init_dict["Global_Parameters"]["pixel_size"], "um", "pix"
+            self.simulation_config.Global_Parameters.pixel_size, "um", "pix"
         )
         self.axial_detection_range_pix = self._update_units(
-            self.init_dict["Global_Parameters"]["axial_detection_range"], "um", "pix"
+            self.simulation_config.Global_Parameters.axial_detection_range, "um", "pix"
         )
         self.psf_sigma_pix = self._update_units(
-            self.init_dict["Global_Parameters"]["psf_sigma"], "um", "pix"
+            self.simulation_config.Global_Parameters.psf_sigma, "um", "pix"
         )
 
         # convert the transition matrix from the time given to the oversample_motion_time
         # store the transition_matrix_time_step
-        self.transition_matrix_time_step = self.init_dict["Track_Parameters"][
-            "transition_matrix_time_step"
-        ]
+        self.transition_matrix_time_step = (
+            self.simulation_config.Track_Parameters.transition_matrix_time_step
+        )
 
         # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
-        if len(self.init_dict["Track_Parameters"]["diffusion_coefficient"]) != len(
-            self.init_dict["Track_Parameters"]["diffusion_transition_matrix"]
+        if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != len(
+            self.simulation_config.Track_Parameters.diffusion_transition_matrix
         ):
             raise ValueError(
                 "The length of the diffusion_coefficient and the diffusion_transition_matrix are not the same"
             )
-        if len(self.init_dict["Track_Parameters"]["hurst_exponent"]) != len(
-            self.init_dict["Track_Parameters"]["hurst_transition_matrix"]
+        if len(self.simulation_config.Track_Parameters.hurst_exponent) != len(
+            self.simulation_config.Track_Parameters.hurst_transition_matrix
         ):
             raise ValueError(
                 "The length of the hurst_exponent and the hurst_transition_matrix are not the same"
             )
         # compare to the oversample_motion_time and scale to the appropriate time step
-        if len(self.init_dict["Track_Parameters"]["diffusion_coefficient"]) != 1:
+        if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != 1:
             self.diffusion_transition_matrix = np.real(
                 fractional_matrix_power(
-                    self.init_dict["Track_Parameters"]["diffusion_transition_matrix"],
+                    self.simulation_config.Track_Parameters.diffusion_transition_matrix,
                     self.oversample_motion_time / self.transition_matrix_time_step,
                 )
             )
         else:
-            self.diffusion_transition_matrix = self.init_dict["Track_Parameters"][
-                "diffusion_transition_matrix"
-            ]
-        if len(self.init_dict["Track_Parameters"]["hurst_exponent"]) != 1:
+            self.diffusion_transition_matrix = (
+                self.simulation_config.Track_Parameters.diffusion_transition_matrix
+            )
+        if len(self.simulation_config.Track_Parameters.hurst_exponent) != 1:
             self.hurst_transition_matrix = np.real(
                 fractional_matrix_power(
-                    self.init_dict["Track_Parameters"]["hurst_transition_matrix"],
+                    self.simulation_config.Track_Parameters.hurst_transition_matrix,
                     self.oversample_motion_time / self.transition_matrix_time_step,
                 )
             )
         else:
-            self.hurst_transition_matrix = self.init_dict["Track_Parameters"][
-                "hurst_transition_matrix"
-            ]
+            self.hurst_transition_matrix = (
+                self.simulation_config.Track_Parameters.hurst_transition_matrix
+            )
         return
 
     def _convert_frame_to_time(
@@ -328,7 +335,7 @@ class Simulate_cells:
         return int((frame * (exposure_time + interval_time)) / oversample_motion_time)
 
     def _update_units(
-        self, unit: np.ndarray, orig_type: str, update_type: str
+        self, unit: np.ndarray | float | int, orig_type: str, update_type: str
     ) -> float | np.ndarray | None:
         """Docstring for _update_units: update the unit from one type to another
         Parameters:
@@ -342,16 +349,10 @@ class Simulate_cells:
         """
         if orig_type == "nm":
             if update_type == "pix":
-                return (
-                    unit
-                    / self.init_dict["Global_Parameters"]["pixel_size"]["pixel_size"]
-                )
+                return unit / self.simulation_config.Global_Parameters.pixel_size
         elif orig_type == "pix":
             if update_type == "nm":
-                return (
-                    unit
-                    * self.init_dict["Global_Parameters"]["pixel_size"]["pixel_size"]
-                )
+                return unit * self.simulation_config.Global_Parameters.pixel_size
         elif orig_type == "ms":
             if update_type == "s":
                 return unit / 1000.0
@@ -362,15 +363,15 @@ class Simulate_cells:
             if update_type == "pix^2/(oversample_motion_time)ms)":
                 return (
                     unit
-                    * (1.0 / (self.init_dict["Global_Parameters"]["pixel_size"] ** 2))
+                    * (1.0 / (self.simulation_config.Global_Parameters.pixel_size**2))
                     * (
-                        self.init_dict["Global_Parameters"]["oversample_motion_time"]
+                        self.simulation_config.Global_Parameters.oversample_motion_time
                         / 1000.0
                     )
                 )
         if orig_type == "um":
             if update_type == "pix":
-                return unit / self.init_dict["Global_Parameters"]["pixel_size"]
+                return unit / self.simulation_config.Global_Parameters.pixel_size
 
     def _check_init_dict(self) -> bool:
         """Docstring for _check_init_dict: check the init_dict for the required keys, and if they are consistent with other keys
@@ -502,9 +503,9 @@ class Simulate_cells:
         """
         # get the lengths of the tracks given a distribution
         track_lengths = sf.get_lengths(
-            track_distribution=self.init_dict["Track_Parameters"]["track_distribution"],
+            track_distribution=self.simulation_config.Track_Parameters.track_distribution,
             track_length_mean=self.track_length_mean,
-            total_tracks=self.init_dict["Track_Parameters"]["num_tracks"],
+            total_tracks=self.simulation_config.Track_Parameters.num_tracks,
         )
         # if track_lengths is larger than the number of frames then set that to the number of frames -1
         track_lengths = np.array(
@@ -518,40 +519,46 @@ class Simulate_cells:
         # initialize the Condensates. Assuming box shaped.
         # find area assuming cell_space is [[min_x,max_x],[min_y,max_y]]
         vol_cell = (
-            np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][0]))
-            * np.abs(np.diff(self.init_dict["Cell_Parameters"]["cell_space"][1]))
+            np.abs(np.diff(self.simulation_config.Cell_Parameters.cell_space[0]))
+            * np.abs(np.diff(self.simulation_config.Cell_Parameters.cell_space[1]))
             * 2.0
-            * self.init_dict["Cell_Parameters"]["cell_axial_radius"]
+            * self.simulation_config.Cell_Parameters.cell_axial_radius
         )
 
         self.condensates = sf.create_condensate_dict(
-            initial_centers=self.init_dict["Condensate_Parameters"]["initial_centers"],
-            initial_scale=self.init_dict["Condensate_Parameters"]["initial_scale"],
-            diffusion_coefficient=self.condensate_diffusion_updated,
-            hurst_exponent=self.init_dict["Condensate_Parameters"]["hurst_exponent"],
+            initial_centers=np.array(
+                self.simulation_config.Condensate_Parameters.initial_centers
+            ),
+            initial_scale=np.array(
+                self.simulation_config.Condensate_Parameters.initial_scale
+            ),
+            diffusion_coefficient=np.array(self.condensate_diffusion_updated),
+            hurst_exponent=np.array(
+                self.simulation_config.Condensate_Parameters.hurst_exponent
+            ),
             units_time=np.array(
                 [
-                    str(self.init_dict["Global_Parameters"]["oversample_motion_time"])
-                    + self.init_dict["time_unit"]
+                    str(self.simulation_config.Global_Parameters.oversample_motion_time)
+                    + self.simulation_config.time_unit
                 ]
                 * len(self.condensate_diffusion_updated)
             ),
-            cell_space=self.init_dict["Cell_Parameters"]["cell_space"],
-            cell_axial_range=self.init_dict["Cell_Parameters"]["cell_axial_radius"],
+            cell_space=self.simulation_config.Cell_Parameters.cell_space,
+            cell_axial_range=self.simulation_config.Cell_Parameters.cell_axial_radius,
         )
 
         # define the top_hat class that will be used to sample the condensates
         top_hat_func = pf.multiple_top_hat_probability(
             num_subspace=len(self.condensate_diffusion_updated),
-            subspace_centers=self.init_dict["Condensate_Parameters"]["initial_centers"],
-            subspace_radius=self.init_dict["Condensate_Parameters"]["initial_scale"],
-            density_dif=self.init_dict["Condensate_Parameters"]["density_dif"],
+            subspace_centers=self.simulation_config.Condensate_Parameters.initial_centers,
+            subspace_radius=self.simulation_config.Condensate_Parameters.initial_scale,
+            density_dif=self.simulation_config.Condensate_Parameters.density_dif,
             space_size=np.array(vol_cell),
         )
         # make a placeholder for the initial position array with all 0s
-        initials = np.zeros((self.init_dict["Track_Parameters"]["num_tracks"], 3))
+        initials = np.zeros((self.simulation_config.Track_Parameters.num_tracks, 3))
         # lets use the starting frames to find the inital position based on the position of the condensates
-        for i in range(self.init_dict["Track_Parameters"]["num_tracks"]):
+        for i in range(self.simulation_config.Track_Parameters.num_tracks):
             # get the starting time from the frame, oversample_motion_time, and interval_time
             starting_frame = starting_frames[i]
             # condensate positions
@@ -560,8 +567,8 @@ class Simulate_cells:
             for ID, cond in self.condensates.items():
                 condensate_positions[int(ID)] = cond(
                     int(starting_frame),
-                    str(self.init_dict["Global_Parameters"]["oversample_motion_time"])
-                    + self.init_dict["time_unit"],
+                    str(self.simulation_config.Global_Parameters.oversample_motion_time)
+                    + self.simulation_config.time_unit,
                 )["Position"]
             # update the top_hat_func with the new condensate positions
             top_hat_func.update_parameters(subspace_centers=condensate_positions)
@@ -569,13 +576,13 @@ class Simulate_cells:
             initials[i] = sf.generate_points_from_cls(
                 top_hat_func,
                 total_points=1,
-                min_x=self.init_dict["Cell_Parameters"]["cell_space"][0][0],
-                max_x=self.init_dict["Cell_Parameters"]["cell_space"][0][1],
-                min_y=self.init_dict["Cell_Parameters"]["cell_space"][1][0],
-                max_y=self.init_dict["Cell_Parameters"]["cell_space"][1][1],
-                min_z=-self.init_dict["Cell_Parameters"]["cell_axial_radius"],
-                max_z=self.init_dict["Cell_Parameters"]["cell_axial_radius"],
-                density_dif=self.init_dict["Condensate_Parameters"]["density_dif"],
+                min_x=self.simulation_config.Cell_Parameters.cell_space[0][0],
+                max_x=self.simulation_config.Cell_Parameters.cell_space[0][1],
+                min_y=self.simulation_config.Cell_Parameters.cell_space[1][0],
+                max_y=self.simulation_config.Cell_Parameters.cell_space[1][1],
+                min_z=-self.simulation_config.Cell_Parameters.cell_axial_radius,
+                max_z=self.simulation_config.Cell_Parameters.cell_axial_radius,
+                density_dif=self.simulation_config.Condensate_Parameters.density_dif,
             )[0]
         # check to see if there is 2 or 3 values in the second dimension of initials
         if initials.shape[1] == 2:
@@ -583,7 +590,7 @@ class Simulate_cells:
             initials = np.hstack(
                 (
                     initials,
-                    np.zeros((self.init_dict["Track_Parameters"]["num_tracks"], 1)),
+                    np.zeros((self.simulation_config.Track_Parameters.num_tracks, 1)),
                 )
             )
         # create tracks
@@ -596,15 +603,15 @@ class Simulate_cells:
         )
         # initialize the Track_generator class
         track_generator = sf.Track_generator(
-            cell_space=self.init_dict["Cell_Parameters"]["cell_space"],
-            cell_axial_range=self.init_dict["Cell_Parameters"]["cell_axial_radius"],
+            cell_space=self.simulation_config.Cell_Parameters.cell_space,
+            cell_axial_range=self.simulation_config.Cell_Parameters.cell_axial_radius,
             frame_count=self.frame_count,
             exposure_time=self.exposure_time,
             interval_time=self.interval_time,
             oversample_motion_time=self.oversample_motion_time,
         )
-        if self.init_dict["Track_Parameters"]["track_type"] == "constant":
-            for i in range(self.init_dict["Track_Parameters"]["num_tracks"]):
+        if self.simulation_config.Track_Parameters.track_type == "constant":
+            for i in range(self.simulation_config.Track_Parameters.num_tracks):
                 # make a constant track
                 tracks[i] = track_generator.track_generation_constant(
                     track_length=track_lengths[i],
@@ -616,28 +623,28 @@ class Simulate_cells:
                     points_per_time[str(int(tracks[i]["frames"][j]))].append(
                         tracks[i]["xy"][j]
                     )
-        elif not self.init_dict["Track_Parameters"]["allow_transition_probability"]:
+        elif not self.simulation_config.Track_Parameters.allow_transition_probability:
             # for the amount of tracks make a choice from the diffusion and hurst parameters based on the probability from diffusion_track_amount, hurst_track_amount
             # make an index of the track_diffusion_updated and hurst_exponent
             index_diffusion = np.arange(len(self.track_diffusion_updated))
             index_hurst = np.arange(
-                len(self.init_dict["Track_Parameters"]["hurst_exponent"])
+                len(self.simulation_config.Track_Parameters.hurst_exponent)
             )
             track_diffusion_choice = np.random.choice(
                 index_diffusion,
-                size=self.init_dict["Track_Parameters"]["num_tracks"],
-                p=self.init_dict["Track_Parameters"]["diffusion_track_amount"],
+                size=self.simulation_config.Track_Parameters.num_tracks,
+                p=self.simulation_config.Track_Parameters.diffusion_track_amount,
             )
             track_hurst_choice = np.random.choice(
                 index_hurst,
-                size=self.init_dict["Track_Parameters"]["num_tracks"],
-                p=self.init_dict["Track_Parameters"]["hurst_track_amount"],
+                size=self.simulation_config.Track_Parameters.num_tracks,
+                p=self.simulation_config.Track_Parameters.hurst_track_amount,
             )
-            for i in range(self.init_dict["Track_Parameters"]["num_tracks"]):
+            for i in range(self.simulation_config.Track_Parameters.num_tracks):
                 tracks_diffusion = self.track_diffusion_updated[
                     track_diffusion_choice[i]
                 ]
-                tracks_hurst = self.init_dict["Track_Parameters"]["hurst_exponent"][
+                tracks_hurst = self.simulation_config.Track_Parameters.hurst_exponent[
                     track_hurst_choice[i]
                 ]
                 # make a track with no transition probability
@@ -653,22 +660,16 @@ class Simulate_cells:
                     points_per_time[str(int(tracks[i]["frames"][j]))].append(
                         tracks[i]["xy"][j]
                     )
-        elif self.init_dict["Track_Parameters"]["allow_transition_probability"]:
-            for i in range(self.init_dict["Track_Parameters"]["num_tracks"]):
+        elif self.simulation_config.Track_Parameters.allow_transition_probability:
+            for i in range(self.simulation_config.Track_Parameters.num_tracks):
                 # make a track with transition probability
                 tracks[i] = track_generator.track_generation_with_transition(
                     diffusion_transition_matrix=self.diffusion_transition_matrix,
                     hurst_transition_matrix=self.hurst_transition_matrix,
                     diffusion_parameters=self.track_diffusion_updated,
-                    hurst_parameters=self.init_dict["Track_Parameters"][
-                        "hurst_exponent"
-                    ],
-                    diffusion_state_probability=self.init_dict["Track_Parameters"][
-                        "state_probability_diffusion"
-                    ],
-                    hurst_state_probability=self.init_dict["Track_Parameters"][
-                        "state_probability_hurst"
-                    ],
+                    hurst_parameters=self.simulation_config.Track_Parameters.hurst_exponent,
+                    diffusion_state_probability=self.simulation_config.Track_Parameters.state_probability_diffusion,
+                    hurst_state_probability=self.simulation_config.Track_Parameters.state_probability_hurst,
                     track_length=track_lengths[i],
                     initials=initials[i],
                     start_time=starting_frames[i],
@@ -702,7 +703,7 @@ class Simulate_cells:
             if len(points_per_frame[str(i)]) == 0:
                 abs_axial_position = (
                     1.0
-                    * self.init_dict["Global_Parameters"]["point_intensity"]
+                    * self.simulation_config.Global_Parameters.point_intensity
                     * self.oversample_motion_time
                     / self.exposure_time
                 )
@@ -711,11 +712,11 @@ class Simulate_cells:
             else:
                 abs_axial_position = (
                     1.0
-                    * self.init_dict["Global_Parameters"]["point_intensity"]
+                    * self.simulation_config.Global_Parameters.point_intensity
                     * sf.axial_intensity_factor(
                         np.abs(np.array(points_per_frame[str(i)])[:, 2]),
                         detection_range=self.axial_detection_range_pix,
-                        func=self.init_dict["Global_Parameters"]["axial_function"],
+                        func=self.simulation_config.Global_Parameters.axial_function,
                     )
                     * self.oversample_motion_time
                     / self.exposure_time
@@ -726,7 +727,7 @@ class Simulate_cells:
                 point_intensity=abs_axial_position,
                 map=initial_map[i],
                 movie=True,
-                base_noise=self.init_dict["Global_Parameters"]["base_noise"],
+                base_noise=self.simulation_config.Global_Parameters.base_noise,
                 psf_sigma=self.psf_sigma_pix,
             )
         return initial_map
@@ -803,7 +804,7 @@ class Simulate_cells:
         """
         # create the space for the simulation
         space = self._define_space(
-            dims=self.init_dict["Global_Parameters"]["field_of_view_dim"],
+            dims=self.simulation_config.Global_Parameters.field_of_view_dim,
             movie_frames=self.frame_count,
         )
         # create the tracks and points_per_time
@@ -814,7 +815,7 @@ class Simulate_cells:
         space_updated = self._create_map(
             initial_map=space,
             points_per_frame=points_per_frame,
-            axial_function=self.init_dict["Global_Parameters"]["axial_function"],
+            axial_function=self.simulation_config.Global_Parameters.axial_function,
         )
         return {
             "map": space_updated,
@@ -851,7 +852,7 @@ class Simulate_cells:
         data : dict, Default = None
             dictionary of data to be saved, Keys = "map","tracks","points_per_frame" Values = array-like.
             See the return of the function simulate_cell_tracks for more details
-        parameters : dict, Default = self.init_dict
+        parameters : dict, Default = self.simulation_config
         Returns:
         --------
         none
@@ -860,7 +861,7 @@ class Simulate_cells:
         sim = self.get_cell()
         # update the kwargs with the data
         kwargs["data"] = sim
-        kwargs["parameters"] = self.init_dict
+        kwargs["parameters"] = self.simulation_config
         # make the directory structure
         _ = make_directory_structure(
             cd, img_name, sim["map"], subsegment_type, subsegment_num, **kwargs
