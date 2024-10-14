@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure Git Credentials
-        run: |
-          git config joemans3 github-actions[bot]
-          git config baljyotparmar@hotmail.com 41898282+github-actions[bot]@users.noreply.github.com
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
@@ -24,6 +20,9 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
+        env:
+          MKDOCS_BUILD_DIR: docs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pip \
           install mkdocs-material \
           pymdown-extensions
