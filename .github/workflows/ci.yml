@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 
-name: Lint, Test
+name: Lint and Test
 
 on:
   push:
@@ -33,3 +33,4 @@ jobs:
           uv run ruff format
       - name: Test with pytest
         run: uv run pytest
+

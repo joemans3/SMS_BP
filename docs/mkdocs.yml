@@ -19,9 +19,9 @@ theme:
   features:
     - navigation.footer
     - search.suggest
-font:
-  text: 'Roboto'
-  code: 'Roboto Mono'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
 
 markdown_extensions:
   - pymdownx.arithmatex:
