@@ -28,6 +28,7 @@ dependencies = [
   "scikit-image>=0.18.3",
   "typer>=0.12.5",
   "jsonschema>=4.23.0",
+  "mkdocstrings-python>=1.12.1",
 ]
 
 [project.urls]

@@ -39,13 +39,12 @@ The goal of the SMS_BP package is 3 fold:
 
     4.  blinking (ON/OFF) of the probe.
 
-::: info
+
 This is not a technical document. I am not discussing how these features
 are implemented (i think i came up with really nice solutions and would
 love to talk about it) but to display the large functionality of this
 code base and how *you* the user can interact with and use it for your
 own means.
-:::
 
 ## 2. Simulation of Bounded FBM (n-dimensional)
 

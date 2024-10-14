@@ -6,6 +6,18 @@ nav:
   - User Guide: 
     - 'Starter Guide': User_Guide_MD.md
     - 'sim_config Documentation': sim_config.md
+  - API Reference:
+    - Boundary Conditions: boundary_conditions_reference.md
+    - Condensate Movement: condensate_movement_reference.md
+    - Config Schema: config_schema_reference.md
+    - Decorators: decorators_reference.md
+    - Errors: errors_reference.md
+    - fbm_BP: fbm_BP_reference.md
+    - JSON Validator Converter: json_validator_converter_reference.md
+    - Probability Functions: probability_functions_reference.md
+    - Run Cell Simulation: run_cell_simulation_reference.md
+    - Simulate Cell: simulate_cell_reference.md
+    - Simulate Foci: simulate_foci_reference.md
   - About:
     - 'License': license.md
 
@@ -34,3 +46,12 @@ markdown_extensions:
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_signature: true
+            show_root_full_path: false
+            show_source: true
