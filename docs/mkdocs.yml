@@ -1,5 +1,5 @@
 site_name: SMS_BP_Docs
-
+repo_url: https://github.com/joemans3/SMS_BP
 nav:
   - Home: 
     - 'Hello and Install': index.md
@@ -9,7 +9,19 @@ nav:
   - About:
     - 'License': license.md
 
-theme: readthedocs
+theme: 
+  name: material
+  palette:
+    primary: green
+    scheme: slate
+  icon:
+    repo: fontawesome/brands/git-alt
+  features:
+    - navigation.footer
+    - search.suggest
+font:
+  text: 'Roboto'
+  code: 'Roboto Mono'
 
 markdown_extensions:
   - pymdownx.arithmatex:

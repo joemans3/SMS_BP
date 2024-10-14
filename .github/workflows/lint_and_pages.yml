@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 
-name: Lint and Test
+name: Lint, Test, and Deploy Pages
 
 on:
   push:
@@ -36,6 +36,6 @@ jobs:
       - name: Build mkdocs
         run: |
           cd docs && uv run mkdocs build
-          uv run mkdocs deploy
+          uv run mkdocs gh-deploy --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
