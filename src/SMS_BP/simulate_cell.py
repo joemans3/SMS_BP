@@ -182,7 +182,7 @@ def make_directory_structure(
     with open(params_json, "w") as f:
         # dump the parameters into a json file
         # json.dump(convert_arrays_to_lists(kwargs.get("parameters", {})), f)
-        json.dump({},f)
+        json.dump({}, f)
 
     # make a diretory inside cd called Analysis if it does not exist
     if not os.path.exists(os.path.join(cd, "Analysis")):
@@ -323,7 +323,9 @@ class Simulate_cells:
             )
 
             # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
-            if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != len(
+            if len(
+                self.simulation_config.Track_Parameters.diffusion_coefficient
+            ) != len(
                 self.simulation_config.Track_Parameters.diffusion_transition_matrix
             ):
                 raise ValueError(
