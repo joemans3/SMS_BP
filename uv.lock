@@ -1297,7 +1297,7 @@ wheels = [
 
 [[package]]
 name = "sms-bp"
-version = "0.1.70"
+version = "0.2.3"
 source = { editable = "." }
 dependencies = [
     { name = "jsonschema" },
@@ -1326,6 +1326,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=1.21.2" },
     { name = "scikit-image", specifier = ">=0.18.3" },
     { name = "scipy", specifier = ">=1.7.1" },
+    { name = "sms-bp", editable = "." },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 
