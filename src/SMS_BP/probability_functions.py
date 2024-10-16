@@ -60,8 +60,8 @@ class multiple_top_hat_probability:
         space_size: np.ndarray,
     ) -> None:
         self.num_subspace = num_subspace
-        self.subspace_centers = subspace_centers
-        self.subspace_radius = subspace_radius
+        self.subspace_centers = np.array(subspace_centers)
+        self.subspace_radius = np.array(subspace_radius)
         self.density_dif = density_dif
         self.space_size = space_size
         self.subspace_probability = self._calculate_subspace_probability(

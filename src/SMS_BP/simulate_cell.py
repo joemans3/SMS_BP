@@ -181,7 +181,8 @@ def make_directory_structure(
     # in this directory, dump the parameters into a json file
     with open(params_json, "w") as f:
         # dump the parameters into a json file
-        json.dump(convert_arrays_to_lists(kwargs.get("parameters", {})), f)
+        # json.dump(convert_arrays_to_lists(kwargs.get("parameters", {})), f)
+        json.dump({},f)
 
     # make a diretory inside cd called Analysis if it does not exist
     if not os.path.exists(os.path.join(cd, "Analysis")):
@@ -314,48 +315,49 @@ class Simulate_cells:
             self.simulation_config.Global_Parameters.psf_sigma, "um", "pix"
         )
 
-        # convert the transition matrix from the time given to the oversample_motion_time
-        # store the transition_matrix_time_step
-        self.transition_matrix_time_step = (
-            self.simulation_config.Track_Parameters.transition_matrix_time_step
-        )
+        if self.simulation_config.Track_Parameters.allow_transition_probability:
+            # convert the transition matrix from the time given to the oversample_motion_time
+            # store the transition_matrix_time_step
+            self.transition_matrix_time_step = (
+                self.simulation_config.Track_Parameters.transition_matrix_time_step
+            )
 
-        # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
-        if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != len(
-            self.simulation_config.Track_Parameters.diffusion_transition_matrix
-        ):
-            raise ValueError(
-                "The length of the diffusion_coefficient and the diffusion_transition_matrix are not the same"
-            )
-        if len(self.simulation_config.Track_Parameters.hurst_exponent) != len(
-            self.simulation_config.Track_Parameters.hurst_transition_matrix
-        ):
-            raise ValueError(
-                "The length of the hurst_exponent and the hurst_transition_matrix are not the same"
-            )
-        # compare to the oversample_motion_time and scale to the appropriate time step
-        if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != 1:
-            self.diffusion_transition_matrix = np.real(
-                fractional_matrix_power(
-                    self.simulation_config.Track_Parameters.diffusion_transition_matrix,
-                    self.oversample_motion_time / self.transition_matrix_time_step,
-                )
-            )
-        else:
-            self.diffusion_transition_matrix = (
+            # check if the diffusion_coefficient and hurst_exponent are of length n, and then check if the length of the transition matrix is the same as the length of the diffusion_coefficient and hurst_exponent
+            if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != len(
                 self.simulation_config.Track_Parameters.diffusion_transition_matrix
-            )
-        if len(self.simulation_config.Track_Parameters.hurst_exponent) != 1:
-            self.hurst_transition_matrix = np.real(
-                fractional_matrix_power(
-                    self.simulation_config.Track_Parameters.hurst_transition_matrix,
-                    self.oversample_motion_time / self.transition_matrix_time_step,
+            ):
+                raise ValueError(
+                    "The length of the diffusion_coefficient and the diffusion_transition_matrix are not the same"
                 )
-            )
-        else:
-            self.hurst_transition_matrix = (
+            if len(self.simulation_config.Track_Parameters.hurst_exponent) != len(
                 self.simulation_config.Track_Parameters.hurst_transition_matrix
-            )
+            ):
+                raise ValueError(
+                    "The length of the hurst_exponent and the hurst_transition_matrix are not the same"
+                )
+            # compare to the oversample_motion_time and scale to the appropriate time step
+            if len(self.simulation_config.Track_Parameters.diffusion_coefficient) != 1:
+                self.diffusion_transition_matrix = np.real(
+                    fractional_matrix_power(
+                        self.simulation_config.Track_Parameters.diffusion_transition_matrix,
+                        self.oversample_motion_time / self.transition_matrix_time_step,
+                    )
+                )
+            else:
+                self.diffusion_transition_matrix = (
+                    self.simulation_config.Track_Parameters.diffusion_transition_matrix
+                )
+            if len(self.simulation_config.Track_Parameters.hurst_exponent) != 1:
+                self.hurst_transition_matrix = np.real(
+                    fractional_matrix_power(
+                        self.simulation_config.Track_Parameters.hurst_transition_matrix,
+                        self.oversample_motion_time / self.transition_matrix_time_step,
+                    )
+                )
+            else:
+                self.hurst_transition_matrix = (
+                    self.simulation_config.Track_Parameters.hurst_transition_matrix
+                )
         return
 
     def _convert_frame_to_time(
@@ -396,6 +398,7 @@ class Simulate_cells:
         update_type : str
             type to update unit to
         """
+        unit = np.array(unit)
         if orig_type == "nm":
             if update_type == "pix":
                 return unit / self.simulation_config.Global_Parameters.pixel_size
