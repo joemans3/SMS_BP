@@ -35,10 +35,16 @@ from typing_extensions import Annotated
 from SMS_BP import __version__
 from SMS_BP.simulate_cell import Simulate_cells
 
+cli_help_doc = """
+CLI tool to run [underline]S[/underline]ingle [underline]M[/underline]olecule [underline]S[/underline]imulation: [underline]SMS[/underline]-BP. GitHub: [green]https://github.com/joemans3/SMS_BP[/green].
+[Version: [bold]{0}[/bold]]
+""".format(__version__)
+
 
 # create a new CLI function
 typer_app_sms_bp = typer.Typer(
     name="SMS_BP CLI Tool",
+    help=cli_help_doc,
     short_help="CLI tool for SMS_BP.",
     rich_markup_mode="rich",
     pretty_exceptions_show_locals=False,
@@ -49,11 +55,8 @@ typer_app_sms_bp = typer.Typer(
 
 
 # make a callback function to run the simulation
-@typer_app_sms_bp.callback(name="sms_bp", invoke_without_command=True)
+@typer_app_sms_bp.callback(invoke_without_command=True)
 def cell_simulation():
-    """
-    CLI tool to run [underline]S[/underline]ingle [underline]M[/underline]olecule [underline]S[/underline]imulation: [underline]SMS[/underline]-BP. GitHub: [green]https://github.com/joemans3/SMS_BP[/green]
-    """
     # print version
     # find version using the __version__ variable in the __init__.py file
     out_string = f"SMS_BP version: [bold]{__version__}[/bold]"

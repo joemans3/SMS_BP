@@ -11,14 +11,14 @@ from scipy.linalg import fractional_matrix_power
 import SMS_BP.decorators as decorators
 import SMS_BP.probability_functions as pf
 import SMS_BP.simulate_foci as sf
-
+from SMS_BP.config_schema import SimulationConfig
 from SMS_BP.json_validator_converter import (
-    validate_and_convert,
     load_validate_and_convert,
+    validate_and_convert,
 )
 
 
-def save_tiff(image: np.ndarray, path: str, img_name: str = None) -> None:
+def save_tiff(image: np.ndarray, path: str, img_name: str | None = None) -> None:
     """
     Save the image as a TIFF file.
 
@@ -46,7 +46,7 @@ def save_tiff(image: np.ndarray, path: str, img_name: str = None) -> None:
 def sub_segment(
     img: np.ndarray,
     subsegment_num: int,
-    img_name: str = None,
+    img_name: str | None = None,
     subsegment_type: str = "mean",
 ) -> list[np.ndarray]:
     """
@@ -255,7 +255,7 @@ def convert_arrays_to_lists(obj: np.ndarray | dict) -> list | dict:
 
 
 class Simulate_cells:
-    def __init__(self, init_dict_json: dict | str):
+    def __init__(self, init_dict_json: dict | str | SimulationConfig):
         """Docstring for Simulate_cells: Class for simulating cells in space.
         Parameters:
         -----------
@@ -270,15 +270,17 @@ class Simulate_cells:
             self.simulation_config = load_validate_and_convert(init_dict_json)
         elif isinstance(init_dict_json, dict):
             self.simulation_config = validate_and_convert(init_dict_json)
+        else:
+            self.simulation_config = init_dict_json
 
         self.simulation_config.make_array()
         # store the times
         self.frame_count = self.simulation_config.Global_Parameters.frame_count
-        self.interval_time = self.simulation_config.Global_Parameters.interval_time
-        self.oversample_motion_time = (
+        self.interval_time = int(self.simulation_config.Global_Parameters.interval_time)
+        self.oversample_motion_time = int(
             self.simulation_config.Global_Parameters.oversample_motion_time
         )
-        self.exposure_time = self.simulation_config.Global_Parameters.exposure_time
+        self.exposure_time = int(self.simulation_config.Global_Parameters.exposure_time)
         self.total_time = self._convert_frame_to_time(
             self.frame_count,
             self.exposure_time,

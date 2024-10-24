@@ -151,8 +151,9 @@ allow for structured data management, type-checking, and easy manipulation of si
       conversion of lists to NumPy arrays for efficient mathematical operations.
 """
 
-from dataclasses import dataclass
-from typing import List
+from dataclasses import dataclass, fields, is_dataclass
+from typing import Any, List
+
 import numpy as np
 
 # JSON Schema definition
@@ -379,11 +380,24 @@ class OutputParameters:
 @dataclass
 class ABCConfig:
     def make_array(self):
-        # walk along walkable attributes and make a array
-        # list of att:
-        for att in self.__dict__:
-            if isinstance(self.__dict__[att], list):
-                self.__dict__[att] = np.array(self.__dict__[att])
+        """
+        Recursively converts all list attributes to numpy arrays, including nested dataclasses.
+        """
+
+        def _convert(obj: Any):
+            if isinstance(obj, list):
+                return np.array(obj)
+            elif is_dataclass(obj):
+                # Traverse nested dataclass
+                for field in fields(obj):
+                    value = getattr(obj, field.name)
+                    setattr(obj, field.name, _convert(value))
+            return obj
+
+        # Apply conversion to the main dataclass
+        for field in fields(self):
+            value = getattr(self, field.name)
+            setattr(self, field.name, _convert(value))
 
 
 @dataclass
