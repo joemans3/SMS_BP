@@ -595,7 +595,7 @@ class Track_generator:
 
         fbm = fbm_BP.FBM_BP(
             n=track_length,
-            dt=1,
+            dt=self.oversample_motion_time / 1000.0,
             hurst_parameters=[hurst_exponent],
             diffusion_parameters=[diffusion_coefficient],
             diffusion_parameter_transition_matrix=[1],
@@ -680,7 +680,7 @@ class Track_generator:
         # initialize the fbm class
         fbm = fbm_BP.FBM_BP(
             n=track_length,
-            dt=1,
+            dt=self.oversample_motion_time / 1000.0,
             hurst_parameters=hurst_parameters,
             diffusion_parameters=diffusion_parameters,
             diffusion_parameter_transition_matrix=diffusion_transition_matrix,

@@ -295,16 +295,16 @@ class Simulate_cells:
             self.oversample_motion_time,
         )
 
-        # update the diffusion coefficients from um^2/s to pix^2/ms
+        # update the diffusion coefficients from um^2/s to pix^2/s
         self.track_diffusion_updated = self._update_units(
             self.simulation_config.Track_Parameters.diffusion_coefficient,
             "um^2/s",
-            "pix^2/(oversample_motion_time)ms)",
+            "pix^2/s",
         )
         self.condensate_diffusion_updated = self._update_units(
             self.simulation_config.Condensate_Parameters.diffusion_coefficient,
             "um^2/s",
-            "pix^2/(oversample_motion_time)ms)",
+            "pix^2/s",
         )
         # update the pixel_size,axial_detection_range,psf_sigma from um to pix
         self.pixel_size_pix = self._update_units(
@@ -416,14 +416,9 @@ class Simulate_cells:
             if update_type == "ms":
                 return unit * 1000.0
         elif orig_type == "um^2/s":
-            if update_type == "pix^2/(oversample_motion_time)ms)":
-                return (
-                    unit
-                    * (1.0 / (self.simulation_config.Global_Parameters.pixel_size**2))
-                    * (
-                        self.simulation_config.Global_Parameters.oversample_motion_time
-                        / 1000.0
-                    )
+            if update_type == "pix^2/s":
+                return unit * (
+                    1.0 / (self.simulation_config.Global_Parameters.pixel_size**2)
                 )
         if orig_type == "um":
             if update_type == "pix":

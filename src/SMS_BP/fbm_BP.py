@@ -1,5 +1,6 @@
 import numpy as np
-from SMS_BP.boundary_conditions import _refecting_boundary, _absorbing_boundary
+
+from SMS_BP.boundary_conditions import _absorbing_boundary, _refecting_boundary
 
 BOUNDARY_CONDITIONS = {
     "reflecting": _refecting_boundary,
@@ -208,10 +209,8 @@ class FBM_BP:
         phi = np.zeros(self.n)
         psi = np.zeros(self.n)
         # construct a gaussian noise vector
-        gn = (
-            np.random.normal(0, 1, self.n)
-            * np.sqrt(self.dt * 2 * self._diff_a_n)
-            * (self.dt ** (2 * self._hurst_n))
+        gn = np.random.normal(0, 1, self.n) * np.sqrt(
+            2 * self._diff_a_n * (self.dt ** (2 * self._hurst_n))
         )
         # catch is all hurst are 0.5 then use the gaussian noise vector corresponding to the scale defined by the diffusion parameter
         if np.all(self._hurst_n == 0.5):
