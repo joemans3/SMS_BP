@@ -1,6 +1,6 @@
 
 
-# This is a short doc for the Track Simulations along with cluster simulations.
+# Single Molecule Simulations - BP
 -----------------------------------------
 
 - Author: Baljyot Singh Parmar
