@@ -6,6 +6,7 @@
 - Author: Baljyot Singh Parmar
 - Affiliation at the time of writing: McGill University, Canada. Weber Lab
 
+Please read the [User Guide](docs/User_Guide_MD.md) for details on the features of this project along with some examples.
 Following is an example of a single molecule simulated with motion blur.
 
 https://github.com/user-attachments/assets/58268a2e-27d7-4486-ae29-a56f7e08ec0c
