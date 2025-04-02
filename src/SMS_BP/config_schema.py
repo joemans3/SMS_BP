@@ -40,12 +40,54 @@ and organized into the following sections:
     - Unit for diffusion in the simulation (e.g., um²/s, mm²/s).
 
 ### Cell Parameters
-* **cell_space**: `List[List[float]]`
-    - Defines the spatial extent of the simulation space.
-    - `cell_space[0]`: x coordinates of the cell space (min, max).
-    - `cell_space[1]`: y coordinates of the cell space (min, max).
-* **cell_axial_radius**: `float`
-    - Defines the distance from `z=0` in either direction that the cell extends.
+### `cell_type`
+- **Type**: Union[str, CellType]
+- **Description**: Defines the type of the cell to simulate.
+  - Supported: RectangularCell, SphericalCell, OvoidCell, RodCell, BuddingCell
+
+### `params`
+- **Type**: dictionary of parameter names (String) and values (Any)
+- **Description**: Values for the cell_type specified above. The following the general structure:
+
+```python
+# SphericalCell
+params = {
+    "center": [0, 0, 0],   # 3D center coordinates
+    "radius": 10.0         # Radius of sphere
+}
+```
+
+
+```python
+# RodCell
+params = {
+    "center": [0, 0, 0],       # 3D center coordinates
+    "direction": [0, 0, 1],    # Direction vector (will be normalized)
+    "height": 20.0,            # Length of the rod
+    "radius": 5.0              # Radius of the rod
+}
+```
+
+
+```python
+# RectangularCell
+params = {
+    "bounds": [-10, 10, -10, 10, -10, 10]  # [xmin, xmax, ymin, ymax, zmin, zmax]
+}
+```
+
+
+```python
+# OvoidCell
+params = {
+    "center": [0, 0, 0],       # 3D center coordinates
+    "xradius": 10.0,           # Radius in x-direction
+    "yradius": 15.0,           # Radius in y-direction
+    "zradius": 20.0            # Radius in z-direction
+}
+```
+
+
 * **number_of_cells**: `int`
     - Number of cells to simulate.
 

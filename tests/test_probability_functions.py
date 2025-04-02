@@ -1,7 +1,10 @@
 import numpy as np
 import pytest
 
+from SMS_BP.cells import make_RectangularCell
 from SMS_BP.probability_functions import multiple_top_hat_probability
+
+CELL = make_RectangularCell(bounds=np.array([0, 10, 0, 10, -10, 10]))
 
 
 # Fixtures to provide commonly used data
@@ -12,10 +15,10 @@ def prob_func_fixture():
     subspace_centers = np.array([[0, 0, 0], [2, 2, 0]])
     subspace_radius = np.array([1, 1])
     density_dif = 0.1
-    space_size = np.array([6, 6, 4])
+    cell = CELL
 
     return multiple_top_hat_probability(
-        num_subspace, subspace_centers, subspace_radius, density_dif, space_size
+        num_subspace, subspace_centers, subspace_radius, density_dif, cell
     )
 
 
@@ -43,30 +46,6 @@ def test_prob_outside_subspaces(prob_func_fixture):
     )
 
 
-# Test updating parameters
-def test_update_parameters(prob_func_fixture):
-    prob_func = prob_func_fixture
-    new_num_subspace = 1
-    new_subspace_centers = np.array([[1, 1, 1]])
-    new_subspace_radius = np.array([2])
-    new_density_dif = 0.2
-    new_space_size = np.array([10, 10, 5])
-
-    prob_func.update_parameters(
-        num_subspace=new_num_subspace,
-        subspace_centers=new_subspace_centers,
-        subspace_radius=new_subspace_radius,
-        density_dif=new_density_dif,
-        space_size=new_space_size,
-    )
-
-    assert prob_func.num_subspace == new_num_subspace
-    assert np.allclose(prob_func.subspace_centers, new_subspace_centers)
-    assert np.allclose(prob_func.subspace_radius, new_subspace_radius)
-    assert np.isclose(prob_func.density_dif, new_density_dif)
-    assert np.allclose(prob_func.space_size, new_space_size)
-
-
 # Test for invalid input types
 def test_invalid_input_types(prob_func_fixture):
     prob_func = prob_func_fixture
@@ -79,7 +58,7 @@ def test_invalid_input_types(prob_func_fixture):
 # Test calculation of subspace probability
 def test_subspace_probability_calculation(prob_func_fixture):
     prob_func = prob_func_fixture
-    space_size = prob_func.space_size
+    space_size = prob_func.cell.volume
     density_dif = prob_func.density_dif
     expected_subspace_probability = density_dif / np.prod(space_size)
 
@@ -91,7 +70,7 @@ def test_subspace_probability_calculation(prob_func_fixture):
 # Test calculation of non-subspace probability
 def test_non_subspace_probability_calculation(prob_func_fixture):
     prob_func = prob_func_fixture
-    space_size = prob_func.space_size
+    space_size = prob_func.cell.volume
     expected_non_subspace_probability = 1.0 / np.prod(space_size)
 
     assert np.isclose(

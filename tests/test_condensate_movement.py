@@ -1,11 +1,13 @@
 import numpy as np
 import pytest
 
+from SMS_BP.cells import make_RectangularCell
 from SMS_BP.condensate_movement import Condensate
 
 # Define sample values to use across tests
 SAMPLE_POSITION = np.array([1, 2, 3])
-SAMPLE_CELL_SPACE = np.array([[-10, 10], [-10, 10], [-5, 5]])
+SAMPLE_CELL_SPACE = np.array([-10, 10, -10, 10, -5, 5])
+CELL = make_RectangularCell(bounds=SAMPLE_CELL_SPACE)
 
 
 @pytest.fixture
@@ -19,8 +21,8 @@ def sample_condensate_params():
         "units_position": "um",
         "condensate_id": 1,
         "initial_scale": 1.0,
-        "cell_space": SAMPLE_CELL_SPACE,
-        "cell_axial_range": 5,
+        "cell": CELL,
+        "oversample_motion_time": 1,
     }
 
 
