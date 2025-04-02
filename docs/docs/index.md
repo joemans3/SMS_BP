@@ -5,12 +5,6 @@
 - Affiliation at the time of writing: McGill University, Canada. Weber Lab
 
 Please read the [User Guide](User_Guide_MD.md) for details on the features of this project along with some examples.
-
-- Author: Baljyot Singh Parmar
-- Affiliation at the time of writing: McGill University, Canada. Weber Lab
-
-
-
 ## 1. Installation
 -------------------
 ### ***Anaconda*** 
