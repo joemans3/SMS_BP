@@ -835,8 +835,8 @@ def _generate_no_transition_tracks(
 
     for i in range(len(track_lengths)):
         # Randomly select diffusion coefficient and hurst exponent indices
-        diff_idx = random.randint(0, len(diffusion_parameters) - 1)
-        hurst_idx = random.randint(0, len(hurst_parameters) - 1)
+        diff_idx = np.random.randint(0, len(diffusion_parameters) - 1)
+        hurst_idx = np.random.randint(0, len(hurst_parameters) - 1)
 
         # Generate track with selected parameters
         tracks[i] = track_generator.track_generation_no_transition(
