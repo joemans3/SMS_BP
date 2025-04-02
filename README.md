@@ -62,7 +62,7 @@ conda env create -f SMS_BP.yml
 - If you get an environment resolve error but you have anaconda installed just skip to step 6. The .yml file is for people who are using miniconda and might not have the packages already installed with the full anaconda install.
 - You may want to still have a conda environment so just create a generic one if you want with the name SMS_BP or whatever you want with python>=3.10. Explicitly, 
 ```bash
-conda create -n [my_env_name] python=3.10.13
+conda create -n [my_env_name] python=3.12
 ```
 5. Activate the environment using: 
 ```bash
