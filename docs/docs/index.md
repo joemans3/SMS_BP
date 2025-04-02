@@ -5,8 +5,7 @@
 - Affiliation at the time of writing: McGill University, Canada. Weber Lab
 
 Please read the [User Guide](User_Guide_MD.md) for details on the features of this project along with some examples.
-Following is an example of a single molecule simulated with motion blur.
-# This is a short doc for the Track Simulations along with cluster simulations.
+
 -----------------------------------------
 
 - Author: Baljyot Singh Parmar
