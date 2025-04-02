@@ -3,8 +3,5 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - python>=3.12
-  - setuptools
-  - setuptools-scm
-  - pip:
-    - -r requirements.txt
+  - python==3.12
+  - pip
