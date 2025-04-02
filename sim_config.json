@@ -6,8 +6,8 @@
     "intensity_unit":"AUD",
     "diffusion_unit":"um^2/s",
     "Cell_Parameters":{
-        "cell_type": "RectangularCell",
-        "params":{"bounds": [30,50,20,70,-1,1]}
+        "cell_type": "RodCell",
+        "params":{"center": [40,45,0], "direction": [1,0,0], "radius": 5.0, "height": 20.0}
     },
     "Track_Parameters":{
         "num_tracks":1,
@@ -43,11 +43,11 @@
         "axial_function":"exponential"
     },
     "Condensate_Parameters":{
-        "initial_centers":[[40,30,0],[40,40,0]],
+        "initial_centers":[[40,42,0],[40,40,0]],
         "initial_scale": [2,2],
         "diffusion_coefficient": [0,0],
         "hurst_exponent": [0.2,0.2], 
-        "density_dif":1000
+        "density_dif":1
     },
     "Output_Parameters":{
         "output_path":"<YOUR-PATH-HERE-CAN-BE-ABSOLUTE-OR-RELATIVE>",

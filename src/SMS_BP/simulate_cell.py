@@ -8,13 +8,21 @@ import skimage as skimage
 from PIL import Image
 from scipy.linalg import fractional_matrix_power
 
-import SMS_BP.decorators as decorators
-import SMS_BP.probability_functions as pf
-import SMS_BP.simulate_foci as sf
-from SMS_BP.config_schema import SimulationConfig
-from SMS_BP.json_validator_converter import (
+from .cells.cell_factory import create_cell
+from .condensate_movement import create_condensate_dict
+from .config_schema import SimulationConfig
+from .decorators import deprecated
+from .json_validator_converter import (
     load_validate_and_convert,
     validate_and_convert,
+)
+from .probability_functions import multiple_top_hat_probability
+from .simulate_foci import (
+    Track_generator,
+    axial_intensity_factor,
+    generate_map_from_points,
+    generate_points_from_cls,
+    get_lengths,
 )
 
 
@@ -181,8 +189,8 @@ def make_directory_structure(
     # in this directory, dump the parameters into a json file
     with open(params_json, "w") as f:
         # dump the parameters into a json file
-        # json.dump(convert_arrays_to_lists(kwargs.get("parameters", {})), f)
-        json.dump({}, f)
+        json.dump(convert_arrays_to_lists(kwargs.get("parameters", {})), f)
+        # json.dump({}, f)
 
     # make a diretory inside cd called Analysis if it does not exist
     if not os.path.exists(os.path.join(cd, "Analysis")):
@@ -268,14 +276,21 @@ class Simulate_cells:
         """
         if isinstance(init_dict_json, str):
             self.simulation_config = load_validate_and_convert(init_dict_json)
+            with open(init_dict_json, "r") as file:
+                self.loaded_config = json.load(file)
         elif isinstance(init_dict_json, dict):
             self.simulation_config = validate_and_convert(init_dict_json)
+            self.loaded_config = init_dict_json
         else:
             self.simulation_config = init_dict_json
 
         self.simulation_config.make_array()
         # store the times
         self.frame_count = self.simulation_config.Global_Parameters.frame_count
+        self.cell = create_cell(
+            self.simulation_config.Cell_Parameters.cell_type,
+            self.simulation_config.Cell_Parameters.params,
+        )
         self.interval_time = int(self.simulation_config.Global_Parameters.interval_time)
         self.oversample_motion_time = int(
             self.simulation_config.Global_Parameters.oversample_motion_time
@@ -516,8 +531,8 @@ class Simulate_cells:
             )
         )
         for i, j in tracks.items():
-            for k in range(len(j["frames"])):
-                points_per_frame[str(j["frames"][k])].append(j["xy"][k])
+            for k in range(len(j["times"])):
+                points_per_frame[str(j["times"][k])].append(j["xy"][k])
 
         return points_per_frame
 
@@ -540,7 +555,7 @@ class Simulate_cells:
             # make a (x,y,T) tuple for each point
             track_msd[i] = []
             for k in range(len(j["xy"])):
-                track_msd[i].append((j["xy"][k][0], j["xy"][k][1], j["frames"][k]))
+                track_msd[i].append((j["xy"][k][0], j["xy"][k][1], j["times"][k]))
             # add this to the dictionary
             track_msd[i] = np.array(track_msd[i])
         return track_msd
@@ -560,7 +575,7 @@ class Simulate_cells:
             A tuple where the first element is a dictionary of tracks, and the second element is a dictionary of points per time.
         """
         # get the lengths of the tracks given a distribution
-        track_lengths = sf.get_lengths(
+        track_lengths = get_lengths(
             track_distribution=self.simulation_config.Track_Parameters.track_distribution,
             track_length_mean=self.track_length_mean,
             total_tracks=self.simulation_config.Track_Parameters.num_tracks,
@@ -576,14 +591,7 @@ class Simulate_cells:
 
         # initialize the Condensates. Assuming box shaped.
         # find area assuming cell_space is [[min_x,max_x],[min_y,max_y]]
-        vol_cell = (
-            np.abs(np.diff(self.simulation_config.Cell_Parameters.cell_space[0]))
-            * np.abs(np.diff(self.simulation_config.Cell_Parameters.cell_space[1]))
-            * 2.0
-            * self.simulation_config.Cell_Parameters.cell_axial_radius
-        )
-
-        self.condensates = sf.create_condensate_dict(
+        self.condensates = create_condensate_dict(
             initial_centers=np.array(
                 self.simulation_config.Condensate_Parameters.initial_centers
             ),
@@ -601,17 +609,17 @@ class Simulate_cells:
                 ]
                 * len(self.condensate_diffusion_updated)
             ),
-            cell_space=self.simulation_config.Cell_Parameters.cell_space,
-            cell_axial_range=self.simulation_config.Cell_Parameters.cell_axial_radius,
+            cell=self.cell,
+            oversample_motion_time=self.oversample_motion_time,
         )
 
         # define the top_hat class that will be used to sample the condensates
-        top_hat_func = pf.multiple_top_hat_probability(
+        top_hat_func = multiple_top_hat_probability(
             num_subspace=len(self.condensate_diffusion_updated),
             subspace_centers=self.simulation_config.Condensate_Parameters.initial_centers,
             subspace_radius=self.simulation_config.Condensate_Parameters.initial_scale,
             density_dif=self.simulation_config.Condensate_Parameters.density_dif,
-            space_size=np.array(vol_cell),
+            cell=self.cell,
         )
         # make a placeholder for the initial position array with all 0s
         initials = np.zeros((self.simulation_config.Track_Parameters.num_tracks, 3))
@@ -631,15 +639,11 @@ class Simulate_cells:
             # update the top_hat_func with the new condensate positions
             top_hat_func.update_parameters(subspace_centers=condensate_positions)
             # sample the top hat to get the initial position
-            initials[i] = sf.generate_points_from_cls(
+            initials[i] = generate_points_from_cls(
                 top_hat_func,
                 total_points=1,
-                min_x=self.simulation_config.Cell_Parameters.cell_space[0][0],
-                max_x=self.simulation_config.Cell_Parameters.cell_space[0][1],
-                min_y=self.simulation_config.Cell_Parameters.cell_space[1][0],
-                max_y=self.simulation_config.Cell_Parameters.cell_space[1][1],
-                min_z=-self.simulation_config.Cell_Parameters.cell_axial_radius,
-                max_z=self.simulation_config.Cell_Parameters.cell_axial_radius,
+                volume=self.cell.volume,
+                bounds=self.cell.boundingbox,
                 density_dif=self.simulation_config.Condensate_Parameters.density_dif,
             )[0]
         # check to see if there is 2 or 3 values in the second dimension of initials
@@ -660,12 +664,9 @@ class Simulate_cells:
             )
         )
         # initialize the Track_generator class
-        track_generator = sf.Track_generator(
-            cell_space=self.simulation_config.Cell_Parameters.cell_space,
-            cell_axial_range=self.simulation_config.Cell_Parameters.cell_axial_radius,
-            frame_count=self.frame_count,
-            exposure_time=self.exposure_time,
-            interval_time=self.interval_time,
+        track_generator = Track_generator(
+            cell=self.cell,
+            total_time=self.frame_count * (self.interval_time + self.exposure_time),
             oversample_motion_time=self.oversample_motion_time,
         )
         if self.simulation_config.Track_Parameters.track_type == "constant":
@@ -674,11 +675,11 @@ class Simulate_cells:
                 tracks[i] = track_generator.track_generation_constant(
                     track_length=track_lengths[i],
                     initials=initials[i],
-                    starting_time=starting_frames[i],
+                    start_time=starting_frames[i],
                 )
                 # add the number of points per frame to the dictionary
-                for j in range(len(tracks[i]["frames"])):
-                    points_per_time[str(int(tracks[i]["frames"][j]))].append(
+                for j in range(len(tracks[i]["times"])):
+                    points_per_time[str(int(tracks[i]["times"][j]))].append(
                         tracks[i]["xy"][j]
                     )
         elif not self.simulation_config.Track_Parameters.allow_transition_probability:
@@ -714,8 +715,8 @@ class Simulate_cells:
                     start_time=starting_frames[i],
                 )
                 # add the number of points per frame to the dictionary
-                for j in range(len(tracks[i]["frames"])):
-                    points_per_time[str(int(tracks[i]["frames"][j]))].append(
+                for j in range(len(tracks[i]["times"])):
+                    points_per_time[str(int(tracks[i]["times"][j]))].append(
                         tracks[i]["xy"][j]
                     )
         elif self.simulation_config.Track_Parameters.allow_transition_probability:
@@ -732,8 +733,8 @@ class Simulate_cells:
                     initials=initials[i],
                     start_time=starting_frames[i],
                 )
-                for j in range(len(tracks[i]["frames"])):
-                    points_per_time[str(int(tracks[i]["frames"][j]))].append(
+                for j in range(len(tracks[i]["times"])):
+                    points_per_time[str(int(tracks[i]["times"][j]))].append(
                         tracks[i]["xy"][j]
                     )
         return tracks, points_per_time
@@ -773,7 +774,7 @@ class Simulate_cells:
                 abs_axial_position = (
                     1.0
                     * self.simulation_config.Global_Parameters.point_intensity
-                    * sf.axial_intensity_factor(
+                    * axial_intensity_factor(
                         np.abs(np.array(points_per_frame[str(i)])[:, 2]),
                         detection_range=self.axial_detection_range_pix,
                         func=self.simulation_config.Global_Parameters.axial_function,
@@ -782,7 +783,7 @@ class Simulate_cells:
                     / self.exposure_time
                 )
                 points_per_frame_xyz = np.array(points_per_frame[str(i)])[:, :2]
-            initial_map[i], _ = sf.generate_map_from_points(
+            initial_map[i], _ = generate_map_from_points(
                 points_per_frame_xyz,
                 point_intensity=abs_axial_position,
                 map=initial_map[i],
@@ -791,8 +792,6 @@ class Simulate_cells:
                 psf_sigma=self.psf_sigma_pix,
             )
         return initial_map
-
-        pass
 
     def _point_per_time_selection(self, points_per_time: dict) -> dict:
         """
@@ -922,9 +921,15 @@ class Simulate_cells:
         """
         # run the sim
         sim = self.get_cell()
+        # add notes to explain data structure.
+        ppf_note = "points_per_frame is a dictionary representing the frame number (keys) and accociated molecule positions in those frames (values). Units for frames is count; units for points is image pixel units. Note that there can be more than one molecule localization per frame if the motion is oversampled relative to the exposure time."
+        tracks_note = f"the tracks dictionary contains the following keys: xy, times, diffusion_coefficient, hurst, and initial.  \n 1) xy represents the xyz positions of the molecule in units of the image pixels. \n 2) times represents the base time unit at which the molecule positions in 1) occur. This is in units of the oversample_motion_time. One value represents 1 * oversample_motion_time ms ({self.oversample_motion_time} ms in this case) in time (ms). To convert times to ms multiply the array element-wise by the oversample_motion_time ({self.oversample_motion_time}). \n 3) diffusion_coefficient is the value of the diffusion_coefficient at the base time value in 2). The units of the diffusion_coefficient are in pixels^2/s . \n 4) hurst represents the hurst exponent for the times in 2) of this molecule (similar to the diffusion_coefficient); this value is unitless. \n 5) initials represents the inital xyz value of this molecule in image pixel units."
+        sim["tracks"]["tracks_notes"] = tracks_note
+        sim["points_per_frame_notes"] = ppf_note
+
         # update the kwargs with the data
         kwargs["data"] = sim
-        kwargs["parameters"] = self.simulation_config
+        kwargs["parameters"] = self.loaded_config
         # make the directory structure
         _ = make_directory_structure(
             cd, img_name, sim["map"], subsegment_type, subsegment_num, **kwargs
@@ -939,7 +944,7 @@ class Simulate_cells:
     def condensates(self, condensates: dict):
         self._condensates = condensates
 
-    @decorators.deprecated(
+    @deprecated(
         "This function is not useful, but is still here for a while in case I need it later"
     )
     def _format_points_per_frame(self, points_per_frame):

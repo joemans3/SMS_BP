@@ -152,9 +152,12 @@ allow for structured data management, type-checking, and easy manipulation of si
 """
 
 from dataclasses import dataclass, fields, is_dataclass
-from typing import Any, List
+from typing import Any, Dict, List, Union
 
 import numpy as np
+from pydantic import BaseModel
+
+from .cells.cell_factory import CellType, validate_cell_parameters
 
 # JSON Schema definition
 schema = {
@@ -169,21 +172,10 @@ schema = {
         "Cell_Parameters": {
             "type": "object",
             "properties": {
-                "cell_space": {
-                    "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": {"type": "number"},
-                        "minItems": 2,
-                        "maxItems": 2,
-                    },
-                    "minItems": 2,
-                    "maxItems": 2,
-                },
-                "cell_axial_radius": {"type": "number"},
+                "cell_type": {"type": "string"},
+                "params": {"type": "object"},
                 "number_of_cells": {"type": "integer"},
             },
-            "required": ["cell_space", "cell_axial_radius", "number_of_cells"],
         },
         "Track_Parameters": {
             "type": "object",
@@ -319,12 +311,14 @@ schema = {
 }
 
 
-# Dataclass definitions
-@dataclass
-class CellParameters:
-    cell_space: List[List[float]]
-    cell_axial_radius: float
-    number_of_cells: int
+class CellParameters(BaseModel):
+    cell_type: Union[str, CellType]
+    params: Dict[str, Any]
+
+    def model_post_init(self, __context):
+        is_valid = validate_cell_parameters(self.cell_type, self.params)
+        if not is_valid:
+            raise ValueError(f"Cell model creation unsuccessful: {is_valid[1]}")
 
 
 @dataclass

@@ -24,11 +24,13 @@ Functions:
 - generate_map_from_points: Generates a spatial map from given points and intensities.
 """
 
+from typing import Callable, Tuple, overload
+
 import numpy as np
+from boundedfbm.motion.FBM import FBM_BP
 from scipy.stats import multivariate_normal
 
-import SMS_BP.condensate_movement as condensate_movement
-import SMS_BP.fbm_BP as fbm_BP
+from .cells import BaseCell
 
 
 def get_lengths(
@@ -76,58 +78,6 @@ def get_lengths(
         return np.array(np.ones(total_tracks) * int(track_length_mean), dtype=int)
     else:
         raise ValueError("Distribution not recognized")
-
-
-def create_condensate_dict(
-    initial_centers: np.ndarray,
-    initial_scale: np.ndarray,
-    diffusion_coefficient: np.ndarray,
-    hurst_exponent: np.ndarray,
-    cell_space: np.ndarray,
-    cell_axial_range: float,
-    **kwargs,
-) -> dict:
-    """
-    Creates a dictionary of condensates for simulation.
-
-    Parameters:
-    -----------
-    initial_centers : np.ndarray
-        Array of shape (num_condensates, 2) representing the initial centers of the condensates.
-    initial_scale : np.ndarray
-        Array of shape (num_condensates, 2) representing the initial scales of the condensates.
-    diffusion_coefficient : np.ndarray
-        Array of shape (num_condensates, 2) representing the diffusion coefficients of the condensates.
-    hurst_exponent : np.ndarray
-        Array of shape (num_condensates, 2) representing the Hurst exponents of the condensates.
-    cell_space : np.ndarray
-        Array of shape (2, 2) representing the cell space boundaries.
-    cell_axial_range : float
-        Axial range of the cell.
-    **kwargs : dict
-        Additional arguments passed to `Condensate` class.
-
-    Returns:
-    --------
-    dict
-        A dictionary of `Condensate` objects with keys as condensate IDs.
-    """
-    # check the length of diffusion_coefficient to find the number of condensates
-    num_condensates = len(diffusion_coefficient)
-    condensates = {}
-    units_time = kwargs.get("units_time", ["ms"] * num_condensates)
-    for i in range(num_condensates):
-        condensates[str(i)] = condensate_movement.Condensate(
-            initial_position=initial_centers[i],
-            initial_scale=initial_scale[i],
-            diffusion_coefficient=diffusion_coefficient[i],
-            hurst_exponent=hurst_exponent[i],
-            condensate_id=int(str(i)),
-            units_time=units_time[i],
-            cell_space=cell_space,
-            cell_axial_range=cell_axial_range,
-        )
-    return condensates
 
 
 def tophat_function_2d(
@@ -221,14 +171,10 @@ def generate_points(
 
 
 def generate_points_from_cls(
-    pdf: callable,
+    pdf: Callable,
     total_points: int,
-    min_x: float,
-    max_x: float,
-    min_y: float,
-    max_y: float,
-    min_z: float,
-    max_z: float,
+    volume: float,
+    bounds: Tuple[float, float, float, float, float, float],
     density_dif: float,
 ) -> np.ndarray:
     """
@@ -240,18 +186,21 @@ def generate_points_from_cls(
         Probability density function to sample from.
     total_points : int
         Number of points to generate.
-    min_x : float
-        Minimum x value for sampling.
-    max_x : float
-        Maximum x value for sampling.
-    min_y : float
-        Minimum y value for sampling.
-    max_y : float
-        Maximum y value for sampling.
-    min_z : float
-        Minimum z value for sampling.
-    max_z : float
-        Maximum z value for sampling.
+    bound : list with the following
+        min_x : float
+            Minimum x value for sampling.
+        max_x : float
+            Maximum x value for sampling.
+        min_y : float
+            Minimum y value for sampling.
+        max_y : float
+            Maximum y value for sampling.
+        min_z : float
+            Minimum z value for sampling.
+        max_z : float
+            Maximum z value for sampling.
+    volume : float,
+        volume of region sampling
     density_dif : float
         Scaling factor for density differences.
 
@@ -260,8 +209,8 @@ def generate_points_from_cls(
     np.ndarray
         Array of generated (x, y, z) points.
     """
+    min_x, max_x, min_y, max_y, min_z, max_z = bounds
     xyz_coords = []
-    area = (max_x - min_x) * (max_y - min_y) * (max_z - min_z)
     while len(xyz_coords) < total_points:
         # generate candidate variable
         var = np.random.uniform([min_x, min_y, min_z], [max_x, max_y, max_z])
@@ -269,7 +218,7 @@ def generate_points_from_cls(
         var2 = np.random.uniform(0, 1)
         # apply condition
         pdf_val = pdf(var)
-        if var2 < ((1.0 / density_dif) * area) * pdf_val:
+        if var2 < ((1.0 / density_dif) * volume) * pdf_val:
             xyz_coords.append(var)
     return np.array(xyz_coords)
 
@@ -510,53 +459,37 @@ class Track_generator:
 
     Parameters:
     -----------
-    cell_space : np.ndarray | list
-        The boundaries of the cell space in 2D.
-    cell_axial_range : int | float
-        The axial range of the cell.
-    frame_count : int
-        The number of frames for the simulation.
-    exposure_time : int | float
-        Exposure time in milliseconds.
-    interval_time : int | float
-        Interval time between frames in milliseconds.
+    cell : BaseCell
+        Cell object defining the space for track generation
     oversample_motion_time : int | float
         Time for oversampling motion in milliseconds.
     """
 
     def __init__(
         self,
-        cell_space: np.ndarray | list,
-        cell_axial_range: int | float,
-        frame_count: int,
-        exposure_time: int | float,
-        interval_time: int | float,
+        cell: BaseCell,
+        total_time: int | float,
         oversample_motion_time: int | float,
     ) -> None:
-        self.cell_space = cell_space
-        self.min_x = self.cell_space[0][0]
-        self.max_x = self.cell_space[0][1]
-        self.min_y = self.cell_space[1][0]
-        self.max_y = self.cell_space[1][1]
-        self.cell_axial_range = cell_axial_range
-        self.space_lim = np.array(
-            [
-                [self.min_x, self.max_x],
-                [self.min_y, self.max_y],
-                [-self.cell_axial_range, self.cell_axial_range],
-            ]
-        )
-        self.frame_count = frame_count  # count of frames
-        self.exposure_time = exposure_time  # in ms
-        self.interval_time = interval_time  # in ms
+        self.cell = cell
+        self._allowable_cell_types()
+
         self.oversample_motion_time = oversample_motion_time  # in ms
-        # total time in ms is the exposure time + interval time * (frame_count) / oversample_motion_time
+        # total time in ms is the exposure time + interval time * (cycle_count) / oversample_motion_time
         # in ms
-        self.total_time = self._convert_frame_to_time(self.frame_count)
+        self.total_time = total_time
+
+    def _allowable_cell_types(self):
+        # only allow rectangular cells for now
+        # if not isinstance(self.cell, RectangularCell):
+        #     raise ValueError(
+        #         "Only rectangular cells are supported for track generation"
+        #     )
+        pass
 
     def track_generation_no_transition(
         self,
-        diffusion_coefficient: float,
+        diffusion_coefficient: float,  # um^2/s
         hurst_exponent: float,
         track_length: int,
         initials: np.ndarray,
@@ -581,19 +514,18 @@ class Track_generator:
             time at which the track start (this is not the frame, and needs to be converted to the frame using the exposure time and interval time and the oversample motion time)
         Returns:
         --------
-        dict-like with format: {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+        dict-like with format: {"xy":xyz,"times":times,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
         """
         # initialize the fbm class
         # make self.space_lim relative to the initial position, using self.space_lim define the 0 to be initial position
         if np.shape(initials) == (2,):
             # change the shape to (3,)
             initials = np.array([initials[0], initials[1], 0])
-        # subtract each element of the first dimension of self.space_lim by the first element of initials
-        rel_space_lim = np.zeros((3, 2))
-        for i in range(3):
-            rel_space_lim[i] = self.space_lim[i] - initials[i]
-
-        fbm = fbm_BP.FBM_BP(
+        # convert the diffusion_coefficients
+        # diffusion_coefficient = self._convert_diffcoef_um2s_um2xms(
+        #     diffusion_coefficient
+        # )
+        fbm = FBM_BP(
             n=track_length,
             dt=self.oversample_motion_time / 1000.0,
             hurst_parameters=[hurst_exponent],
@@ -602,24 +534,21 @@ class Track_generator:
             hurst_parameter_transition_matrix=[1],
             state_probability_diffusion=[1],
             state_probability_hurst=[1],
-            space_lim=rel_space_lim[0],
+            cell=self.cell,
+            initial_position=initials,
         )
-        x = fbm.fbm()
-        # repeat for y,z
-        fbm.space_lim = rel_space_lim[1]
-        y = fbm.fbm()
-        fbm.space_lim = rel_space_lim[2]
-        z = fbm.fbm()
-        # convert to format [[x1,y1,z1],[x2,y2,z2],...]
-        xyz = np.stack((x, y, z), axis=-1)
+        xyz = fbm.fbm(dims=3)
         # make the times starting from the starting time
-        track_times = np.arange(start_time, track_length + start_time, 1)
-        # add back the initial position to the track
-        track_xyz = xyz + initials
+        track_times = np.arange(
+            start_time,
+            (track_length + start_time),
+            1,
+        )
+        track_xyz = xyz
         # create the dict
         track_data = {
             "xy": track_xyz,
-            "frames": track_times,
+            "times": track_times,
             "diffusion_coefficient": fbm._diff_a_n,
             "hurst": fbm._hurst_n,
             "initial": initials,
@@ -631,7 +560,7 @@ class Track_generator:
         self,
         diffusion_transition_matrix: np.ndarray | list,
         hurst_transition_matrix: np.ndarray | list,
-        diffusion_parameters: np.ndarray | list,
+        diffusion_parameters: np.ndarray | list,  # um^2/s
         hurst_parameters: np.ndarray | list,
         diffusion_state_probability: np.ndarray | list,
         hurst_state_probability: np.ndarray | list,
@@ -665,7 +594,7 @@ class Track_generator:
 
         Returns:
         --------
-        dict-like with format: {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+        dict-like with format: {"xy":xyz,"times":times,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
         """
         # make self.space_lim relative to the initial position, using self.space_lim define the 0 to be initial position
         # self.space_lim is in general shape (3,2) while the initials is in shape (3,)
@@ -674,11 +603,11 @@ class Track_generator:
             # change the shape to (3,)
             initials = np.array([initials[0], initials[1], 0])
         # subtract each element of the first dimension of self.space_lim by the first element of initials
-        rel_space_lim = np.zeros((3, 2))
-        for i in range(3):
-            rel_space_lim[i] = self.space_lim[i] - initials[i]
+
+        # convert the diffusion_coefficients
+        # diffusion_parameters = self._convert_diffcoef_um2s_um2xms(diffusion_parameters)
         # initialize the fbm class
-        fbm = fbm_BP.FBM_BP(
+        fbm = FBM_BP(
             n=track_length,
             dt=self.oversample_motion_time / 1000.0,
             hurst_parameters=hurst_parameters,
@@ -687,24 +616,21 @@ class Track_generator:
             hurst_parameter_transition_matrix=hurst_transition_matrix,
             state_probability_diffusion=diffusion_state_probability,
             state_probability_hurst=hurst_state_probability,
-            space_lim=rel_space_lim[0],
+            cell=self.cell,
+            initial_position=initials,
         )
-        x = fbm.fbm()
-        # repeat for y,z
-        fbm.space_lim = rel_space_lim[1]
-        y = fbm.fbm()
-        fbm.space_lim = rel_space_lim[2]
-        z = fbm.fbm()
-        # convert to format [[x1,y1,z1],[x2,y2,z2],...]
-        xyz = np.stack((x, y, z), axis=-1)
+        xyz = fbm.fbm(dims=3)
         # make the times starting from the starting time
-        track_times = np.arange(start_time, track_length + start_time, 1)
-        # add back the initial position to the track
-        track_xyz = xyz + initials
+        track_times = np.arange(
+            start_time,
+            track_length + start_time,
+            1,
+        )
+        track_xyz = xyz
         # create the dict
         track_data = {
             "xy": track_xyz,
-            "frames": track_times,
+            "times": track_times,
             "diffusion_coefficient": fbm._diff_a_n,
             "hurst": fbm._hurst_n,
             "initial": initials,
@@ -713,9 +639,11 @@ class Track_generator:
         return track_data
 
     def track_generation_constant(
-        self, track_length: int, initials: np.ndarray, starting_time: int
+        self, track_length: int, initials: np.ndarray, start_time: int
     ) -> dict:
         """
+        Generate a constant track (no movement).
+
         Parameters:
         -----------
         track_length : int
@@ -727,24 +655,57 @@ class Track_generator:
 
         Returns:
         --------
-        np.ndarray
-            track data for the constant track, {"xy":xyz,"frames":frames,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
+        dict-like with format: {"xy":xyz,"times":times,"diffusion_coefficient":diffusion_coefficient,"hurst":hurst_exponent,"initial":initial}
         """
         # make the times starting from the starting time
-        track_times = np.arange(starting_time, track_length + starting_time, 1)
+        track_times = np.arange(
+            start_time,
+            track_length + start_time,
+            1,
+        )
         # make the track x,y,z from the initial positions
         track_xyz = np.tile(initials, (len(track_times), 1))
         # construct the dict
         track_data = {
             "xy": track_xyz,
-            "frames": track_times,
+            "times": track_times,
             "diffusion_coefficient": 0,
             "hurst": 0,
             "initial": initials,
         }
         return track_data
 
-    def _convert_time_to_frame(self, time: int) -> int:
+    @overload
+    def _convert_diffcoef_um2s_um2xms(self, diffusion_coefficient: float) -> float: ...
+    @overload
+    def _convert_diffcoef_um2s_um2xms(
+        self, diffusion_coefficient: np.ndarray
+    ) -> np.ndarray: ...
+    @overload
+    def _convert_diffcoef_um2s_um2xms(self, diffusion_coefficient: list) -> list: ...
+    def _convert_diffcoef_um2s_um2xms(
+        self, diffusion_coefficient: float | np.ndarray | list
+    ) -> float | np.ndarray | list:
+        """converts um^2/s diffusion_coefficient into um^2/ x ms
+        x = amount of ms
+        ms = milliseconds
+
+        x ms = self.oversample_motion_time (in ms, int)"""
+        if isinstance(diffusion_coefficient, (np.ndarray, float)):
+            return (
+                1.0 / (1000.0 / self.oversample_motion_time)
+            ) * diffusion_coefficient
+        elif isinstance(diffusion_coefficient, list):
+            return [
+                (1.0 / (1000.0 / self.oversample_motion_time)) * i
+                for i in diffusion_coefficient
+            ]
+        else:
+            raise TypeError(f"Unsupported type: {type(diffusion_coefficient)}")
+
+    def _convert_time_to_frame(
+        self, time: int, exposure_time: int, interval_time: int
+    ) -> int:
         """
         Parameters:
         -----------
@@ -756,11 +717,12 @@ class Track_generator:
         int: frame number
         """
         return int(
-            (time * self.oversample_motion_time)
-            / (self.exposure_time + self.interval_time)
+            (time * self.oversample_motion_time) / (exposure_time + interval_time)
         )
 
-    def _convert_frame_to_time(self, frame: int) -> int:
+    def _convert_frame_to_time(
+        self, frame: int, exposure_time: int, interval_time: int
+    ) -> int:
         """
         Parameters:
         -----------
@@ -771,7 +733,189 @@ class Track_generator:
         --------
         int: time in ms
         """
-        return int(
-            (frame * (self.exposure_time + self.interval_time))
-            / self.oversample_motion_time
+        return int((frame * (exposure_time + interval_time)))
+
+
+def _initialize_points_per_time(total_time: int, oversample_motion_time: int) -> dict:
+    """Initialize empty points per time dictionary.
+
+    Returns
+    -------
+    dict
+        Empty dictionary with keys for each time point
+    """
+    return {
+        str(i): []
+        for i in np.arange(
+            0, total_time + oversample_motion_time, oversample_motion_time
         )
+    }
+
+
+def _update_points_per_time(points_per_time: dict, track: dict) -> None:
+    """Update points per time dictionary with new track data.
+
+    Parameters
+    ----------
+    points_per_time : dict
+        Dictionary to update
+    track : dict
+        Track data to add
+    """
+    for frame, position in zip(track["times"], track["xy"]):
+        points_per_time[str(frame)].append(position)
+
+
+def _generate_constant_tracks(
+    track_generator: Track_generator,
+    track_lengths: list | np.ndarray | int,
+    initial_positions: np.ndarray,
+    starting_times: int = 0,
+) -> tuple[dict, dict]:
+    """Generate tracks with constant parameters."""
+    if isinstance(track_lengths, int):
+        track_lengths = np.full(len(initial_positions), track_lengths)
+    if isinstance(starting_times, int):
+        starting_times = np.full(len(initial_positions), starting_times)
+
+    tracks = {}
+    points_per_time = _initialize_points_per_time(
+        track_generator.total_time, track_generator.oversample_motion_time
+    )
+    for i in range(len(track_lengths)):
+        tracks[i] = track_generator.track_generation_constant(
+            track_length=track_lengths[i],
+            initials=initial_positions[i],
+            start_time=starting_times[i],
+        )
+        _update_points_per_time(points_per_time, tracks[i])
+
+    return tracks, points_per_time
+
+
+def _generate_no_transition_tracks(
+    track_generator: Track_generator,
+    track_lengths: list | np.ndarray | int,
+    initial_positions: np.ndarray,
+    starting_times: int,
+    diffusion_parameters: np.ndarray,
+    hurst_parameters: np.ndarray,
+) -> tuple[dict, dict]:
+    """Generate tracks without state transitions.
+
+    Parameters
+    ----------
+    track_generator : sf.Track_generator
+        Track generator instance
+    track_lengths : list | np.ndarray | int
+        Track lengths
+    initial_positions : np.ndarray
+        Initial positions
+    starting_times : int
+        Starting times
+    diffusion_parameters : np.ndarray
+        Diffusion parameters
+    hurst_parameters : np.ndarray
+        Hurst parameters
+
+    Returns
+    -------
+    tuple[dict, dict]
+        Tracks dictionary and points per time dictionary
+    """
+    if isinstance(track_lengths, int):
+        track_lengths = np.full(len(initial_positions), track_lengths)
+    if isinstance(starting_times, int):
+        starting_times = np.full(len(initial_positions), starting_times)
+
+    tracks = {}
+    points_per_time = _initialize_points_per_time(
+        track_generator.total_time, track_generator.oversample_motion_time
+    )
+
+    for i in range(len(track_lengths)):
+        # Randomly select diffusion coefficient and hurst exponent indices
+        diff_idx = random.randint(0, len(diffusion_parameters) - 1)
+        hurst_idx = random.randint(0, len(hurst_parameters) - 1)
+
+        # Generate track with selected parameters
+        tracks[i] = track_generator.track_generation_no_transition(
+            track_length=track_lengths[i],
+            initials=initial_positions[i],
+            start_time=starting_times[i],
+            diffusion_coefficient=diffusion_parameters[diff_idx],
+            hurst_exponent=hurst_parameters[hurst_idx],
+        )
+        _update_points_per_time(points_per_time, tracks[i])
+
+    return tracks, points_per_time
+
+
+def _generate_transition_tracks(
+    track_generator: Track_generator,
+    track_lengths: list | np.ndarray | int,
+    initial_positions: np.ndarray,
+    starting_times: int,
+    diffusion_parameters: np.ndarray,
+    hurst_parameters: np.ndarray,
+    diffusion_transition_matrix: np.ndarray,
+    hurst_transition_matrix: np.ndarray,
+    diffusion_state_probability: np.ndarray,
+    hurst_state_probability: np.ndarray,
+) -> tuple[dict, dict]:
+    """Generate tracks with state transitions.
+
+    Parameters
+    ----------
+    track_generator : sf.Track_generator
+        Track generator instance
+    track_lengths : list | np.ndarray | int
+        Track lengths
+    initial_positions : np.ndarray
+        Initial positions
+    starting_times : int
+        Starting times
+    diffusion_parameters : np.ndarray
+        Diffusion parameters
+    hurst_parameters : np.ndarray
+        Hurst parameters
+    diffusion_transition_matrix : np.ndarray
+        Diffusion transition matrix
+    hurst_transition_matrix : np.ndarray
+        Hurst transition matrix
+    diffusion_state_probability : np.ndarray
+        Diffusion state probability
+    hurst_state_probability : np.ndarray
+        Hurst state probability
+
+    Returns
+    -------
+    tuple[dict, dict]
+        Tracks dictionary and points per time dictionary
+    """
+    if isinstance(track_lengths, int):
+        track_lengths = np.full(len(initial_positions), track_lengths)
+    if isinstance(starting_times, int):
+        starting_times = np.full(len(initial_positions), starting_times)
+
+    tracks = {}
+    points_per_time = _initialize_points_per_time(
+        track_generator.total_time, track_generator.oversample_motion_time
+    )
+
+    for i in range(len(track_lengths)):
+        # Generate track with transitions
+        tracks[i] = track_generator.track_generation_with_transition(
+            diffusion_transition_matrix=diffusion_transition_matrix,
+            hurst_transition_matrix=hurst_transition_matrix,
+            diffusion_parameters=diffusion_parameters,
+            hurst_parameters=hurst_parameters,
+            diffusion_state_probability=diffusion_state_probability,
+            hurst_state_probability=hurst_state_probability,
+            track_length=track_lengths[i],
+            initials=initial_positions[i],
+            start_time=starting_times[i],
+        )
+        _update_points_per_time(points_per_time, tracks[i])
+
+    return tracks, points_per_time

@@ -32,8 +32,8 @@ import typer
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing_extensions import Annotated
 
-from SMS_BP import __version__
-from SMS_BP.simulate_cell import Simulate_cells
+from . import __version__
+from .simulate_cell import Simulate_cells
 
 cli_help_doc = """
 CLI tool to run [underline]S[/underline]ingle [underline]M[/underline]olecule [underline]S[/underline]imulation: [underline]SMS[/underline]-BP. GitHub: [green]https://github.com/joemans3/SMS_BP[/green].

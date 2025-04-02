@@ -31,7 +31,7 @@ prob_func = multiple_top_hat_probability(
     subspace_centers=np.array([[1, 1], [2, 2], [3, 3]]),
     subspace_radius=np.array([1.0, 0.5, 0.75]),
     density_dif=0.2,
-    space_size=np.array([10, 10])
+    cell=BaseCell type
 )
 
 prob = prob_func(np.array([1.5, 1.5]))
@@ -43,13 +43,11 @@ After initialization, do not change the parameters directly. Use the update_para
 
 import numpy as np
 
+from .cells import BaseCell
+
 
 class multiple_top_hat_probability:
-    """Class for the probability function of multiple top hats.
-    Once initalized an object of this class can be called to return the probability at a given position.
-
-    !!!--DO NOT CHANGE THE PARAMETERS AFTER INITALIZATION DIRECTLY. USE THE UPDATE_PARAMETERS METHOD--!!!
-    """
+    """Class for the probability function of multiple top hats within different cell types."""
 
     def __init__(
         self,
@@ -57,18 +55,37 @@ class multiple_top_hat_probability:
         subspace_centers: np.ndarray,
         subspace_radius: np.ndarray,
         density_dif: float,
-        space_size: np.ndarray,
+        cell: BaseCell,
     ) -> None:
+        """
+        Initialize the probability function.
+
+        Parameters:
+        -----------
+        num_subspace : int
+            Number of subspaces
+        subspace_centers : np.ndarray
+            Centers of each subspace (shape: [num_subspace, 3])
+        subspace_radius : np.ndarray
+            Radius of each subspace
+        density_dif : float
+            Difference in density between subspaces and non-subspaces
+        cell : BaseCell
+            Cell object defining the boundary
+        """
         self.num_subspace = num_subspace
         self.subspace_centers = np.array(subspace_centers)
         self.subspace_radius = np.array(subspace_radius)
         self.density_dif = density_dif
-        self.space_size = space_size
+        self.cell = cell
+
+        # Calculate probabilities using cell's volume property
+        total_volume = self.cell.volume
         self.subspace_probability = self._calculate_subspace_probability(
-            self.space_size, self.density_dif
+            total_volume, self.density_dif
         )
         self.non_subspace_probability = self._calculate_non_subspace_probability(
-            self.space_size, self.density_dif, self.num_subspace, self.subspace_radius
+            total_volume, self.density_dif, self.num_subspace, self.subspace_radius
         )
 
     def __call__(self, position: np.ndarray, **kwargs) -> float:
@@ -76,64 +93,43 @@ class multiple_top_hat_probability:
         if not isinstance(position, np.ndarray):
             raise TypeError("Position must be a numpy array.")
 
+        # First check if point is within the cell
+        if not self.cell.contains_point(*position):
+            return 0.0
+
+        # Then check if point is within any subspace
         for i in range(self.num_subspace):
-            # check if the position is in the subspace defined by the radius and center
             if (
                 np.linalg.norm(position - self.subspace_centers[i])
                 <= self.subspace_radius[i]
             ):
                 return self.subspace_probability
+
         return self.non_subspace_probability
 
-    def update_parameters(
-        self,
-        num_subspace: int | None = None,
-        subspace_centers: np.ndarray | None = None,
-        subspace_radius: np.ndarray | None = None,
-        density_dif: float | None = None,
-        space_size: np.ndarray | None = None,
-    ) -> None:
-        """Updates the parameters of the probability function."""
-        # the None checks are not ideal but its a quick fix for now, should be updated to be *args and **kwargs checks
-        if num_subspace is not None:
-            self.num_subspace = num_subspace
-        if subspace_centers is not None:
-            self.subspace_centers = subspace_centers
-        if subspace_radius is not None:
-            self.subspace_radius = subspace_radius
-        if density_dif is not None:
-            self.density_dif = density_dif
-        if space_size is not None:
-            self.space_size = space_size
-
-        self.subspace_probability = self._calculate_subspace_probability(
-            self.space_size, self.density_dif
-        )
-        self.non_subspace_probability = self._calculate_non_subspace_probability(
-            self.space_size, self.density_dif, self.num_subspace, self.subspace_radius
-        )
-
     def _calculate_subspace_probability(
-        self, space_size: np.ndarray, density_dif: float
+        self, total_volume: float, density_dif: float
     ) -> float:
-        total_area = float(np.prod(space_size))
-        return density_dif / total_area
+        """Calculate probability within subspaces"""
+        return density_dif / total_volume
 
     def _calculate_non_subspace_probability(
         self,
-        space_size: np.ndarray,
+        total_volume: float,
         density_dif: float,
         num_subspace: int,
         subspace_radius: np.ndarray,
     ) -> float:
-        total_area = float(np.prod(space_size))
-        # total_subspace_area = np.sum((4.0 / 3.0) * np.pi * subspace_radius**3)
-        # gamma_dif = (total_area - density_dif * total_subspace_area) / (
-        #     total_area - total_subspace_area
-        # )
-        #
-        # return gamma_dif / total_area
-        return 1.0 / total_area
+        """Calculate probability outside subspaces"""
+        total_subspace_volume = (
+            num_subspace * (4 / 3) * np.pi * np.mean(subspace_radius) ** 3
+        )
+        remaining_volume = total_volume - total_subspace_volume
+
+        if remaining_volume <= 0:
+            return 0.0
+
+        return 1.0 / total_volume
 
     @property
     def num_subspace(self) -> int:
@@ -178,15 +174,13 @@ class multiple_top_hat_probability:
         self._density_dif = value
 
     @property
-    def space_size(self) -> np.ndarray:
-        """Returns the size of the space."""
-        return self._space_size
+    def cell(self) -> BaseCell:
+        """Returns the cell object."""
+        return self._cell
 
-    @space_size.setter
-    def space_size(self, value: np.ndarray) -> None:
-        if not isinstance(value, np.ndarray):
-            raise TypeError("Space size must be a numpy array.")
-        self._space_size = value
+    @cell.setter
+    def cell(self, value: BaseCell) -> None:
+        self._cell = value
 
     @property
     def subspace_probability(self) -> float:
@@ -204,3 +198,30 @@ class multiple_top_hat_probability:
     @non_subspace_probability.setter
     def non_subspace_probability(self, value: float) -> None:
         self._non_subspace_probability = value
+
+    def update_parameters(
+        self,
+        num_subspace: int | None = None,
+        subspace_centers: np.ndarray | None = None,
+        subspace_radius: np.ndarray | None = None,
+        density_dif: float | None = None,
+        cell: BaseCell | None = None,
+    ) -> None:
+        """Updates the parameters of the probability function."""
+        if num_subspace is not None:
+            self.num_subspace = num_subspace
+        if subspace_centers is not None:
+            self.subspace_centers = subspace_centers
+        if subspace_radius is not None:
+            self.subspace_radius = subspace_radius
+        if density_dif is not None:
+            self.density_dif = density_dif
+        if cell is not None:
+            self.cell = cell
+
+        self.subspace_probability = self._calculate_subspace_probability(
+            self.cell.volume, self.density_dif
+        )
+        self.non_subspace_probability = self._calculate_non_subspace_probability(
+            self.cell.volume, self.density_dif, self.num_subspace, self.subspace_radius
+        )

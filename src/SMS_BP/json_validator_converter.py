@@ -1,15 +1,17 @@
 import json
-from jsonschema import validate, ValidationError
-from SMS_BP.config_schema import (
-    schema,
-    SimulationConfig,
+
+from jsonschema import ValidationError, validate
+
+from .config_schema import (
     CellParameters,
-    TrackParameters,
-    GlobalParameters,
     CondensateParameters,
+    GlobalParameters,
     OutputParameters,
+    SimulationConfig,
+    TrackParameters,
+    schema,
 )
-from SMS_BP.errors import ConfigValidationError, ConfigConversionError
+from .errors import ConfigConversionError, ConfigValidationError
 
 
 def validate_json(json_data: dict) -> bool:

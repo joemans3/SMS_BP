@@ -15,16 +15,71 @@ Usage:
             "units_position":'um',
             "condensate_id":0,
             "initial_scale":0,
+            "oversample_motion_time":20,
         })
     Call the class object as follows to get the position and scale of the condensate at a given time:
         condensate(times, time_unit) -> dict{"Position":np.ndarray, "Scale":float}
 """
 
-import matplotlib.pyplot as plt
+from typing import Optional
+
 import numpy as np
 
-import SMS_BP.simulate_foci as sf
-from SMS_BP.decorators import cache
+from .cells import BaseCell
+from .simulate_foci import Track_generator
+from .utils.decorators import cache
+
+
+def create_condensate_dict(
+    initial_centers: np.ndarray,
+    initial_scale: np.ndarray,
+    diffusion_coefficient: np.ndarray,
+    hurst_exponent: np.ndarray,
+    cell: BaseCell,
+    **kwargs,
+) -> dict:
+    """
+    Creates a dictionary of condensates for simulation.
+
+    Parameters:
+    -----------
+    initial_centers : np.ndarray
+        Array of shape (num_condensates, 2) representing the initial centers of the condensates.
+    initial_scale : np.ndarray
+        Array of shape (num_condensates, 2) representing the initial scales of the condensates.
+    diffusion_coefficient : np.ndarray
+        Array of shape (num_condensates, 2) representing the diffusion coefficients of the condensates.
+    hurst_exponent : np.ndarray
+        Array of shape (num_condensates, 2) representing the Hurst exponents of the condensates.
+    cell : BaseCell
+        The cell that contains the condensates.
+    **kwargs : dict
+        Additional arguments passed to `Condensate` class.
+
+        oversample_motion_time : int
+            smallest time unit for motion (time resolution for motion) (ms)
+
+    Returns:
+    --------
+    dict
+        A dictionary of `Condensate` objects with keys as condensate IDs.
+    """
+    # check the length of diffusion_coefficient to find the number of condensates
+    num_condensates = len(diffusion_coefficient)
+    condensates = {}
+    units_time = kwargs.get("units_time", ["ms"] * num_condensates)
+    for i in range(num_condensates):
+        condensates[str(i)] = Condensate(
+            initial_position=initial_centers[i],
+            initial_scale=initial_scale[i],
+            diffusion_coefficient=diffusion_coefficient[i],
+            hurst_exponent=hurst_exponent[i],
+            condensate_id=int(str(i)),
+            units_time=units_time[i],
+            cell=cell,
+            oversample_motion_time=kwargs.get("oversample_motion_time", None),
+        )
+    return condensates
 
 
 class Condensate:
@@ -51,10 +106,10 @@ class Condensate:
         ID of the condensate.
     initial_scale: float = 0
         Initial scale of the condensate.
-    cell_space: np.ndarray = np.array([[0,0],[0,0],[0,0]])
-        Space of the cell.
-    cell_axial_range: float|int = 0
-        Axial range of the cell.
+    cell: BaseCell = None
+        The cell that contains the condensates.
+    oversample_motion_time: int = None
+        motion resolution
 
     """
 
@@ -68,28 +123,36 @@ class Condensate:
         units_position: str = "um",
         condensate_id: int = 0,
         initial_scale: float = 0,
-        # min/max (eg: [[min_x, max_x], ... ]
-        cell_space: np.ndarray = np.array(
-            [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-            ]
-        ),  # last [0, 0] are from the cell_axial_range (eg: +-5 from 0, so -5, 5)
-        cell_axial_range: float | int = 0,
+        cell: Optional[BaseCell] = None,
+        oversample_motion_time: Optional[int] = None,
     ):
-        self.initial_position = initial_position
-        self.initial_time = initial_time
-        self.diffusion_coefficient = diffusion_coefficient
-        self.hurst_exponent = hurst_exponent
+        self.initial_position = (
+            np.array(initial_position)
+            if not isinstance(initial_position, np.ndarray)
+            else initial_position
+        )
+        self.initial_time = (
+            int(initial_time) if not isinstance(initial_time, int) else initial_time
+        )
+        self.diffusion_coefficient = (
+            np.array(diffusion_coefficient)
+            if not isinstance(diffusion_coefficient, np.ndarray)
+            else diffusion_coefficient
+        )
+        self.hurst_exponent = (
+            np.array(hurst_exponent)
+            if not isinstance(hurst_exponent, np.ndarray)
+            else hurst_exponent
+        )
         self.units_time = units_time
         self.units_position = units_position
         self.condensate_id = condensate_id
         self.initial_scale = initial_scale
-        self.dim = self.initial_position.shape[0]
-        self.cell_space = cell_space
-        self.cell_axial_range = cell_axial_range
 
+        self.cell = cell
+        self.dim = self.initial_position.shape[0]
+
+        self.oversample_motion_time = oversample_motion_time
         # initialize the properties of the condensate
         self._initialize_properties()
 
@@ -195,40 +258,6 @@ class Condensate:
             "Scale": self.scale[self.times == time][0],
         }
 
-    '''
-    @deprecated("Use generate_condensate_positions instead.")
-    def _generate_condensate_positions(self, time: int) -> None:
-        """Generates the condensate positions up to a given time.
-
-        Parameters:
-        -----------
-        time: int
-            Time up to which to generate the condensate positions.
-        """
-
-        # find the difference between the time and the last time in the condensate_positions
-        time_difference = time - self.times[-1]
-        # make a time array starting from the last time +1 and goin to the time inclusive
-        time_array = np.arange(self.times[-1] + 1, time + 1)
-        # since time is positive consecutive integers we can just use the length of the time array to be the difference we calculated
-        t, xy = fbm.get_fbm_sample(
-            l=time_difference,
-            n=int(time_difference) + 1,
-            h=self.hurst_exponent,
-            d=self.dim,
-        )
-        # convert the xy into [[x,y],...] format
-        x, y = xy
-        coords = np.stack((x, y), axis=-1) * np.sqrt(2 * self.diffusion_coefficient)
-        # use the last position as a starting point
-        # the first position is the last position in the condensate_positions so ignore it when adding to the condensate_positions
-        coords = coords + self.condensate_positions[-1]
-        # get the scale for the time array and positions
-        scales = self.calculate_scale(time_array, coords[1:])
-        # add the positions to the condensate_positions
-        self.add_positions(time_array, coords[1:], scales)
-    '''
-
     def generate_condensate_positions(self, time: int) -> None:
         """Generates the condensate positions up to a given time.
 
@@ -240,20 +269,20 @@ class Condensate:
         # find the time difference
         time_difference = time - self.times[-1]
         # make a time array starting from the last time +1 and goin to the time inclusive
-        time_array = np.arange(self.times[-1] + 1, time + 1)
-        # we need to use the track generator class
-        track_generator = sf.Track_generator(
-            cell_space=self.cell_space,
-            cell_axial_range=self.cell_axial_range,
-            frame_count=500,
-            exposure_time=20,
-            interval_time=0,
-            oversample_motion_time=20,
+        time_array = np.arange(
+            self.times[-1] + 1,
+            time + 1,
+        )
+
+        track_generator = Track_generator(
+            cell=self.cell,
+            total_time=time,
+            oversample_motion_time=self.oversample_motion_time,
         )
         track = track_generator.track_generation_no_transition(
             diffusion_coefficient=self.diffusion_coefficient,
             hurst_exponent=self.hurst_exponent,
-            track_length=time_difference,
+            track_length=int(time_difference),
             initials=self.condensate_positions[-1],
             start_time=self.times[-1],
         )
@@ -280,47 +309,3 @@ class Condensate:
         # make array of length time with the last scale
         scale = np.full(time.shape, last_scale)
         return scale
-
-    def plot_condensate(self, ax, **kwargs):
-        """
-        Plots the condensate
-
-        Parameters:
-        -----------
-        ax: plt.Axes
-            Axes to plot the condensate on.
-        **kwargs:
-            Keyword arguments to pass to the plot function.
-        """
-        # check if the _condensate_positions exists
-        if not hasattr(self, "_condensate_positions"):
-            # if it doesn't then we need to generate the condensate positions
-            self.times = np.array([self.initial_time])
-            self.condensate_positions = np.array([self.initial_position])
-            self.scale = np.array([self.initial_scale])
-
-        # plot the condensate positions
-        ax.plot(
-            self.condensate_positions[:, 0], self.condensate_positions[:, 1], **kwargs
-        )
-
-        # plot a circle at all the positions with the scale as the radius
-        for i in range(len(self.condensate_positions)):
-            ax.add_patch(
-                plt.Circle(
-                    self.condensate_positions[i], self.scale[i], color="r", fill=False
-                )
-            )
-
-        # plot the initial position in a different colour
-        ax.scatter(self.initial_position[0], self.initial_position[1], color="g")
-        # plot the final position in a different colour
-        ax.scatter(
-            self.condensate_positions[-1][0],
-            self.condensate_positions[-1][1],
-            color="b",
-        )
-        if "save_path" in kwargs:
-            plt.savefig(kwargs["save_path"])
-        # plt.show()
-        return ax

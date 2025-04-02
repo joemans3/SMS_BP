@@ -7,7 +7,7 @@ description = "Single Molecule Simulations and Microscopy Simulations developed 
 
 readme = "README.md"
 
-requires-python = "==3.10.13"
+requires-python = ">=3.12"
 
 license = { file = "license.md" }
 
@@ -29,7 +29,8 @@ dependencies = [
   "typer>=0.12.5",
   "jsonschema>=4.23.0",
   "mkdocstrings-python>=1.12.1",
-  "sms-bp",
+  "pydantic>=2.10.6",
+  "boundedfbm>=0.4.0",
 ]
 
 [project.urls]
