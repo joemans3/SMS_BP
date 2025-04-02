@@ -1117,8 +1117,10 @@ source = { editable = "." }
 dependencies = [
     { name = "boundedfbm" },
     { name = "jsonschema" },
+    { name = "numpy" },
     { name = "pydantic" },
     { name = "scikit-image" },
+    { name = "scipy" },
     { name = "typer" },
 ]
 
@@ -1137,8 +1139,10 @@ dev = [
 requires-dist = [
     { name = "boundedfbm", specifier = ">=0.4.0" },
     { name = "jsonschema", specifier = ">=4.23.0" },
-    { name = "pydantic", specifier = ">=2.10.6" },
-    { name = "scikit-image", specifier = ">=0.2" },
+    { name = "numpy", specifier = ">=1.21.2" },
+    { name = "pydantic", specifier = ">=2.9.2" },
+    { name = "scikit-image", specifier = ">=0.18.3" },
+    { name = "scipy", specifier = ">=1.7.1" },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 
