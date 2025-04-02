@@ -6,9 +6,8 @@
     "intensity_unit":"AUD",
     "diffusion_unit":"um^2/s",
     "Cell_Parameters":{
-        "cell_space":[[30,50],[20,70]],
-        "cell_axial_radius":1,
-        "number_of_cells":1
+        "cell_type": "RectangularCell",
+        "params":{"bounds": [30,50,20,70,-1,1]}
     },
     "Track_Parameters":{
         "num_tracks":1,

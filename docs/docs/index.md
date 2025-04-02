@@ -1,13 +1,11 @@
----
-# Single Molecule Simulations - BP (SMS_BP)
-## Author and affiliation:
-  Baljyot Singh Parmar
-  `baljyot.parmar@mail.mcgill.ca`
- Affiliation at the time of writing: McGill University, Canada. Weber Lab
-### Date last modified: 2024-09-27
+# Single Molecule Simulations - BP
+-----------------------------------------
 
+- Author: Baljyot Singh Parmar
+- Affiliation at the time of writing: McGill University, Canada. Weber Lab
 
-
+Please read the [User Guide](User_Guide_MD.md) for details on the features of this project along with some examples.
+Following is an example of a single molecule simulated with motion blur.
 # This is a short doc for the Track Simulations along with cluster simulations.
 -----------------------------------------
 
@@ -18,8 +16,6 @@
 
 ## 1. Installation
 -------------------
-### Please note, all these are for macOS/linux. I need to test on windows (I don't remember the commands, but will set up a VM to test this). But these commands should have windows equivalents. If you run into any issues please create a Github issue on the repository as it will help me manage different issues with different people and also create a resource for people encountering a solved issue.
-
 ### ***Anaconda*** 
 
 1. Make sure you have anaconda installed: <https://www.anaconda.com/download>

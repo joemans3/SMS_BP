@@ -7,12 +7,15 @@ nav:
     - 'Starter Guide': User_Guide_MD.md
     - 'sim_config Documentation': sim_config.md
   - API Reference:
-    - Boundary Conditions: boundary_conditions_reference.md
+    - cells:
+      - Budding Yeast Cell: cells/budding_yeast_cell.md
+      - Cell Factory: cells/cell_factory.md
+    - utils:
+      - Decorators: utils/decorators_reference.md
+      - Mask Maker: utils/maskMaker.md
     - Condensate Movement: condensate_movement_reference.md
     - Config Schema: config_schema_reference.md
-    - Decorators: decorators_reference.md
     - Errors: errors_reference.md
-    - fbm_BP: fbm_BP_reference.md
     - JSON Validator Converter: json_validator_converter_reference.md
     - Probability Functions: probability_functions_reference.md
     - Run Cell Simulation: run_cell_simulation_reference.md

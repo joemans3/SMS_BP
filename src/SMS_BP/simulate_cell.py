@@ -11,7 +11,6 @@ from scipy.linalg import fractional_matrix_power
 from .cells.cell_factory import create_cell
 from .condensate_movement import create_condensate_dict
 from .config_schema import SimulationConfig
-from .decorators import deprecated
 from .json_validator_converter import (
     load_validate_and_convert,
     validate_and_convert,
@@ -24,6 +23,7 @@ from .simulate_foci import (
     generate_points_from_cls,
     get_lengths,
 )
+from .utils.decorators import deprecated
 
 
 def save_tiff(image: np.ndarray, path: str, img_name: str | None = None) -> None:
